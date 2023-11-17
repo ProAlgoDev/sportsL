@@ -6,32 +6,45 @@
 </div>
 
 @endif
-<div class="rwo justify-content-center">
-    <div class="col-md-4">
-        <div class="card-header">
-            Login
+<div class="login_container">
+    <div class="login_content">
+        <div class="login_logo">
+            <img src="{{ asset('images/next_logo.png') }}" />
         </div>
-        <div class="card-body">
-            <form action="{{route('sample.validate_login')}}" method="POST">
+        <form action="{{route('sample.validate_login')}}" class="login_form" method="POST">
                 @csrf
-                <div class="form-group mb-3">
-                    <input type="text" name="email" class="form-control" placeholder="Email" />
+                <div class="login_email">
+                    <span>電子メールアドレス</span>
+                    <img src="{{asset('images/email.png')}}" alt="" />
+                    <input type="text" name="email" class="form-control" placeholder="" />
                     @if($errors->has('email'))
                         <span class="text-danger">
                             {{ $errors->first('email') }}
                         </span>
                     @endif
                 </div>
-                <div class="form-group mb-3">
-                    <input type="password" name="password" class="form-control" placeholder="Password" />
+                <div class="login_password">
+                    <span>パスワード</span>
+                    <img src="{{ asset('images/password.png') }}" />
+                    <input type="password" name="password" class="form-control" placeholder="" />
                     @if($errors->has('password'))
                         <span class="text-danger">{{$errors->first('password')}}</span>
                     @endif
                 </div>
-                <div class="d-grid mx-auto">
-                    <button type='submit' class="btn btn-dark btn-block">Login</button>
+                <div class="login_forgot">
+                    <a href="#">ID・PASSWORDを忘れた方はこちら</a>
                 </div>
-            </form>
+                <div class="login_btn">
+                    <button type='submit' class="btn btn-primary">ログイン</button>
+                </div>
+        </form>
+        <div class="login_register">
+            <a href="{{route('registration')}}">アカウントを作成する（メール）</a>
+        </div>
+        <div class="login_social">
+            <a href="#"><img src="{{asset('images/twitter(blue).png')}}" alt="" /></a>
+            <a href="#"><img src="{{asset('images/facebook.png')}}" alt="" /></a>
+            <a href="#"><img src="{{asset('images/google.png')}}" alt="" /></a>
         </div>
     </div>
 </div>

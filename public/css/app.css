@@ -1,3 +1,8 @@
+@font-face {
+    font-family: mulish;
+    src: url('/font/Mulish-VariableFont_wght.ttf');
+}
+
 .initial {
     max-width: 430px;
     border: none;
@@ -9,4 +14,147 @@
     border: none;
     outline: none;
     padding: 0;
+}
+
+.login_container {
+    background-color: #F1F7FE;
+}
+
+.login_content {
+    margin: auto;
+    max-width: 430px;
+    padding: 38px;
+}
+
+.login_email span {
+    font-family: mulish;
+    font-weight: 800;
+    font-size: 17px;
+    color: #383838;
+    padding-bottom: 7px;
+    display: block;
+    padding-left: 20px;
+}
+
+.login_email {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.login_password span {
+    font-family: mulish;
+    font-weight: 800;
+    font-size: 17px;
+    color: #383838;
+    padding-bottom: 7px;
+    display: block;
+    padding-left: 20px;
+}
+
+.login_email input {
+    border-radius: 10px;
+    height: 50px;
+    padding-left: 60px;
+}
+
+.login_email img {
+    width: 32px;
+    position: absolute;
+    opacity: .5;
+    left: 14px;
+    top: 42px;
+}
+
+.login_password img {
+    width: 21px;
+    position: absolute;
+    opacity: .5;
+    left: 19px;
+    top: 43px;
+}
+
+.login_password input {
+    border-radius: 10px;
+    height: 50px;
+    padding-left: 60px;
+}
+
+.login_password {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.login_logo {
+    padding-top: 25%;
+    padding-bottom: 25%;
+    margin: auto;
+    text-align: center;
+    display: block;
+}
+
+.login_btn button {
+    background-color: #3FBAEE;
+    border: none;
+    width: 300px;
+    height: 55px;
+    font-size: 20px;
+    font-family: 'mulish';
+    font-weight: 900;
+    border-radius: 10px;
+}
+
+.login_btn button:hover {
+    background-color: #00affa;
+
+}
+
+.login_btn {
+    text-align: center;
+}
+
+.login_forgot a {
+    text-decoration: none;
+    color: #858789;
+    font-weight: 700;
+    display: block;
+    padding-bottom: 16px;
+    padding-left: 20px;
+}
+
+.login_forgot a:hover {
+    color: #3e6283;
+
+}
+
+.login_register a {
+    text-decoration: none;
+    color: #497DFF;
+    font-weight: 700;
+    display: block;
+    padding-bottom: 16px;
+    padding-left: 20px;
+    text-align: center;
+    padding-top: 16px;
+}
+
+.login_register a:hover {
+    color: #1d5cfa;
+
+}
+
+.login_social a {
+    width: 60px;
+    height: 60px;
+    display: block;
+}
+
+.login_social img {
+    width: 100%;
+}
+
+.login_social {
+    display: flex;
+    padding-bottom: 60px;
+    gap: 10px;
+    justify-content: center;
 }

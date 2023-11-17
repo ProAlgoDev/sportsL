@@ -15,6 +15,9 @@ class BackController extends Controller
     }
     function login()
     {
+        if (Auth::check()) {
+            return view("dashboard");
+        }
         return view('login');
     }
     function registration()
@@ -23,8 +26,7 @@ class BackController extends Controller
     }
     function validate_initial()
     {
-        error_log("fasfsfffffff");
-        return redirect('login')->with('success', 'welcome');
+        return redirect('login');
     }
     function validate_registration(Request $request)
     {
@@ -32,6 +34,8 @@ class BackController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6'
+        ], [
+
         ]);
         $data = $request->all();
         User::create([
@@ -48,6 +52,9 @@ class BackController extends Controller
         $request->validate([
             'email' => 'required',
             'password' => 'required'
+        ], [
+            'email.required' => '電子メールフィールドは必須です。',
+            'password.required' => 'パスワードフィールドは必須です。'
         ]);
 
         $credentials = $request->only('email', 'password');
