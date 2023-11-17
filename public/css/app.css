@@ -1,0 +1,12 @@
+.initial {
+    max-width: 430px;
+    border: none;
+    outline: none;
+    margin: auto;
+}
+
+#initial button {
+    border: none;
+    outline: none;
+    padding: 0;
+}
