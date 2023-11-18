@@ -22,18 +22,23 @@ Route::controller(BackController::class)->group(function () {
 
     Route::get('initial', 'index')->name('initial');
 
-    Route::get("login", 'login')->name("login");
+    Route::get("login", 'login')->name('login');
 
-    Route::get('registration', 'registration')->name('registration');
+    Route::get('registration1', 'registration1')->name('registration1');
+    Route::get('registration2', 'registration2')->name('registration2');
 
     Route::get('logout', 'logout')->name('logout');
 
     Route::post('validate_registration', 'validate_registration')->name('sample.validate_registration');
+
+    Route::post('validate_registration2', 'validate_registration2')->name('sample.validate_registration2');
 
     Route::get("validate_initial", "validate_initial")->name("sample.validate_initial");
 
     Route::post('validate_login', 'validate_login')->name('sample.validate_login');
 
     Route::get('dashboard', 'dashboard')->name('dashboard');
+
+    Route::get('validate_back', 'validate_back')->name('validate_back');
 
 });
