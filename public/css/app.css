@@ -58,19 +58,19 @@
 }
 
 .login_email img {
-    width: 32px;
+    width: 28px;
     position: absolute;
     opacity: .5;
     left: 14px;
-    top: 42px;
+    top: 44px;
 }
 
-.login_password img {
-    width: 21px;
+.login_password_input {
+    width: 28px;
     position: absolute;
     opacity: .5;
-    left: 19px;
-    top: 43px;
+    left: 14px;
+    top: 44px;
 }
 
 .login_password input {
@@ -139,7 +139,6 @@
 
 .login_register a:hover {
     color: #1d5cfa;
-
 }
 
 .login_social a {
@@ -157,4 +156,138 @@
     padding-bottom: 60px;
     gap: 10px;
     justify-content: center;
+}
+
+#login_password_show {
+    width: 33px;
+    position: absolute;
+    opacity: .8;
+    right: 16px;
+    top: 45px;
+}
+
+#login_password_show img {
+    width: 100%;
+}
+
+.register_content {
+    max-width: 430px;
+    margin: auto;
+}
+
+.register_logo {
+    width: 300px;
+    margin: auto;
+    margin-top: 45px;
+    margin-bottom: 12px;
+}
+
+.register_logo img {
+    width: 100%;
+}
+
+.register_title h1 {
+    font-family: 'mulish';
+    font-weight: 900;
+    color: #383838;
+}
+
+.register_title {
+    text-align: center;
+}
+
+.register_progress img {
+    width: 100%;
+}
+
+.register_progress {
+    width: 350px;
+    margin: auto;
+}
+
+.register_form {
+    margin-top: 55px;
+}
+
+.register_form input {
+    height: 50px;
+    border-radius: 10px;
+    width: 320px;
+    margin: auto;
+    padding-left: 47px;
+}
+
+.register_form span {
+    padding-left: 13%;
+}
+
+.register_form div {
+    position: relative;
+}
+
+.register_form img {
+    position: absolute;
+    width: 28px;
+    left: 69px;
+    top: 11px;
+    opacity: .5;
+}
+
+.register_btn {
+    width: 280px;
+    height: 55px;
+    margin: auto;
+    margin-top: 15px;
+    background-color: #3FBAEE;
+    border: none;
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    border-radius: 10px;
+}
+
+.register_btn:hover {
+    background-color: #00affa;
+}
+
+.register_back a {
+    display: block;
+    width: 280px;
+    height: 40px;
+    margin: auto;
+    text-align: center;
+    margin-top: 20px;
+    background-color: #9CA6A9;
+    padding: 7px;
+    color: white;
+    font-size: 17px;
+    font-weight: 900;
+    text-decoration: none;
+    border-radius: 10px;
+    letter-spacing: 4px;
+}
+
+.register_back a:hover {
+    background-color: #7f7f7f;
+}
+
+.register2_form img {
+    width: 32px;
+    margin-right: 14px;
+    opacity: .6;
+}
+
+.register2_form {
+    width: 370px;
+    margin: auto;
+    margin-top: 40px;
+}
+
+.register2_field {
+    margin-bottom: 10px;
+}
+
+.register2_result {
+    padding-left: 44px;
+    font-size: 18px;
 }

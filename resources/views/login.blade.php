@@ -25,8 +25,10 @@
                 </div>
                 <div class="login_password">
                     <span>パスワード</span>
-                    <img src="{{ asset('images/password.png') }}" />
-                    <input type="password" name="password" class="form-control" placeholder="" />
+                    <img class='login_password_input' src="{{ asset('images/password.png') }}" />
+                    <input type="password" name="password" class="form-control" id='login_password_input' placeholder="" />
+                    <div id="login_password_show"><img src="{{asset('images/show.png')}}"/></div>
+
                     @if($errors->has('password'))
                         <span class="text-danger">{{$errors->first('password')}}</span>
                     @endif
@@ -39,7 +41,7 @@
                 </div>
         </form>
         <div class="login_register">
-            <a href="{{route('registration')}}">アカウントを作成する（メール）</a>
+            <a href="{{route('registration1')}}">アカウントを作成する（メール）</a>
         </div>
         <div class="login_social">
             <a href="#"><img src="{{asset('images/twitter(blue).png')}}" alt="" /></a>
@@ -47,5 +49,19 @@
             <a href="#"><img src="{{asset('images/google.png')}}" alt="" /></a>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            var passwordInput = document.getElementById('login_password_input');
+            var showPasswordButton = document.getElementById("login_password_show");
+            showPasswordButton.addEventListener("click", function(){
+                if(passwordInput.type == 'password'){
+                    passwordInput.type = 'text';
+                }
+                else{
+                    passwordInput.type = 'password';
+                }
+            });
+        });
+    </script>
 </div>
 @endsection('content')

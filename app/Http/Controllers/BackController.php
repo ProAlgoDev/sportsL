@@ -20,9 +20,14 @@ class BackController extends Controller
         }
         return view('login');
     }
-    function registration()
+    function registration1()
     {
         return view("registration");
+    }
+    function registration2()
+    {
+        $flashedData = session()->getOldInput();
+        return view("registration2");
     }
     function validate_initial()
     {
@@ -30,23 +35,51 @@ class BackController extends Controller
     }
     function validate_registration(Request $request)
     {
+
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:6'
+            'password' => 'required|min:6|confirmed'
         ], [
-
+            'password.confirmed' => 'パスワードの確認が一致しません。',
+            'name.required' => '名前フィールドは必須です。',
+            'email.required' => '電子メールフィールドは必須です。',
+            'password.required' => 'パスワードフィールドは必須です。',
+            'email.email' => '正確なemail形式ではありません。',
+            'email.unique' => 'このメールアドレスは既に登録されています。',
         ]);
-        $data = $request->all();
-        User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password'])
-        ]);
-
-        return redirect('login')->with("success", "Registration Completed, now you can login");
+        // $data = $request->all();
+        // User::create([
+        //     'name' => $data['name'],
+        //     'email' => $data['email'],
+        //     'password' => Hash::make($data['password'])
+        // ]);
+        $request->flash();
+        return redirect("registration2");
+        // return redirect('login')->with("success", "Registration Completed, now you can login");
     }
+    function validate_registration2(Request $request)
+    {
 
+        $request->validate([
+            'policy' => 'required|accepted',
+        ], [
+            'policy.required' => '利用規約に同意する必要があります。'
+        ]);
+        // $data = $request->all();
+        // User::create([
+        //     'name' => $data['name'],
+        //     'email' => $data['email'],
+        //     'password' => Hash::make($data['password'])
+        // ]);
+        $request->flash();
+        return redirect("registration2");
+        // return redirect('login')->with("success", "Registration Completed, now you can login");
+    }
+    public function validate_back()
+    {
+        return redirect('login');
+    }
     function validate_login(Request $request)
     {
         $request->validate([
