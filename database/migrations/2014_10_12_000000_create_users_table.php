@@ -13,7 +13,7 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->bigIncrements("id");
+            $table->bigIncrements("user_id");
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -21,6 +21,16 @@ return new class extends Migration {
             $table->rememberToken();
             $table->timestamps();
         });
+        Schema::create('users_verify', function (Blueprint $table) {
+            $table->id('id');
+            $table->boolean('is_email_verified')->default(0);
+            $table->string('token');
+            $table->string('user_id');
+            $table->timestamps();
+        });
+        // Schema::table('users_verify', function (Blueprint $table) {
+        //     $table->boolean('is_email_verified')->default(0);
+        // });
     }
 
     /**

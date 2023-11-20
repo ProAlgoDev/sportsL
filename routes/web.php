@@ -25,6 +25,7 @@ Route::controller(BackController::class)->group(function () {
     Route::get("login", 'login')->name('login');
 
     Route::get('registration1', 'registration1')->name('registration1');
+
     Route::get('registration2', 'registration2')->name('registration2');
 
     Route::get('logout', 'logout')->name('logout');
@@ -37,8 +38,11 @@ Route::controller(BackController::class)->group(function () {
 
     Route::post('validate_login', 'validate_login')->name('sample.validate_login');
 
-    Route::get('dashboard', 'dashboard')->name('dashboard');
 
     Route::get('validate_back', 'validate_back')->name('validate_back');
+
+    Route::get('dashboard', 'dashboard')->middleware(['auth', 'is_verify_email']);
+    
+    Route::get('account/verify/{token}', 'verifyAccount')->name('user.verify');
 
 });
