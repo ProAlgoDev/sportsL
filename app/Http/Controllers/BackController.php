@@ -14,6 +14,7 @@ use Google_Client;
 use Google_Service_Gmail;
 use Google_Service_Gmail_Message;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\View;
 
 class BackController extends Controller
 {
@@ -30,7 +31,11 @@ class BackController extends Controller
     }
     function registration1()
     {
-        return view("registration");
+        $client = new Google_Client();
+        $client->setAuthConfig(storage_path('app\public\data\credentials.json'));
+        $client->addScope(Google_Service_Gmail::GMAIL_SEND);
+        $authUrl = $client->createAuthUrl();
+        return Redirect::to($authUrl);
     }
     function registration2()
     {
@@ -39,6 +44,7 @@ class BackController extends Controller
     }
     function validate_initial()
     {
+
         return redirect('login');
     }
     function validate_registration(Request $request)
@@ -63,7 +69,7 @@ class BackController extends Controller
         //     'password' => Hash::make($data['password'])
         // ]);
         $request->flash();
-        return redirect("registration2");
+        return redirect('registration2');
         // return redirect('login')->with("success", "Registration Completed, now you can login");
     }
     function validate_registration2(Request $request)
@@ -81,16 +87,19 @@ class BackController extends Controller
             'user_id' => $createUser->id,
             'token' => $token
         ]);
-        Mail::send('email.emailVerificationEmail', ['token' => $token], function ($message) use ($request) {
-            $message->to($request->email);
-            $message->subject('Email Verification Mail');
-        });
+        // Mail::send('email.emailVerificationEmail', ['token' => $token], function ($message) use ($request) {
+        //     $message->to($request->email);
+        //     $message->subject('Email Verification Mail');
+        // });
+        Session::put("email", $createUser->email);
+        Session::put("verifyToken", $token);
+        return redirect("send-email");
 
-        return redirect("registration3");
-        // return redirect('login')->with("success", "Registration Completed, now you can login");
+
     }
-    function registration3(){
-
+    function registration3()
+    {
+        return view("login");
     }
     public function validate_back()
     {
@@ -137,7 +146,9 @@ class BackController extends Controller
         $verifyUser = UserVerify::where('token', $token)->first();
         $message = "Sorry your email cannot be identified.";
         if (!is_null($verifyUser)) {
+
             $user = $verifyUser->user;
+            dump($user->is_email_verified);
             if (!$user->is_email_verified) {
                 $verifyUser->user->is_email_verified = 1;
                 $verifyUser->user->save();
@@ -146,7 +157,7 @@ class BackController extends Controller
                 $message = "Your email is already verified.";
             }
         }
-        return redirect('registration1')->with('message', $message);
+        // return redirect('registration1')->with('message', $message);
 
     }
     function logout()
@@ -157,37 +168,58 @@ class BackController extends Controller
     }
     public function auth()
     {
-        $client = new Google_Client();
-        $client->setAuthConfig(storage_path('app/public/data/credentials.json'));
 
-        $authUrl = $client->createAuthUrl();
-        return Redirect::to($authUrl);
     }
     public function callback(Request $request)
     {
         $client = new Google_Client();
-        $client->setAuthConfig(Storage_path('app\public\data\credentials.json'));
+        $client->setAuthConfig(storage_path('app\public\data\credentials.json'));
         $client->addScope(Google_Service_Gmail::GMAIL_SEND);
 
         $code = $request->input('code');
         $client->authenticate($code);
         $token = $client->getAccessToken();
-        Session::put("gmail_token", $token);
-        return Redirect::to('send-email-form');
+
+        // Store $token in your database or session for later use
+        // For simplicity, we'll store it in the session
+        Session::put('gmail_token', $token);
+        return view("registration");
     }
-    public function sendEmailForm(){
+    public function sendEmailForm()
+    {
         return view('send-email-form');
 
     }
-    public function sendEmail(){
+    public function sendEmail()
+    {
+        // Retrieve stored $token from your session
         $token = Session::get('gmail_token');
+        dump($token);
         $client = new Google_Client();
-        $client -> setAuthConfigFile(storage_path('app/public/data/credentials.json'));
-        $client -> addScope(Google_Service_Gmail::GMAIL_SEND);
-        $client -> setAccessToken($token);
+        $client->setAuthConfig(storage_path('app\public\data\credentials.json'));
+        $client->addScope(Google_Service_Gmail::GMAIL_SEND);
+        $client->setAccessToken($token);
+
         $service = new Google_Service_Gmail($client);
+        $email = Session::get('email');
+        $verifyToken = Session::get('verifyToken');
         $message = new Google_Service_Gmail_Message();
-        $rawMessage = base64_encode("To: ")
+        // $rawMessage = base64_encode("To: calmspencer21@gmail.com\r\nSubject: Test Subject\r\n\r\nTest email body.");
+        $htmlContent = View::make('email.emailVerificationEmail', ['token' => $verifyToken])->render();
+        dump($htmlContent);
+        $mimeMessage = 'MIME-Version: 1.0' . "\r\n";
+        $mimeMessage .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+        $mimeMessage .= 'To: ' . $email . "\r\n";
+        $mimeMessage .= 'Subject: VerificationEmail' . "\r\n\r\n";
+        $mimeMessage .= $htmlContent;
+        $rawMessage = base64_encode($mimeMessage);
+        // return redirect('login')->with("success", "Registration Completed, now you can login");
+
+        $message->setRaw($rawMessage);
+        $service->users_messages->send('me', $message);
+
+
+        // return Redirect::to('registration3')->with('success', 'Email sent successfully');
     }
 }
 
