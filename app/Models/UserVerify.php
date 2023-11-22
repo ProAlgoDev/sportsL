@@ -10,7 +10,8 @@ class UserVerify extends Model
     public $table = "users_verify";
     protected $fillable = [
         'user_id',
-        'token'
+        'token',
+        'expires_at'
     ];
 
     public function user()
