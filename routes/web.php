@@ -21,31 +21,25 @@ Route::get('/', function () {
 Route::controller(BackController::class)->group(function () {
 
     Route::get('initial', 'index')->name('initial');
-
     Route::get("login", 'login')->name('login');
-
     Route::get('registration1', 'registration1')->name('registration1');
-
     Route::get('registration2', 'registration2')->name('registration2');
     Route::get('registration3', 'registration3')->name('registration3');
-
     Route::get('logout', 'logout')->name('logout');
-
     Route::post('validate_registration', 'validate_registration')->name('sample.validate_registration');
-
     Route::post('validate_registration2', 'validate_registration2')->name('sample.validate_registration2');
-
     Route::get("validate_initial", "validate_initial")->name("sample.validate_initial");
-
     Route::post('validate_login', 'validate_login')->name('sample.validate_login');
-
-
     Route::get('validate_back', 'validate_back')->name('validate_back');
-
     Route::get('dashboard', 'dashboard')->middleware(['auth', 'is_verify_email']);
-
     Route::get('account/verify/{token}', 'verifyAccount')->name('user.verify');
     Route::get('auth/google/callback', 'callback');
     Route::get('send-email', 'sendEmail');
+    Route::get('resend-email', 'resendEmail');
+    Route::post('validate_resend_email', 'validate_resend_email')->name('verify.validate_resend_email');
+    Route::get("new_team_create1", 'new_team_create1');
+    Route::post('new_team_create2', 'new_team_create2')->name('new_team_create2');
+    Route::post('new_team_create3', 'new_team_create3')->name('new_team_create3');
+
 
 });

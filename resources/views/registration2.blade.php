@@ -19,17 +19,26 @@
                         <div class="register2_field"><img src="{{asset('images/name.png')}}" /><span>Name</span></div>
                         <input type="text" name="name" placeholder="Name" value="{{old('name')}}" hidden/>
                         <div class="register2_result">{{old('name')}}</div>
+                        @if($errors->has('name'))
+                            <span class="text-danger">{{$errors->first('name')}}</span>
+                        @endif
                     </div>
                     <div class="form-group mb-4">
                         <div class="register2_field"><img src="{{asset('images/email.png')}}" /><span>Email</span></div>
                         <input type="text" name="email" placeholder="Email"  value="{{old('email')}}" hidden/>
                         <div class="register2_result">{{old('email')}}</div>
+                         @if($errors->has('email'))
+                            <span class="text-danger">{{$errors->first('email')}}</span>
+                        @endif
                     </div>
                     <div class="form-group mb-4">
                         <div class="register2_field"><img src="{{asset('images/password.png')}}" /><span>Password</span></div>
                         
                         <input type="password" name="password" value="{{old('password')}}"  placeholder="Password" hidden/>
                         <div id="passwordDisplay" class="register2_result" type='password'>{{old('password')}}</div>
+                         @if($errors->has('password'))
+                            <span class="text-danger">{{$errors->first('password')}}</span>
+                        @endif
                     </div>
                     <div class="form-group mb-4">
                         <div class="policy"><input type="checkbox" name="policy" id='policy' /><span>利用規約に同意する</span></div>

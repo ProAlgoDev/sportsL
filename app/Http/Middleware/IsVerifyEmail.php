@@ -19,7 +19,7 @@ class IsVerifyEmail
     {
         if (!Auth::user()->is_email_verified) {
             auth()->logout();
-            return redirect()->route('login')->with('message', 'You need to confirm your account.');
+            return redirect('resend-email');
         }
         return $next($request);
     }

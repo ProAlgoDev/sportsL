@@ -291,3 +291,119 @@
     padding-left: 44px;
     font-size: 18px;
 }
+
+.policy {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.policy input {
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+}
+
+.policy span {
+    display: inline-block;
+    color: #2790BD;
+}
+
+.register3_form a {
+    color: white;
+    text-decoration: none;
+    line-height: 2.5;
+
+}
+
+.register3_form {
+    text-align: center;
+}
+
+.register3_form h2 {
+    margin-top: 55px;
+    margin-bottom: 38px;
+    font-size: 20px;
+    font-weight: 999;
+}
+
+.register3_logo img {
+    width: 77%;
+}
+
+.register3_content {
+    margin-top: 22px;
+}
+
+.resend_email_content {
+    text-align: center;
+    font-size: 21px;
+    margin-bottom: 24px;
+}
+
+.dashboard_title {
+    gap: 20px;
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.dashboard_title img {
+    width: 54px;
+    object-fit: contain;
+}
+
+.dashboard_w h2 {
+    font-size: 22px;
+}
+
+.dashboard_how {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.dashboard_how h3 {
+    font-size: 20px;
+    color: #009BF2;
+    border-bottom: 2px dotted #009BF2;
+    font-weight: bold;
+}
+
+.dashboard_how h3 {
+    font-size: 20px;
+    color: #009BF2;
+    border-bottom: 2px dotted #009BF2;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.dashboard_how {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.dashboard_group {
+    display: flex;
+    background-color: #3FBAEE;
+    justify-content: center;
+    gap: 13px;
+    align-items: center;
+    width: 290px;
+    text-align: center;
+    margin: auto;
+    margin-top: 30px;
+    height: 56px;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+.dashboard_group img {
+    width: 40px;
+}
+
+.dashboard_group_content {
+    color: white;
+    font-weight: 999;
+    font-size: 18px;
+}

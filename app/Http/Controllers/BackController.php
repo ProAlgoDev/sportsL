@@ -77,15 +77,23 @@ class BackController extends Controller
 
         $request->validate([
             'policy' => 'required|accepted',
+            'email' => 'required|unique:users',
+            'name' => 'required',
+            'password' => 'required',
         ], [
-            'policy.required' => '利用規約に同意する必要があります。'
+            'policy.required' => '利用規約に同意する必要があります。',
+            'name.required' => '名前フィールドは必須です。',
+            'email.required' => '電子メールフィールドは必須です。',
+            'password.required' => 'パスワードフィールドは必須です。',
+            'email.unique' => 'このメールアドレスは既に登録されています。',
         ]);
         $data = $request->all();
         $createUser = $this->create($data);
         $token = Str::random(64);
         UserVerify::create([
             'user_id' => $createUser->id,
-            'token' => $token
+            'token' => $token,
+            'expires_at' => now()->addMinutes(20)
         ]);
         // Mail::send('email.emailVerificationEmail', ['token' => $token], function ($message) use ($request) {
         //     $message->to($request->email);
@@ -99,7 +107,7 @@ class BackController extends Controller
     }
     function registration3()
     {
-        return view("login");
+        return view("registration3");
     }
     public function validate_back()
     {
@@ -127,7 +135,9 @@ class BackController extends Controller
     function dashboard()
     {
         if (Auth::check()) {
-            return view("dashboard");
+            dump(Auth::user()->name);
+            $name = Auth::user()->name;
+            return view("dashboard", ['name' => $name]);
         }
 
         return redirect('login')->with('success', 'you are not allowed to access');
@@ -143,12 +153,11 @@ class BackController extends Controller
     }
     public function verifyAccount($token)
     {
-        $verifyUser = UserVerify::where('token', $token)->first();
+        $verifyUser = UserVerify::where('token', $token)->where('expires_at', '>', now())->first();
         $message = "Sorry your email cannot be identified.";
         if (!is_null($verifyUser)) {
 
             $user = $verifyUser->user;
-            dump($user->is_email_verified);
             if (!$user->is_email_verified) {
                 $verifyUser->user->is_email_verified = 1;
                 $verifyUser->user->save();
@@ -157,7 +166,7 @@ class BackController extends Controller
                 $message = "Your email is already verified.";
             }
         }
-        // return redirect('registration1')->with('message', $message);
+        return redirect('dashboard');
 
     }
     function logout()
@@ -166,10 +175,7 @@ class BackController extends Controller
         Auth::logout();
         return redirect('login');
     }
-    public function auth()
-    {
 
-    }
     public function callback(Request $request)
     {
         $client = new Google_Client();
@@ -182,44 +188,76 @@ class BackController extends Controller
 
         // Store $token in your database or session for later use
         // For simplicity, we'll store it in the session
+        $email = Session::get('email');
         Session::put('gmail_token', $token);
+        if ($email) {
+            return redirect('send-email');
+        }
         return view("registration");
     }
-    public function sendEmailForm()
-    {
-        return view('send-email-form');
 
-    }
     public function sendEmail()
     {
         // Retrieve stored $token from your session
         $token = Session::get('gmail_token');
-        dump($token);
         $client = new Google_Client();
+
         $client->setAuthConfig(storage_path('app\public\data\credentials.json'));
         $client->addScope(Google_Service_Gmail::GMAIL_SEND);
         $client->setAccessToken($token);
-
         $service = new Google_Service_Gmail($client);
         $email = Session::get('email');
+        $verifyEmail = User::where('email', $email)->first();
+        if ($verifyEmail && $verifyEmail->is_email_verified) {
+            return redirect('login');
+        }
         $verifyToken = Session::get('verifyToken');
-        $message = new Google_Service_Gmail_Message();
-        // $rawMessage = base64_encode("To: calmspencer21@gmail.com\r\nSubject: Test Subject\r\n\r\nTest email body.");
+        $imagePath = public_path('images\next_logo.png');
+        $imageData = file_get_contents($imagePath);
+        $encodedImage = base64_encode($imageData);
         $htmlContent = View::make('email.emailVerificationEmail', ['token' => $verifyToken])->render();
-        dump($htmlContent);
+
+        $message = new Google_Service_Gmail_Message();
+
         $mimeMessage = 'MIME-Version: 1.0' . "\r\n";
         $mimeMessage .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
         $mimeMessage .= 'To: ' . $email . "\r\n";
         $mimeMessage .= 'Subject: VerificationEmail' . "\r\n\r\n";
         $mimeMessage .= $htmlContent;
         $rawMessage = base64_encode($mimeMessage);
-        // return redirect('login')->with("success", "Registration Completed, now you can login");
 
         $message->setRaw($rawMessage);
         $service->users_messages->send('me', $message);
 
-
-        // return Redirect::to('registration3')->with('success', 'Email sent successfully');
+        return Redirect::to('registration3');
+    }
+    public function resendEmail()
+    {
+        return view('verificationEmailResend');
+    }
+    public function validate_resend_email(Request $request)
+    {
+        $request->validate([
+            'email' => 'required'
+        ], [
+            'email.required' => '電子メールフィールドは必須です。',
+        ]);
+        $email = $request->get('email');
+        $confirm = User::where('email', $email)->first();
+        if ($confirm) {
+            $token = Str::random(64);
+            Session::put('email', $email);
+            Session::put('verifyToken', $token);
+            $userVerify = $confirm->userVerify;
+            if ($userVerify) {
+                $userVerify->expires_at = now()->addMinutes(20);
+                $userVerify->token = $token;
+                $userVerify->save();
+                return redirect('registration1');
+            }
+        }
+        session()->flash('error', '未登録のメールです。');
+        return redirect('resend-email');
     }
 }
 
