@@ -11,6 +11,9 @@
         <div class="login_logo">
             <img src="{{ asset('images/next_logo.png') }}" />
         </div>
+        @if(session('showModal'))
+        <div class='success_verify'>成功メールの確認</div>
+        @endif
         <form action="{{route('sample.validate_login')}}" class="login_form" method="POST">
                 @csrf
                 <div class="login_email">

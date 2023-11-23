@@ -14,7 +14,7 @@ return new class extends Migration {
     {
         Schema::create('member', function (Blueprint $table) {
             $table->id();
-            $table->string('memberId');
+            $table->boolean('approved')->default(0);
             $table->string('userId');
             $table->string("teamId");
             $table->timestamps();
