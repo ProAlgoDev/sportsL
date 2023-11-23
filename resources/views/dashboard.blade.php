@@ -18,7 +18,7 @@
                     <h3>どのようにご利用になりますか？</h3>
                 </div>
                 <div class="dashboard_btn">
-                    <a href="#" class="dashboard_group">
+                    <a href="{{route('new_team_create1')}}" class="dashboard_group">
                         <img src="{{asset('images/team2.png')}}" alt="">
                         <div class="dashboard_group_content">新しくチームを作りたい</div>
                     </a>

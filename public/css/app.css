@@ -190,6 +190,7 @@
     font-family: 'mulish';
     font-weight: 900;
     color: #383838;
+    font-size: 30px;
 }
 
 .register_title {
@@ -406,4 +407,88 @@
     color: white;
     font-weight: 999;
     font-size: 18px;
+}
+
+.new_team_create1_description p {
+    display: inline-block;
+    border-bottom: 2px dotted #383838;
+    padding: 5px;
+}
+
+.new_team_create1_description {
+    text-align: center;
+    padding-top: 20px;
+    font-size: 18px;
+    padding-bottom: 15px;
+}
+
+.new_team_create1_form input {
+    margin: auto;
+    width: 300px;
+    height: 35px;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+}
+
+.new_team_create1_form span {
+    display: block;
+    width: 300px;
+    margin: auto;
+    margin-bottom: 5px;
+    color: #383838;
+    font-size: 18px;
+}
+
+.new_team_create1_form select {
+    margin: auto;
+    width: 300px;
+    height: 35px;
+    border-radius: 10px;
+    background-color: #f0f0f0 !important;
+    background: url('/images/triangle.png');
+    background-repeat: no-repeat;
+    background-size: 22px;
+    background-position: right 15px top 8px;
+}
+
+.new_team_create2_form .m_select {
+    text-align: center;
+    font-size: 18px;
+    border-bottom: 1px solid #d9d9d9;
+    width: 300px;
+    margin: auto;
+    padding: 7px;
+}
+
+.new_team_create2_form .m_data {
+    display: block;
+}
+
+.new_team_create3_form {
+    margin-top: 36px;
+}
+
+.new_team_create3_description {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    border-bottom: 1px solid #bebebe;
+    padding-bottom: 10px;
+}
+
+.new_team_create3_description img {
+    width: 60px;
+    object-fit: contain;
+}
+
+.new_team_create3_w h2 {
+    text-align: center;
+    font-size: 27px;
+    color: #383838;
+}
+
+.new_team_create3_content {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 20px;
 }
