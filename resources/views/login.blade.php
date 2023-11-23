@@ -22,6 +22,9 @@
                             {{ $errors->first('email') }}
                         </span>
                     @endif
+                     @if(session('error'))
+                            <span class="text-danger">{{session('error')}}</span>
+                        @endif
                 </div>
                 <div class="login_password">
                     <span>パスワード</span>

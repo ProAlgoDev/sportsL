@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use Hash;
 use Session;
 use App\Models\User;
+use App\Models\TeamAreaList;
+use App\Models\TeamSportsList;
+use App\Models\Team;
+use App\Models\Member;
 use Illuminate\Support\Facades\Auth;
 use App\Models\UserVerify;
 use Illuminate\Support\Str;
@@ -24,13 +28,11 @@ class BackController extends Controller
     }
     function login()
     {
-        if (Auth::check()) {
-            return view("dashboard");
-        }
         return view('login');
     }
     function registration1()
     {
+        session()->flush();
         $client = new Google_Client();
         $client->setAuthConfig(storage_path('app\public\data\credentials.json'));
         $client->addScope(Google_Service_Gmail::GMAIL_SEND);
@@ -62,12 +64,6 @@ class BackController extends Controller
             'email.email' => '正確なemail形式ではありません。',
             'email.unique' => 'このメールアドレスは既に登録されています。',
         ]);
-        // $data = $request->all();
-        // User::create([
-        //     'name' => $data['name'],
-        //     'email' => $data['email'],
-        //     'password' => Hash::make($data['password'])
-        // ]);
         $request->flash();
         return redirect('registration2');
         // return redirect('login')->with("success", "Registration Completed, now you can login");
@@ -88,6 +84,7 @@ class BackController extends Controller
             'email.unique' => 'このメールアドレスは既に登録されています。',
         ]);
         $data = $request->all();
+
         $createUser = $this->create($data);
         $token = Str::random(64);
         UserVerify::create([
@@ -128,27 +125,40 @@ class BackController extends Controller
         if (Auth::attempt($credentials)) {
             return redirect('dashboard');
         }
-
-        return redirect("login")->with('success', 'login details are not validate');
+        session()->flash('error', 'ログインの詳細が検証されていません');
+        return redirect("login");
     }
 
     function dashboard()
     {
-        if (Auth::check()) {
-            dump(Auth::user()->name);
-            $name = Auth::user()->name;
-            return view("dashboard", ['name' => $name]);
+
+        $name = Auth::user()->name;
+        $userId = Auth::user()->id;
+        $owner = Team::where('owner', $userId)->first();
+        $member = Member::where('userId', $userId)->first();
+        if ($owner || $member) {
+            return redirect('book_dashboard/all');
         }
 
-        return redirect('login')->with('success', 'you are not allowed to access');
+        return view("dashboard", ['name' => $name]);
+
     }
     public function create(array $data)
     {
+        $id = User::latest()->first();
+        if (!$id) {
+            $id_m = 1;
+        } else {
+            $id_m = $id->id + 1;
+        }
+        $email = $data['email'];
+        $user_id = strtoupper($email[0]) . now()->format('d') . now()->format('m') . now()->format('y') . $id_m;
         return
             User::create([
                 'name' => $data['name'],
                 'email' => $data['email'],
-                'password' => Hash::make($data['password'])
+                'password' => Hash::make($data['password']),
+                'u_id' => $user_id
             ]);
     }
     public function verifyAccount($token)
@@ -190,7 +200,8 @@ class BackController extends Controller
         // For simplicity, we'll store it in the session
         $email = Session::get('email');
         Session::put('gmail_token', $token);
-        if ($email) {
+        $user = User::where('email', $email)->first();
+        if ($user && $email) {
             return redirect('send-email');
         }
         return view("registration");
@@ -218,7 +229,6 @@ class BackController extends Controller
         $htmlContent = View::make('email.emailVerificationEmail', ['token' => $verifyToken])->render();
 
         $message = new Google_Service_Gmail_Message();
-
         $mimeMessage = 'MIME-Version: 1.0' . "\r\n";
         $mimeMessage .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
         $mimeMessage .= 'To: ' . $email . "\r\n";
@@ -227,7 +237,7 @@ class BackController extends Controller
         $rawMessage = base64_encode($mimeMessage);
 
         $message->setRaw($rawMessage);
-        $service->users_messages->send('me', $message);
+        $service->users_messages->send("me", $message);
 
         return Redirect::to('registration3');
     }
@@ -258,6 +268,88 @@ class BackController extends Controller
         }
         session()->flash('error', '未登録のメールです。');
         return redirect('resend-email');
+    }
+
+    public function new_team_create1()
+    {
+
+        $sportsList = TeamSportsList::all();
+        $areaList = TeamAreaList::all();
+        return view('newTeamCreate1', ['sportsList' => $sportsList, 'areaList' => $areaList]);
+
+
+    }
+    public function new_team_create2(Request $request)
+    {
+
+        $request->validate(
+            [
+                'teamName' => 'required',
+                'sports_list' => 'required',
+                'area_list' => 'required',
+                'age' => 'required',
+                'sex' => 'required',
+            ],
+            [
+                'teamName' => 'チーム名のフィールドは必須です。',
+                'sports_list' => 'スポーツタイプフィールドは必須です。',
+                'area_list' => 'エリアフィールドは必須です。',
+                'age' => '年齢フィールドは必須です。',
+                'sex' => '性別フィールドは必須です。'
+            ]
+        );
+        $sports = TeamSportsList::where('sportsId', $request->sports_list)->first()->sportsType;
+        $area = TeamAreaList::where('areaId', $request->area_list)->first()->areaName;
+        $ageList = [
+            '1' => "12歳以下",
+            '2' => "13-18",
+            '3' => "大学",
+            '4' => "社会人",
+        ];
+        $sexList = [
+            '1' => "男子",
+            '2' => "女子",
+            '3' => "混合",
+        ];
+        $age = $ageList[$request->age];
+        $sex = $sexList[$request->sex];
+
+        $team = Team::latest()->first();
+        if ($team == null) {
+            $teamId = 1;
+        } else {
+            $teamId = $team->id + 1;
+        }
+        $teamId .= $request->sports_list . $request->area_list . $request->age . $request->sex;
+        dump($teamId);
+
+        return view('newTeamCreate2', ['teamName' => $request->teamName, 'sportsType' => $sports, 'area' => $area, 'age' => $age, 'sex' => $sex, 'teamId' => $teamId]);
+
+
+
+
+    }
+    public function new_team_create3(Request $request)
+    {
+
+        $owner = Auth::user()->id;
+        Team::create([
+            'teamId' => $request->teamId,
+            'teamName' => $request->teamName,
+            'sportsType' => $request->sportsType,
+            'area' => $request->area,
+            'age' => $request->age,
+            'sex' => $request->sex,
+            'owner' => $owner
+        ]);
+        $name = Auth::user()->name;
+        return view('newTeamCreate3', ['name' => $name]);
+
+    }
+    public function book_dashboard($type)
+    {
+        dump($type);
+        return view('bookDashboard');
     }
 }
 

@@ -31,15 +31,16 @@ Route::controller(BackController::class)->group(function () {
     Route::get("validate_initial", "validate_initial")->name("sample.validate_initial");
     Route::post('validate_login', 'validate_login')->name('sample.validate_login');
     Route::get('validate_back', 'validate_back')->name('validate_back');
-    Route::get('dashboard', 'dashboard')->middleware(['auth', 'is_verify_email']);
+    Route::get('dashboard', 'dashboard')->middleware('is_login_status')->middleware(['auth', 'is_verify_email'])->name('sample.dashboard');
     Route::get('account/verify/{token}', 'verifyAccount')->name('user.verify');
     Route::get('auth/google/callback', 'callback');
     Route::get('send-email', 'sendEmail');
     Route::get('resend-email', 'resendEmail');
     Route::post('validate_resend_email', 'validate_resend_email')->name('verify.validate_resend_email');
-    Route::get("new_team_create1", 'new_team_create1');
-    Route::post('new_team_create2', 'new_team_create2')->name('new_team_create2');
-    Route::post('new_team_create3', 'new_team_create3')->name('new_team_create3');
+    Route::get("new_team_create1", 'new_team_create1')->middleware('is_login_status')->name('new_team_create1');
+    Route::post('new_team_create2', 'new_team_create2')->middleware('is_login_status')->name('new_team_create2');
+    Route::post('new_team_create3', 'new_team_create3')->middleware('is_login_status')->name('new_team_create3');
+    Route::get('book_dashboard/{type}', 'book_dashboard')->middleware('is_login_status')->middleware('is_register_book_status')->name('book_dashboard');
 
 
 });
