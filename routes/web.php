@@ -42,4 +42,7 @@ Route::controller(BackController::class)->group(function () {
     Route::post('new_team_create3', 'new_team_create3')->middleware('is_login_status')->name('new_team_create3');
     Route::get("book_dashboard/{teamId}/{type}", 'book_dashboard')->middleware('is_login_status')->middleware('is_register_book_status')->name('book_dashboard');
     Route::post("validate_book_dashboard", 'validate_book_dashboard')->middleware('is_login_status')->middleware('is_register_book_status')->name('validate_book_dashboard');
+
+    Route::get('upload_avatar', 'create_avatar_view');
+    Route::post('upload_avatar', 'upload_avatar')->name('upload.avatar');
 });

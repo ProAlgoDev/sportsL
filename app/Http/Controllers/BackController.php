@@ -176,6 +176,7 @@ class BackController extends Controller
                 $verifyUser->user->is_email_verified = 1;
                 $verifyUser->user->save();
                 $message = "Your email is now verified";
+                return redirect('login')->with('showModal', true)->with('message', $message);
             } else {
                 $message = "Your email is already verified.";
             }
@@ -351,17 +352,41 @@ class BackController extends Controller
     {
         $book = Book::where('teamId', $teamId)->first();
         $books = Book::where('teamId', $teamId)->get();
+        $user = Auth::user()->id;
+        $teamIdList = Team::where('owner', $user)->get();
+        $teamAvatar = Team::where('teamId', $teamId)->value('teamAvatar');
+        $teamName = Team::where('teamId', $teamId)->value('teamName');
+
+        dump($teamAvatar);
+        echo ("fdfsdfsdfs" . $teamAvatar);
+        $memeberIdList = Member::where('userId', $user)->get();
+        dump($teamIdList, $memeberIdList);
         if (!$book) {
-            return view('bookDashboard', ['teamId' => $teamId, 'type' => $type]);
+            return view('bookDashboard', ['teamId' => $teamId, 'teamName' => $teamName, 'teamAvatar' => $teamAvatar, 'type' => $type, 'teamIdList' => $teamIdList, 'memberIdList' => $memeberIdList]);
 
         } elseif ($book) {
-            return view('bookDashboard', ['teamId' => $teamId, 'type' => $type, 'book' => $book]);
+            return view('bookDashboard', ['teamId' => $teamId, 'teamName' => $teamName, 'type' => $type, 'teamAvatar' => $teamAvatar, 'book' => $book, 'teamIdList' => $teamIdList, 'memberIdList' => $memeberIdList]);
         }
     }
     public function validate_book_dashboard(Request $request)
     {
 
         return redirect("book_dashboard/$request->teamId/$request->date_switch");
+    }
+    public function create_avatar_view()
+    {
+        #todo
+        return view('login');
+    }
+    public function upload_avatar(Request $request)
+    {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,gif|max:2048',
+        ]);
+
+        $imageName = time() . '-' . $request->image->extension();
+        $request->image->move(public_path('images/avatar'), $imageName);
+        return redirect('upload')->with('success', 'Image uploaded successfully');
     }
 }
 

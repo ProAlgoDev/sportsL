@@ -11,7 +11,7 @@ class Member extends Model
     public $table = 'member';
 
     protected $fillable = [
-        'memberId',
+        'approved',
         'userId',
         "teamId"
     ];

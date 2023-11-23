@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->string('age');
             $table->string('sex');
             $table->string('owner');
+            $table->string('teamAvatar')->default('default_avatar.png');
             $table->timestamps();
         });
     }
