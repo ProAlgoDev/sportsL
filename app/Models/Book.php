@@ -7,5 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
 {
+    public $table = 'book';
+    protected $fillable = [
+        'changeDate',
+        'item',
+        'ioType',
+        'teamId',
+        'description',
+        'serialNumber'
+
+    ];
     use HasFactory;
 }
