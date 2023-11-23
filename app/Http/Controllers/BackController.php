@@ -10,6 +10,7 @@ use App\Models\TeamAreaList;
 use App\Models\TeamSportsList;
 use App\Models\Team;
 use App\Models\Member;
+use App\Models\Book;
 use Illuminate\Support\Facades\Auth;
 use App\Models\UserVerify;
 use Illuminate\Support\Str;
@@ -136,8 +137,11 @@ class BackController extends Controller
         $userId = Auth::user()->id;
         $owner = Team::where('owner', $userId)->first();
         $member = Member::where('userId', $userId)->first();
-        if ($owner || $member) {
-            return redirect('book_dashboard/all');
+
+        if ($owner) {
+            return redirect("book_dashboard/$owner->teamId/all");
+        } elseif ($member) {
+            return redirect("book_dashboard/$member->teamId/all");
         }
 
         return view("dashboard", ['name' => $name]);
@@ -325,9 +329,6 @@ class BackController extends Controller
 
         return view('newTeamCreate2', ['teamName' => $request->teamName, 'sportsType' => $sports, 'area' => $area, 'age' => $age, 'sex' => $sex, 'teamId' => $teamId]);
 
-
-
-
     }
     public function new_team_create3(Request $request)
     {
@@ -346,10 +347,21 @@ class BackController extends Controller
         return view('newTeamCreate3', ['name' => $name]);
 
     }
-    public function book_dashboard($type)
+    public function book_dashboard($teamId, $type)
     {
-        dump($type);
-        return view('bookDashboard');
+        $book = Book::where('teamId', $teamId)->first();
+        $books = Book::where('teamId', $teamId)->get();
+        if (!$book) {
+            return view('bookDashboard', ['teamId' => $teamId, 'type' => $type]);
+
+        } elseif ($book) {
+            return view('bookDashboard', ['teamId' => $teamId, 'type' => $type, 'book' => $book]);
+        }
+    }
+    public function validate_book_dashboard(Request $request)
+    {
+
+        return redirect("book_dashboard/$request->teamId/$request->date_switch");
     }
 }
 
