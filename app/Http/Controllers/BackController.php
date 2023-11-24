@@ -67,7 +67,6 @@ class BackController extends Controller
         ]);
         $request->flash();
         return redirect('registration2');
-        // return redirect('login')->with("success", "Registration Completed, now you can login");
     }
     function validate_registration2(Request $request)
     {
@@ -93,10 +92,6 @@ class BackController extends Controller
             'token' => $token,
             'expires_at' => now()->addMinutes(20)
         ]);
-        // Mail::send('email.emailVerificationEmail', ['token' => $token], function ($message) use ($request) {
-        //     $message->to($request->email);
-        //     $message->subject('Email Verification Mail');
-        // });
         Session::put("email", $createUser->email);
         Session::put("verifyToken", $token);
         return redirect("send-email");
@@ -201,8 +196,6 @@ class BackController extends Controller
         $client->authenticate($code);
         $token = $client->getAccessToken();
 
-        // Store $token in your database or session for later use
-        // For simplicity, we'll store it in the session
         $email = Session::get('email');
         Session::put('gmail_token', $token);
         $user = User::where('email', $email)->first();
@@ -214,7 +207,6 @@ class BackController extends Controller
 
     public function sendEmail()
     {
-        // Retrieve stored $token from your session
         $token = Session::get('gmail_token');
         $client = new Google_Client();
 

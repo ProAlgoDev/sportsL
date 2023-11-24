@@ -6,16 +6,16 @@
     <span class="book_summer_bar"></span>
     <div class="book_summer_content">
         <div class="book_summer_input">
-            <span class="book_summber_input_title">収入</span>
-            <span class="book_summber_input_amount">− 円</span>
+            <span class="book_summber_title">収入</span>
+            <span class="book_summber_amount">− 円</span>
         </div>
         <div class="book_summer_output">
-            <span class="book_summber_output_title">支出</span>
-            <span class="book_summber_output_amount">− 円</span>
+            <span class="book_summber_title">支出</span>
+            <span class="book_summber_amount">− 円</span>
         </div>
         <div class="book_summer_sum">
-            <span class="book_summber_sum_title">総計</span>
-            <span class="book_summber_sum_amount">− 円</span>
+            <span class="book_summber_title">総計</span>
+            <span class="book_summber_amount">− 円</span>
         </div>
     </div>
     <div class="book_summber_graph">
