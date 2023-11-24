@@ -1,7 +1,6 @@
 @include('bookDashboardMenu')
 
 <div class="book_dashboard_header">
-
         @include('bookDashboardLogo')
         <div class="book_header">
                 <button onclick="showMenu()" id="show_menu_list"><img src='{{asset("images/avatar/$teamAvatar")}}' alt="" /></button>
@@ -10,7 +9,6 @@
                         <span class="book_header_teamId">#{{$teamId}}</span>
                 </div>
         </div>
-
         <div class="book_date_switch">
                 <form action="{{route('validate_book_dashboard')}}" method="POST" id='dateForm'>
                         @csrf
@@ -24,7 +22,6 @@
                         <input name='teamId' value="{{$teamId}}" hidden />
                 </form>
         </div>
-
         @if(isset($book))
         <span>gssdfsdf</span>
         @else
@@ -32,7 +29,6 @@
         @endif
 </div>
 <div class="menu_background" id='menu_background'></div>
-
 <script>
     let startX;
     function handleDrag(event){
@@ -42,15 +38,15 @@
     }
     var menu_back = document.getElementById('menu_background');
     document.getElementById('book_dashboard_menu_container').addEventListener('drag', function (event) {
-                const deltaX = event.clientX - startX;
-                if((Math.abs(deltaX)) >280){
-                    menu_back.style.opacity = '0';
-                setTimeout(() => {
-                    menu_back.style.display = 'none';
-                }, .3);
-                            document.getElementById('book_dashboard_menu_container').style.transform = 'translate(-353px,0)';
-                        }
-                });
+    const deltaX = event.clientX - startX;
+    if((Math.abs(deltaX)) >270){
+        menu_back.style.opacity = '0';
+    setTimeout(() => {
+        menu_back.style.display = 'none';
+    }, .3);
+                document.getElementById('book_dashboard_menu_container').style.transform = 'translate(-353px,0)';
+            }
+    });
     function showMenu(){
         var menu = document.getElementById('book_dashboard_menu_container');
         var menu_back = document.getElementById('menu_background');
