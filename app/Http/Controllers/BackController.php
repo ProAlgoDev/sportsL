@@ -106,6 +106,10 @@ class BackController extends Controller
     {
         return redirect('login');
     }
+    public function back(Request $request)
+    {
+        return back();
+    }
     function validate_login(Request $request)
     {
         $request->validate([
@@ -379,6 +383,18 @@ class BackController extends Controller
         $imageName = time() . '-' . $request->image->extension();
         $request->image->move(public_path('images/avatar'), $imageName);
         return redirect('upload')->with('success', 'Image uploaded successfully');
+    }
+    public function team_edit()
+    {
+        return view('teamEdit');
+    }
+    public function team_edit_detail()
+    {
+        return view("teamInfoEdit");
+    }
+    public function team_edit_amount()
+    {
+        return view("login");
     }
 }
 
