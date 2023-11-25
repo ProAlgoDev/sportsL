@@ -14,13 +14,13 @@
         <div class="menu_content_list">
             <div class="menu_search">
             </div>
-            <div class="menu_content_home book_meanu">
-                <a href="#" class="menu_content_home_title">
+            <div class="menu_content_home book_menu">
+                <a href="#" class="menu_content_home_title menu_active">
                     <img src="{{asset('images/home.svg')}}" alt="">
                     <div class="">ホーム</div>
                 </a>
                 <div class="menu_content_home_list">
-                    <a href="#" class="menu_content_home_item">
+                    <a href="{{route('team_edit')}}" class="menu_content_home_item">
                         <img src="{{asset('images/edit-2.svg')}}" alt="">
                     <div class="">チーム情報編集</div>
                 </a>
@@ -55,12 +55,13 @@
                 <img src="{{asset('images/setting.svg')}}" alt="">
                 <div class="">アカウント設定</div>
             </a>
-            <a class="menu_account_logout book_menu">
+            <a href="{{route('logout')}}" class="menu_account_logout book_menu">
                 <img src="{{asset('images/log-out.svg')}}" alt="">
                 <div class="">ログアウト</div>
             </a>
         </div>
     </div>
+    <div class="menu_content_version">version 1.0.0</div>
     <div class="menu_background_1"></div>
 
     

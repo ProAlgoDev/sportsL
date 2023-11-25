@@ -44,5 +44,10 @@ Route::controller(BackController::class)->group(function () {
     Route::post("validate_book_dashboard", 'validate_book_dashboard')->middleware('is_login_status')->middleware('is_register_book_status')->name('validate_book_dashboard');
 
     Route::get('upload_avatar', 'create_avatar_view');
+    Route::get('back', 'back')->name('back');
     Route::post('upload_avatar', 'upload_avatar')->name('upload.avatar');
+
+    Route::get("team_edit", 'team_edit')->middleware('is_login_status')->middleware('is_register_book_status')->name('team_edit');
+    Route::get("team_edit_detail", 'team_edit_detail')->middleware('is_login_status')->middleware('is_register_book_status')->name('team_edit_detail');
+    Route::get("team_edit_amount", 'team_edit_amount')->middleware('is_login_status')->middleware('is_register_book_status')->name('team_edit_amount');
 });
