@@ -24,7 +24,7 @@
                         <img src="{{asset('images/edit-2.svg')}}" alt="">
                     <div class="">チーム情報編集</div>
                 </a>
-                    <a href="#" class="menu_content_home_item">
+                    <a href="{{route('amount_register')}}" class="menu_content_home_item">
                         <img src="{{asset('images/list.svg')}}" alt="">
                         <div class="">会計項目登録・編集</div>
                     </a>

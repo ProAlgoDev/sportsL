@@ -836,7 +836,7 @@
     position: absolute;
     padding: 10px;
     padding-left: 25px;
-    margin-top: 7px;
+    margin-top: 3px;
 }
 
 .left_menu_back img {
@@ -983,4 +983,68 @@
     margin: auto;
     text-decoration: none;
     line-height: 2.4;
+}
+
+.team_info_edit_form {
+    margin: 0 6%;
+}
+
+.team_info_edit_form h3 {
+    border-bottom: 2px dotted #8a8a8a;
+    padding-bottom: 7px;
+}
+
+.team_edit_info_detail {
+    margin-bottom: 14px !important;
+}
+
+.team_edit_info_detail_title {
+    font-size: 16px;
+    color: #333333;
+    float: left;
+    width: 90px;
+    line-height: 2.4;
+}
+
+.team_edit_info_detail input {
+    width: 260px;
+    border-radius: 10px;
+}
+
+.team_edit_info_detail .text-danger {
+    font-size: 14px;
+}
+
+.team_edit_info_detail select {
+    width: 260px;
+    border-radius: 10px;
+}
+
+.team_info_edit_form button {
+    width: 190px;
+}
+
+.team_info_edit_form {
+    max-width: 350px;
+    margin: auto;
+}
+
+.team_info_edit_form select {
+
+    background-color: #f0f0f0 !important;
+    background: url('/images/triangle.png');
+    background-repeat: no-repeat;
+    background-size: 22px;
+    background-position: right 15px top 8px;
+}
+
+.team_info_edit_form input {
+    background-color: #f0f0f0;
+}
+
+#calendar {
+    background-image: url(/images/birth.png);
+    background-repeat: no-repeat;
+    background-size: 22px;
+    background-position: top 50% right 15px;
 }

@@ -394,7 +394,10 @@ class BackController extends Controller
     }
     public function team_edit_amount()
     {
-        return view("login");
+        return view("teamInitialAmountEdit");
+    }
+    public function amount_register(){
+        return view('amountRegisterEdit');
     }
 }
 

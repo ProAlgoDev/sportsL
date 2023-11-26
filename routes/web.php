@@ -50,4 +50,5 @@ Route::controller(BackController::class)->group(function () {
     Route::get("team_edit", 'team_edit')->middleware('is_login_status')->middleware('is_register_book_status')->name('team_edit');
     Route::get("team_edit_detail", 'team_edit_detail')->middleware('is_login_status')->middleware('is_register_book_status')->name('team_edit_detail');
     Route::get("team_edit_amount", 'team_edit_amount')->middleware('is_login_status')->middleware('is_register_book_status')->name('team_edit_amount');
+    Route::get("amount_register", 'amount_register')->middleware('is_login_status')->middleware('is_register_book_status')->name('amount_register');
 });
