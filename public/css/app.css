@@ -4,7 +4,7 @@
 }
 
 .initial {
-    max-width: 430px;
+    /* max-width: 430px; */
     border: none;
     outline: none;
     margin: auto;
@@ -14,6 +14,11 @@
     border: none;
     outline: none;
     padding: 0;
+    width: 100%;
+}
+
+#initial img {
+    width: 100%;
 }
 
 .login_container {
@@ -843,11 +848,16 @@
     width: 10px;
 }
 
+.left_menu_back button {
+    border: none;
+    background: none;
+}
+
 .left_menu_logo {
     text-align: center;
     padding: 10px;
     font-size: 22px;
-    font-weight: 999;
+    font-weight: 500;
     letter-spacing: 2px;
     color: #383838;
 }
@@ -996,6 +1006,9 @@
 
 .team_edit_info_detail {
     margin-bottom: 14px !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .team_edit_info_detail_title {
@@ -1047,4 +1060,158 @@
     background-repeat: no-repeat;
     background-size: 22px;
     background-position: top 50% right 15px;
+}
+
+.account_register_edit_category_name {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.account_register_edit_category_name span {
+    display: block;
+}
+
+.account_register_edit_category_name a {
+    display: block;
+}
+
+.accounting_category_register_edit_form {
+    max-width: 320px;
+    margin: auto;
+    margin-top: 30px;
+}
+
+.accounting_category_register_edit_form input {
+    height: 45px;
+}
+
+.accounting_category_register_edit_form span {
+    margin-bottom: 10px;
+    display: block;
+}
+
+.category_register_btn {
+    width: 180px;
+    margin-top: 0;
+}
+
+.category_edit {
+    max-width: 360px;
+    margin: auto;
+    margin-top: 35px;
+}
+
+.category_edit table {
+    background-color: #eeeeee;
+}
+
+.category_edit_btn {
+    text-align: center;
+}
+
+.category_edit_btn {
+    margin-top: 35px;
+}
+
+.category_edit_name {
+    padding: 10px 0px;
+    width: 230px;
+    padding-left: 20px;
+}
+
+.category_edit_title {
+    padding: 10px 20px;
+}
+
+.category_edit_button {
+    width: 60px;
+}
+
+.category_delete_button {
+    width: 60px;
+}
+
+.category_edit_list img {
+    width: 24px;
+    opacity: .7;
+}
+
+.category_edit_list button {
+    border: none;
+}
+
+.category_edit_list tr {
+    border-bottom: 1px solid #989898;
+}
+
+.accounting_category_register_edit_form input {
+    border-radius: 10px;
+    background: #eeeeee;
+    background-image: url(/images/category1.png);
+    background-repeat: no-repeat;
+    background-size: 30px;
+    background-position: left 15px top 50%;
+    padding-left: 50px;
+}
+
+.accounting_category_edit_btn {
+    position: absolute;
+    top: 60px;
+    right: 15px;
+    font-size: 14px;
+}
+
+.accounting_category_edit_btn button {
+    border: none;
+    background: none;
+}
+
+.accounting_register_edit_form {
+    margin-top: 36px;
+    color: #333333;
+}
+
+.accounting_register_edit_input {
+    display: flex;
+    gap: 28px;
+    justify-content: center;
+}
+
+.accounting_register_edit_date span {
+    margin-bottom: 4px;
+    display: block;
+}
+
+.accounting_register_edit_category span {
+    margin-bottom: 4px;
+    display: block;
+}
+
+.accounting_register_edit_date {
+    width: 166px;
+}
+
+.accounting_register_edit_category {
+    width: 166px;
+}
+
+.accounting_register_edit_date input {
+    background: #eeeeee;
+    border-radius: 10px;
+}
+
+.accounting_register_edit_category input {
+    background: #eeeeee;
+    border-radius: 10px;
+}
+
+.accounting_register_edit_io {
+    display: flex;
+    width: 360px;
+    margin: auto;
+    gap: 40px;
+}
+
+.accounting_register_edit_io_switch input {
+    display: none;
 }

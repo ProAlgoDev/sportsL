@@ -1,14 +1,7 @@
 @extends('main')
 @section('content')
 @include('bookDashboardLogo')
-<div class="header_menu_title">
-    <div class="left_menu_back">
-        <a href="{{URL::previous()}}"><img src="{{asset('images/back.png')}}" alt=""></a>
-    </div>
-    <div class="left_menu_logo">
-        会計項目登録・編集
-    </div>
-</div>
+@include('leftMenuHeader')
 <div class="team_info_edit_form">
 
 <form action="{{route('new_team_create2')}}" method="POST">
