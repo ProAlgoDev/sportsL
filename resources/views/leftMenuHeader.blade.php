@@ -1,8 +1,8 @@
 <div class="header_menu_title">
     <div class="left_menu_back">
-        <a href="{{URL::previous()}}"><img src="{{asset('images/back.png')}}" alt=""></a>
+        <button onclick="history.back()"><img src="{{asset('images/back.png')}}" alt=""></button>
     </div>
     <div class="left_menu_logo">
-        チーム情報編集
+        {{$title}}
     </div>
 </div>

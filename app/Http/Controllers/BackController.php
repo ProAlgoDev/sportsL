@@ -322,7 +322,6 @@ class BackController extends Controller
             $teamId = $team->id + 1;
         }
         $teamId .= $request->sports_list . $request->area_list . $request->age . $request->sex;
-        dump($teamId);
 
         return view('newTeamCreate2', ['teamName' => $request->teamName, 'sportsType' => $sports, 'area' => $area, 'age' => $age, 'sex' => $sex, 'teamId' => $teamId]);
 
@@ -353,10 +352,7 @@ class BackController extends Controller
         $teamAvatar = Team::where('teamId', $teamId)->value('teamAvatar');
         $teamName = Team::where('teamId', $teamId)->value('teamName');
 
-        dump($teamAvatar);
-        echo ("fdfsdfsdfs" . $teamAvatar);
         $memeberIdList = Member::where('userId', $user)->get();
-        dump($teamIdList, $memeberIdList);
         if (!$book) {
             return view('bookDashboard', ['teamId' => $teamId, 'teamName' => $teamName, 'teamAvatar' => $teamAvatar, 'type' => $type, 'teamIdList' => $teamIdList, 'memberIdList' => $memeberIdList]);
 
@@ -386,15 +382,39 @@ class BackController extends Controller
     }
     public function team_edit()
     {
-        return view('teamEdit');
+        return view('teamEdit', ['title' => 'チーム情報編集']);
     }
     public function team_edit_detail()
     {
-        return view("teamInfoEdit");
+        return view("teamInfoEdit", ['title' => 'チーム情報編集']);
     }
     public function team_edit_amount()
     {
-        return view("login");
+        return view("teamInitialAmountEdit", ['title' => '会計項目登録・編集']);
+    }
+    public function accounting_category_register()
+    {
+        return view('accountingCategoryRegisterEdit');
+    }
+    public function accounting_register()
+    {
+        return view('accountingRegisterEdit');
+    }
+    public function player_register()
+    {
+        return view('playerRegister', ['title' => '選手登録・編集']);
+    }
+    public function invite_team()
+    {
+        return view('inviteTeam', ['title' => 'チームへ招待']);
+    }
+    public function ownership_transfer()
+    {
+        return view('ownerShipTransfer', ['title' => 'オーナー権限引き継ぎ']);
+    }
+    public function account_setting()
+    {
+        return view('accountSetting', ['title' => 'アカウント設定']);
     }
 }
 

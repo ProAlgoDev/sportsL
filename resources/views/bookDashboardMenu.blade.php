@@ -24,34 +24,34 @@
                         <img src="{{asset('images/edit-2.svg')}}" alt="">
                     <div class="">チーム情報編集</div>
                 </a>
-                    <a href="#" class="menu_content_home_item">
+                    <a href="{{route('accounting_category_register')}}" class="menu_content_home_item">
                         <img src="{{asset('images/list.svg')}}" alt="">
                         <div class="">会計項目登録・編集</div>
                     </a>
-                    <a class="menu_content_home_item">
+                    <a href="{{route('accounting_register')}}" class="menu_content_home_item">
                         <img src="{{asset('images/dollar-sign.svg')}}" alt="">
                         <div class="">会計登録・編集</div>
                     </a>
-                    <a class="menu_content_home_item">
+                    <a href="{{route('player_register')}}" class="menu_content_home_item">
                         <img src="{{asset('images/users.svg')}}" alt="">
                         <div class="">選手登録・編集</div>
                     </a>
-                    <a class="menu_content_home_item">
+                    <a  class="menu_content_home_item">
                         <img src="{{asset('images/key.svg')}}" alt="">
                         <div class="">メンバー権限変更</div>
                     </a>
-                    <a class="menu_content_home_item">
+                    <a href="{{route('invite_team')}}" class="menu_content_home_item">
                         <img src="{{asset('images/send.svg')}}" alt="">
                         <div class="">チームへ招待</div>
                     </a>
-                    <a class="menu_content_home_item">
+                    <a href="{{route('ownership_transfer')}}" class="menu_content_home_item">
                         <img src="{{asset('images/repeat.svg')}}" alt="">
                         <div class="">オーナー権限引き継ぎ</div>
                     </a>
                 </div>
                 
             </div>
-            <a class="menu_account_setting book_menu">
+            <a href="{{route('account_setting')}}" class="menu_account_setting book_menu">
                 <img src="{{asset('images/setting.svg')}}" alt="">
                 <div class="">アカウント設定</div>
             </a>
