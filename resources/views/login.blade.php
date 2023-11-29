@@ -51,8 +51,7 @@
         </div>
         <div class="login_social">
             <a href="#"><img src="{{asset('images/twitter(blue).png')}}" alt="" /></a>
-            <a href="#"><img src="{{asset('images/facebook.png')}}" alt="" /></a>
-            <a href="#"><img src="{{asset('images/google.png')}}" alt="" /></a>
+            <a href="#"><img src="{{asset('images/google2.png')}}" alt="" /></a>
         </div>
     </div>
     <script>

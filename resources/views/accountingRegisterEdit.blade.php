@@ -39,8 +39,10 @@
                     <div class="accounting_register_edit_io">
                         <span>収支</span>
                         <div class="accounting_register_edit_io_switch">
-                            <label for="input" class="accounting_register_edit_io_input"><input type="radio" name='io_switch' id='input' value="input"  />収入</label>
-                            <label for="output" class="accounting_register_edit_io_input"><input type="radio" name='io_switch' id='output' value="output"  />支出</label>
+                            <input type="radio" name='io_switch' id='input' value="input"  />
+                            <label for="input" class="accounting_register_edit_io_input">収入</label>
+                            <input type="radio" name='io_switch' id='output' value="output"  checked/>
+                            <label for="output" class="accounting_register_edit_io_output ">支出</label>
                         </div>
                     </div>
                     <div class="form-group mb-4 accounting_register_edit_amount_serial">
@@ -65,7 +67,7 @@
                     </div>
                     <div class="accounting_register_edit_description">
                         <span>詳細</span>
-                        <input name = 'description'/>
+                        <textarea name = 'description' >asdfasdfasdfadf</textarea>
                     </div>
                     <div class="d-grid mx-auto">
                         <button class="btn btn-primary register_btn category_register_btn" type="submit">登録する</button>
@@ -75,11 +77,11 @@
                     <h4>仕分けプレビュー</h4>
                     <table>
                         <tr>
-                            <th>発生日</th>
-                            <th>項目</th>
-                            <th>収支</th>
-                            <th>金額</th>
-                            <th>レシートNo</th>
+                            <th class="date">発生日</th>
+                            <th class="category">項目</th>
+                            <th class="io">収支</th>
+                            <th class="amount">金額</th>
+                            <th class="serial">レシートNo</th>
                         </tr>
                         <tr>
                             <td>2021/10/10</td>
@@ -95,6 +97,9 @@
 テキストテキストテキストテキストテキストテキストテキスト</p>
                     </div>
                 </div>
+                <style>
+                    
+</style>
                 
 </div>
 

@@ -1,61 +1,52 @@
 @extends('main')
 @section('content')
 @include('bookDashboardLogo')
-<div class="header_menu_title">
-    <div class="left_menu_back">
-        <a href="{{URL::previous()}}"><img src="{{asset('images/back.png')}}" alt=""></a>
-    </div>
-    <div class="left_menu_logo">
-        会計項目登録・編集
-    </div>
-</div>
-<div class="accounting_category_register_edit_form">
-
+@include('leftMenuHeader')
+<div class="owner_edit_form">
+<h3>オーナー権限引き継ぎ</h3>
+<p>オーナー権限の引き継ぎ可能です。
+オーナー権限を引き継ぎを行いますと、
+移行元は編集権限へ変更され、操作できる範囲に制限がかかります。
+<br />
+<br />
+引き継がれる方としっかりコミュニケーションをとり、実行してください。</p>
 <form action="{{route('new_team_create2')}}" method="POST">
+    <h4>メンバー一覧</h4>
                     @csrf
-                    <div class="account_register_edit_category_name">
-                        <span>基本項目として以下の登録がされています。</span>
-                        <a href="#">>>登録されている基本項目</a>
-                        </div>
-                    <div class="form-group mb-4 account_register_edit_input">
-                        <span class="category">登録したい項目名を入力してください</span>
-                        <input type="text" name="teamName" placeholder="" class="form-control" />
-                        @if($errors->has('teamName'))
-                            <span class="span text-danger">
-                                {{$errors->first('teamName')}}
-                            </span>
-                        @endif
-                    </div>
+                    <div class="ownerlist">
+                         <label for="1">
+                            <img src="{{asset('images/avatar/default_avatar.png')}}" alt="">
+                            <span class="user_name">田中一郎</span>
+                            <span class="user_id">メンバー</span>
+                            <span class="user_style">メンバー</span>
+                            <input id="1" type="radio" name="ownerSelect"/>
+                        </label>
+                                
+                        <label for="2">
+                            <img src="{{asset('images/avatar/default_avatar.png')}}" alt="">
+                            <span class="user_name">田中一郎</span>
+                            <span class="user_id">メンバー</span>
+                            <span class="user_style">メンバー</span>
+                            <input id="2" type="radio" name="ownerSelect"/>
+                        </label>
+                        <label for="3">
+                            <img src="{{asset('images/avatar/default_avatar.png')}}" alt="">
+                            <span class="user_name">田中一郎</span>
+                            <span class="user_id">メンバー</span>
+                            <span class="user_style">メンバー</span>
+                            <input id="3" type="radio" name="ownerSelect"/>
+                        </label>
+                        <label for="4">
+                            <img src="{{asset('images/avatar/default_avatar.png')}}" alt="">
+                            <span class="user_name">田中一郎</span>
+                            <span class="user_id">メンバー</span>
+                            <span class="user_style">メンバー</span>
+                            <input id="4" type="radio" name="ownerSelect"/>
+                        </label>
                     <div class="d-grid mx-auto">
                         <button class="btn btn-primary register_btn category_register_btn" type="submit">変更する</button>
                     </div>
                 </form>
-                <div class="category_edit">
-                    <div class="category_edit_title">
-                        <span>登録された項目名</span>
-                    </div>
-                    <table class="category_edit_list">
-                        <tr>
-                            <td class="category_edit_name">雑費</td>
-                            <td class="category_edit_button"><button><img src="{{asset('images/edit-3.svg')}}" /></button></td>
-                            <td class="category_delete_button"><button><img src="{{asset('images/trash-2.svg')}}" /></button></td>
-                        </tr>
-                        <tr>
-                            <td class="category_edit_name">通信費</td>
-                            <td class="category_edit_button"><button><img src="{{asset('images/edit-3.svg')}}" /></button></td>
-                            <td class="category_delete_button"><button><img src="{{asset('images/trash-2.svg')}}" /></button></td>
-                        </tr>
-                        <tr>
-                            <td class="category_edit_name">返金</td>
-                            <td class="category_edit_button"><button><img src="{{asset('images/edit-3.svg')}}" /></button></td>
-                            <td class="category_delete_button"><button><img src="{{asset('images/trash-2.svg')}}" /></button></td>
-                        </tr>
-                    </table>
-                    <div class="category_edit_btn">
-                        
-                        <button class="btn btn-primary register_btn category_register_btn">保存する</button>
-                    </div>
-                </div>
 </div>
 
 @endsection('content')

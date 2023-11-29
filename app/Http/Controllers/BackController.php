@@ -402,19 +402,19 @@ class BackController extends Controller
     }
     public function player_register()
     {
-        return view('playerRegister');
+        return view('playerRegister', ['title' => '選手登録・編集']);
     }
     public function invite_team()
     {
-        return view('inviteTeam');
+        return view('inviteTeam', ['title' => 'チームへ招待']);
     }
     public function ownership_transfer()
     {
-        return view('ownerShipTransfer');
+        return view('ownerShipTransfer', ['title' => 'オーナー権限引き継ぎ']);
     }
     public function account_setting()
     {
-        return view('accountSetting');
+        return view('accountSetting', ['title' => 'アカウント設定']);
     }
 }
 

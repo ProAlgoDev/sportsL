@@ -1215,3 +1215,473 @@
 .accounting_register_edit_io_switch input {
     display: none;
 }
+
+.accounting_register_edit_amount_serial {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+    gap: 30px;
+}
+
+.accounting_register_edit_amount input {
+    width: 166px;
+    border-radius: 10px;
+    background: #f0f0f0;
+    margin-top: 10px;
+}
+
+.accounting_register_edit_serial input {
+    width: 166px;
+    border-radius: 10px;
+    background: #f0f0f0;
+    margin-top: 10px;
+}
+
+.accounting_register_edit_io_switch label {
+    width: 90px;
+    background: #AAAAAA;
+    text-align: center;
+    border-radius: 20px;
+    color: white;
+    height: 30px;
+    line-height: 1.8;
+}
+
+.accounting_register_edit_io_output {
+
+    transform: translate(-30px, 0px);
+}
+
+[name="io_switch"]:checked+label {
+    background-color: #3FBAEE !important;
+    z-index: 99;
+    position: relative;
+}
+
+.accounting_register_edit_description {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    max-width: 364px;
+    margin-bottom: 20px;
+}
+
+.accounting_register_edit_description span {
+    display: block;
+    transform: translate(14px, 10px);
+    z-index: 9;
+    background: white;
+    width: 45px;
+    text-align: center;
+}
+
+.accounting_register_edit_description textarea {
+    position: relative;
+    display: block;
+    margin: auto;
+    min-width: 362px;
+    min-height: 100px;
+    border: 1px solid #878787;
+    padding: 10px;
+}
+
+.accounting_register_edit_description textarea:focus-visible {
+    border: 1px solid rgb(88, 88, 88);
+    outline: none !important;
+}
+
+.accounting_register_edit_preview {
+    color: #333333;
+    max-width: 364px;
+    margin: auto;
+    margin-top: 30px;
+}
+
+.accounting_register_edit_preview h4 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.accounting_register_edit_preview tr {
+    background: #eeeeee;
+    border-bottom: 2px solid white;
+}
+
+.accounting_register_edit_preview th {
+    min-width: 50px;
+    font-size: 15px;
+}
+
+.accounting_register_edit_preview td {
+    font-size: 14px;
+}
+
+.accounting_register_edit_preview .date {
+    width: 96px;
+}
+
+.accounting_register_edit_preview .amount {
+    width: 83px;
+}
+
+.accounting_register_edit_preview_description {
+    margin-top: 10px;
+}
+
+.accounting_register_edit_preview_description span {
+    margin-left: 13px;
+    transform: translate(3px, 11px);
+    display: block;
+    background: white;
+    width: 40px;
+    text-align: center;
+}
+
+.accounting_register_edit_preview_description p {
+    border: 1px solid #878787;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.input_form {
+    display: flex;
+    max-width: 260px;
+    margin: auto;
+    gap: 5px;
+    margin-top: 15px;
+    align-items: center;
+    color: #333333;
+}
+
+.input_form span {
+    width: 80px;
+    display: block;
+}
+
+.input_form input {
+    background: #f0f0f0;
+    background: #f0f0f0;
+    border-radius: 10px;
+}
+
+.player_name {
+    margin-top: 40px;
+}
+
+.player_enter_date {
+    margin-bottom: 30px;
+}
+
+.player_style label {
+    color: #aaaaaa;
+    border-bottom: 1px solid #aaaaaa;
+}
+
+.player_style input {
+    display: none;
+}
+
+.player_result_table {
+    max-width: 400px;
+    margin: auto;
+    margin-top: 40px;
+    color: #333333;
+    padding: 0 8px;
+}
+
+.player_edit {
+    margin-top: 20px;
+}
+
+.player_edit .name {
+    width: 106px;
+}
+
+.player_edit .gender {
+    width: 40px;
+}
+
+.player_edit .date {
+    width: 74px;
+}
+
+.player_edit td {
+    font-size: 14px;
+}
+
+.player_edit tr {
+    height: 46px;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+.player_edit img {
+    width: 26px;
+}
+
+.player_edit a {
+    padding: 0 8px;
+    text-decoration: none;
+}
+
+.triangle_icon {
+    background-image: url(/images/triangle.png) !important;
+    background-repeat: no-repeat !important;
+    background-size: 24px !important;
+    background-position: right 11px top 8px !important;
+}
+
+.date_icon {
+    background-image: url(/images/birth.png) !important;
+    background-repeat: no-repeat !important;
+    background-size: 24px !important;
+    background-position: right 11px top 6px !important;
+}
+
+[name='playerStyle']:checked+label {
+    color: #2790BD !important;
+    border-bottom: 2px solid #2790BD;
+    font-weight: 800;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: none;
+    /* padding: 0;
+    margin: 0;
+    display: none; */
+}
+
+.invite_team_form {
+    color: #333333;
+    margin-top: 76px;
+    text-align: center;
+}
+
+.invite_team_form input {
+    height: 50px;
+}
+
+.invite_team_form h4 {
+    margin-bottom: 20px;
+}
+
+.invite_team_form input {
+    background: #f0f0f0;
+    background-image: url(/images/email1.png);
+    background-repeat: no-repeat;
+
+    font-size: 20px;
+    width: 320px;
+    margin: auto;
+    border-radius: 10px;
+    padding-left: 58px;
+    background-size: 38px;
+    background-position: left 11px top 5px;
+}
+
+.invite_team_form button {
+    margin-top: 30px;
+}
+
+.ownerlist input {
+    /* display: none; */
+}
+
+.owner_edit_form {
+    color: #333333;
+}
+
+.owner_edit_form h3 {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 18px;
+}
+
+.owner_edit_form p {
+    max-width: 390px;
+    margin: auto;
+    padding: 0 8px;
+}
+
+.owner_edit_form form {
+    margin: 20px auto;
+    max-width: 390px;
+    padding: 0 8px;
+}
+
+.owner_edit_form h4 {
+    padding: 10px;
+    font-size: 18px;
+    color: #2790BD;
+    border-bottom: 2px solid #2790BD;
+    width: 150px;
+    font-weight: 800;
+    text-align: center;
+}
+
+.ownerlist span {
+    display: inline-block;
+    font-size: 15px;
+}
+
+.ownerlist button {
+    margin-top: 40px;
+}
+
+.ownerlist input {
+    transform: scale(1.5);
+    width: 44px;
+}
+
+.ownerlist img {
+    width: 30px;
+    margin-left: 10px;
+}
+
+.ownerlist label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 44px;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+.accounting_setting_form .personal_info {
+    display: flex;
+    margin-left: 20px;
+    margin-top: 26px;
+    margin-bottom: 20px;
+}
+
+.accounting_setting_form .personal_info img {
+    width: 74px;
+}
+
+.accounting_setting_form .personal_info button {
+    border: none;
+    background: none;
+}
+
+.accounting_setting_form .personal_info_content p {
+    margin-block-end: 0;
+    padding: 5px;
+
+}
+
+.accounting_setting_form .included_team {
+    margin-left: 20px;
+}
+
+.accounting_setting_form .included_team h4 {
+    font-size: 18px;
+}
+
+.accounting_setting_form .included_team td {
+    padding-right: 20px;
+    padding-top: 5px;
+}
+
+.accounting_setting_form .account_detail_info {
+    margin: 30px 20px;
+}
+
+.account_detail_info .birthday .title {
+    background-image: url(/images/birth.png);
+    background-repeat: no-repeat;
+    background-size: 26px;
+    padding-left: 34px;
+}
+
+.account_detail_info .gender .title {
+    background-image: url(/images/gender.png);
+    background-repeat: no-repeat;
+    background-size: 26px;
+    padding-left: 34px;
+}
+
+.account_detail_info .email .title {
+    background-image: url(/images/email1.png);
+    background-repeat: no-repeat;
+    background-size: 26px;
+    padding-left: 34px;
+    display: flex;
+    flex-direction: column;
+    background-position-y: 7px;
+}
+
+.account_detail_info .password .title {
+    background-image: url(/images/password.png);
+    background-repeat: no-repeat;
+    background-size: 26px;
+    padding-left: 34px;
+    display: flex;
+    flex-direction: column;
+    background-position-y: 7px;
+}
+
+.account_detail_info div {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0px;
+    border-bottom: 2px dotted #767676;
+    min-height: 46px;
+}
+
+.account_detail_info .email .title {
+    border: none !important;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.account_detail_info .password .title {
+    border: none !important;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.account_detail_info .password button {
+    border: none;
+    background: none;
+}
+
+.account_detail_info .password .title img {
+    width: 30px;
+}
+
+.account_detail_info .email button {
+    border: none;
+    background: none;
+}
+
+.account_detail_info .email .title img {
+    width: 30px;
+}
+
+.accounting_setting_form .team_relative_btn {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.accounting_setting_form .team_relative_btn a {
+    line-height: 2.3;
+}
+
+.accounting_setting_form .security {
+    margin: 0 20px;
+    font-size: 14px;
+    color: #808080;
+}
+
+.accounting_setting_form .account_delete_btn {
+    background: #9CA6A9;
+    color: white;
+    font-weight: 800;
+    text-decoration: none;
+    text-align: center;
+    margin: auto;
+    display: block;
+    max-width: 280px;
+    height: 40px;
+    margin-top: 20px;
+    border-radius: 10px;
+    line-height: 2.4;
+}
