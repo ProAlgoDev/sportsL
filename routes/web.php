@@ -43,12 +43,11 @@ Route::controller(BackController::class)->group(function () {
     Route::get("book_dashboard/{teamId}/{type}", 'book_dashboard')->middleware('is_login_status')->middleware('is_register_book_status')->name('book_dashboard');
     Route::post("validate_book_dashboard", 'validate_book_dashboard')->middleware('is_login_status')->middleware('is_register_book_status')->name('validate_book_dashboard');
 
-    Route::get('upload_avatar', 'create_avatar_view');
     Route::get('back', 'back')->name('back');
-    Route::post('upload_avatar', 'upload_avatar')->name('upload.avatar');
+    Route::post('validate_team_edit', 'validate_team_edit')->name('validate_team_edit');
 
-    Route::get("team_edit", 'team_edit')->middleware('is_login_status')->middleware('is_register_book_status')->name('team_edit');
-    Route::get("team_edit_detail", 'team_edit_detail')->middleware('is_login_status')->middleware('is_register_book_status')->name('team_edit_detail');
+    Route::get("team_edit/{teamId}", 'team_edit')->middleware('is_login_status')->middleware('is_register_book_status')->name('team_edit');
+    Route::get("team_edit_detail/{teamId}", 'team_edit_detail')->middleware('is_login_status')->middleware('is_register_book_status')->name('team_edit_detail');
     Route::get("team_edit_amount", 'team_edit_amount')->middleware('is_login_status')->middleware('is_register_book_status')->name('team_edit_amount');
     Route::get("accounting_category_register", 'accounting_category_register')->middleware('is_login_status')->middleware('is_register_book_status')->name('accounting_category_register');
     Route::get("accounting_register", 'accounting_register')->middleware('is_login_status')->middleware('is_register_book_status')->name('accounting_register');

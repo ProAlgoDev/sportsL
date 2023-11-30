@@ -8,6 +8,7 @@
         <link href="{{URL::asset('css/app.css')}}" rel="stylesheet">
         <script src="https://jsuites.net/v4/jsuites.js"></script>
         <link rel="stylesheet" href="https://jsuites.net/v4/jsuites.css" type="text/css" />
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         @vite('resources/css/app.css')
     </head>
     <body>       

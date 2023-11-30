@@ -13,6 +13,21 @@ class Member extends Model
     protected $fillable = [
         'approved',
         'userId',
-        "teamId"
     ];
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
+    }
+    public function getTeamAvatarAttribute()
+    {
+        return $this->team->teamAvatar;
+    }
+    public function getTeamIdAttribute()
+    {
+        return $this->team->teamId;
+    }
+    public function getTeamNameAttribute()
+    {
+        return $this->team->teamName;
+    }
 }

@@ -91,19 +91,3 @@
         });
 </script>
 
-
-<script>
-        document.addEventListener('DOMContentLoaded', function () {
-                var dateSwitches = document.querySelectorAll('input[name="date_switch"]');
-
-                dateSwitches.forEach(function (switchInput) {
-                        switchInput.addEventListener('change', function (event) {
-                                dateSwitches.forEach(function (otherSwitch) {
-                                        // Set class to 'active' if the current switch is checked, 'ggg' otherwise
-                                        otherSwitch.classList.toggle('active', otherSwitch === event.target && event.target.checked);
-                                        otherSwitch.classList.toggle('ggg', otherSwitch !== event.target || !event.target.checked);
-                                });
-                        });
-                });
-        });
-</script>

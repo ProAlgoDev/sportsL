@@ -280,6 +280,7 @@ class BackController extends Controller
 
 
     }
+
     public function new_team_create2(Request $request)
     {
 
@@ -348,16 +349,24 @@ class BackController extends Controller
         $book = Book::where('teamId', $teamId)->first();
         $books = Book::where('teamId', $teamId)->get();
         $user = Auth::user()->id;
+        $userName = Auth::user()->name;
+
         $teamIdList = Team::where('owner', $user)->get();
         $teamAvatar = Team::where('teamId', $teamId)->value('teamAvatar');
         $teamName = Team::where('teamId', $teamId)->value('teamName');
-
+        $owner = Team::where('teamId', $teamId)->where('owner', $user)->first();
+        $ownerCheck = False;
+        if ($owner) {
+            $ownerCheck = '管理者';
+        } else {
+            $ownerCheck = "会員";
+        }
         $memeberIdList = Member::where('userId', $user)->get();
         if (!$book) {
-            return view('bookDashboard', ['teamId' => $teamId, 'teamName' => $teamName, 'teamAvatar' => $teamAvatar, 'type' => $type, 'teamIdList' => $teamIdList, 'memberIdList' => $memeberIdList]);
+            return view('bookDashboard', ['teamId' => $teamId, 'owner' => $ownerCheck, 'userName' => $userName, 'teamName' => $teamName, 'teamAvatar' => $teamAvatar, 'type' => $type, 'teamIdList' => $teamIdList, 'memberIdList' => $memeberIdList]);
 
         } elseif ($book) {
-            return view('bookDashboard', ['teamId' => $teamId, 'teamName' => $teamName, 'type' => $type, 'teamAvatar' => $teamAvatar, 'book' => $book, 'teamIdList' => $teamIdList, 'memberIdList' => $memeberIdList]);
+            return view('bookDashboard', ['teamId' => $teamId, 'owner' => $ownerCheck, 'userName' => $userName, 'teamName' => $teamName, 'type' => $type, 'teamAvatar' => $teamAvatar, 'book' => $book, 'teamIdList' => $teamIdList, 'memberIdList' => $memeberIdList]);
         }
     }
     public function validate_book_dashboard(Request $request)
@@ -365,28 +374,66 @@ class BackController extends Controller
 
         return redirect("book_dashboard/$request->teamId/$request->date_switch");
     }
-    public function create_avatar_view()
-    {
-        #todo
-        return view('login');
-    }
-    public function upload_avatar(Request $request)
+    public function validate_team_edit(Request $request)
     {
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,gif|max:2048',
-        ]);
+            'teamName' => 'required',
+            'sportsList' => 'required',
+            'areaList' => 'required',
+            'age' => 'required',
+            'sex' => 'required',
 
-        $imageName = time() . '-' . $request->image->extension();
-        $request->image->move(public_path('images/avatar'), $imageName);
-        return redirect('upload')->with('success', 'Image uploaded successfully');
+        ], [
+            'teamName' => 'チーム名のフィールドは必須です。',
+            'sportsList' => 'スポーツタイプフィールドは必須です。',
+            'areaList' => 'エリアフィールドは必須です。',
+            'age' => '年齢フィールドは必須です。',
+            'sex' => '性別フィールドは必須です。'
+        ]);
+        $team = Team::where('owner', Auth::user()->id)->first();
+        if ($request->image) {
+            $imageName = now()->format('YmdHis') . '.' . $request->image->extension();
+            $request->image->move(public_path('images/avatar'), $imageName);
+            $team->teamAvatar = $imageName;
+        }
+        $ageList = [
+            '1' => "12歳以下",
+            '2' => "13-18",
+            '3' => "大学",
+            '4' => "社会人",
+        ];
+        $sexList = [
+            '1' => "男子",
+            '2' => "女子",
+            '3' => "混合",
+        ];
+        $age = $ageList[$request->age];
+        $sex = $sexList[$request->sex];
+        $sports = TeamSportsList::where('sportsId', $request->sportsList)->first()->sportsType;
+        $area = TeamAreaList::where('areaId', $request->areaList)->first()->areaName;
+        $teamId = substr($team->teamId, -7, 1);
+        $teamId .= $request->sportsList . $request->areaList . $request->age . $request->sex;
+        // $team->teamId = $teamId;
+        $team->teamName = $request->teamName;
+        $team->sportsType = $sports;
+        $team->area = $area;
+        $team->age = $age;
+        $team->sex = $sex;
+        $team->save();
+        return back()->with('teamEditSuccess', 'Image uploaded successfully')->withHeaders(['Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0']);
+        ;
     }
-    public function team_edit()
+    public function team_edit($teamId)
     {
-        return view('teamEdit', ['title' => 'チーム情報編集']);
+        $teamInfo = Team::where('teamId', $teamId)->first();
+        return view('teamEdit', ['title' => 'チーム情報編集', 'teamInfo' => $teamInfo]);
     }
-    public function team_edit_detail()
+    public function team_edit_detail($teamId)
     {
-        return view("teamInfoEdit", ['title' => 'チーム情報編集']);
+        $teamInfo = Team::where('teamId', $teamId)->first();
+        $sportsList = TeamSportsList::all();
+        $areaList = TeamAreaList::all();
+        return view("teamInfoEdit", ['title' => 'チーム情報編集', 'teamInfo' => $teamInfo, 'sportsList' => $sportsList, 'areaList' => $areaList]);
     }
     public function team_edit_amount()
     {
