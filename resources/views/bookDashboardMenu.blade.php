@@ -2,13 +2,36 @@
     <div class="menu_header">
         <img class="menu_header_avatar" src="{{asset("images/avatar/$teamAvatar")}}" alt="">
         <div class="menu_header_info">
-            <div class="menu_header_info_teamId">#1072013</div>
-            <div class="menu_header_info_teamName">サザンオールスターズ</div>
+            <div class="menu_header_info_teamId">#{{$teamId}}</div>
+            <div class="menu_header_info_teamName">{{$teamName}}</div>
             <div class="menu_header_info_userName">
-                YamadaIchiro<span>管理者</span>
+                {{$userName}}<span>{{$owner}}</span>
             </div>
         </div>
-        <button class='menu_header_list'><img src="" alt=""></button>
+        <input id="left_menu_extend" type="checkbox" />
+        <label  class='menu_header_list' for="left_menu_extend"></label>
+    </div>
+    <div class="left_menu_team_list">
+        @foreach($teamIdList as $teamList)
+            <a href="{{route('book_dashboard',[$teamList->teamId,'all'])}}" class="team_category">
+                <div class="">
+                    <img src="{{asset('images/avatar/' . $teamList->teamAvatar)}}" alt="">
+                    <span>{{$teamList->teamName}}</span>
+                </div>
+                <div class="">オーナー</div>
+            </a>
+        @endforeach
+        @if(!$memberIdList)
+        @foreach($memberIdList as $memberList)
+            <a href="{{route('book_dashboard',[$memberList->teamId,'all'])}}" class="team_category">
+                <div class="">
+                    <img src="{{asset('images/avatar/' . $memberList->teamAvatar)}}" alt="">
+                    <span>{{$memberList->teamName}}</span>
+                </div>
+                <div class="">メンバー</div>
+            </a>
+        @endforeach
+        @endif
     </div>
     <div class="menu_content">
         <div class="menu_content_list">
@@ -20,7 +43,7 @@
                     <div class="">ホーム</div>
                 </a>
                 <div class="menu_content_home_list">
-                    <a href="{{route('team_edit')}}" class="menu_content_home_item">
+                    <a href="{{route('team_edit',[$teamId])}}" class="menu_content_home_item">
                         <img src="{{asset('images/edit-2.svg')}}" alt="">
                     <div class="">チーム情報編集</div>
                 </a>
@@ -65,4 +88,13 @@
     <div class="menu_background_1"></div>
 
     
+    <script>
+        var checkbox = document.getElementById('left_menu_extend');
+        var memberList = document.querySelector('.left_menu_team_list');
+        var leftMenu = document.querySelector('.menu_content');
+        checkbox.addEventListener('click', function(){
+            memberList.style.display = checkbox.checked ? "block" : "none";
+            leftMenu.style.display = checkbox.checked ? "none" : "block";
+        })
+    </script>
 </div>

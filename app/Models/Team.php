@@ -18,4 +18,8 @@ class Team extends Model
         'age',
         'sex'
     ];
+    public function memeber()
+    {
+        return $this->hasMany(Member::class);
+    }
 }

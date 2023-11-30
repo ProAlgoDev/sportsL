@@ -4,31 +4,31 @@
 @include('leftMenuHeader')
 <div class="team_info_edit">
     <h2>基本情報</h2>
-    <img src="{{asset('images/avatar/default_avatar.png')}}" alt="">
+    <img src="{{asset('images/avatar/'.$teamInfo->teamAvatar)}}" alt="">
     <table>
         <tr>
             <td>チーム名</td>
-            <td>TESTHOGE</td>
+            <td>{{$teamInfo->teamName}}</td>
         </tr>
         <tr>
             <td>スポーツ</td>
-            <td>バスケットボール</td>
+            <td>{{$teamInfo->sportsType}}</td>
         </tr>
         <tr>
             <td>活動エリア</td>
-            <td>茨城県</td>
+            <td>{{$teamInfo->area}}</td>
         </tr>
         <tr>
             <td>カテゴリ</td>
-            <td>13-18</td>
+            <td>{{$teamInfo->age}}</td>
         </tr>
         <tr>
             <td>性別</td>
-            <td>男女混合</td>
+            <td>{{$teamInfo->sex}}</td>
         </tr>
     </table>
     <div class="team_info_edit_btn">
-        <a href="{{route('team_edit_detail')}}">編集する</a>
+        <a href="{{route('team_edit_detail',[$teamInfo->teamId])}}">編集する</a>
     </div>
 </div>
 <div class="initial_amount_set">

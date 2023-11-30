@@ -16,7 +16,6 @@ return new class extends Migration {
             $table->id();
             $table->boolean('approved')->default(0);
             $table->string('userId');
-            $table->string("teamId");
             $table->timestamps();
         });
     }

@@ -751,12 +751,14 @@
 }
 
 .menu_header_list {
-    margin-left: 35px;
     clip-path: polygon(0% 0%, 50% 100%, 100% 0%);
     height: 26px;
     width: 28px;
     border: none;
     background-color: #3a3a3a;
+    position: absolute;
+    right: 13px;
+    transition: all 0.7s;
 }
 
 .menu_header_avatar {
@@ -1009,6 +1011,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width: 352px;
+    flex-wrap: wrap;
+}
+
+.team_edit_info_detail .span {
+    margin-left: 44px;
 }
 
 .team_edit_info_detail_title {
@@ -1684,4 +1692,132 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     margin-top: 20px;
     border-radius: 10px;
     line-height: 2.4;
+}
+
+.left_menu_team_list {
+    z-index: 10;
+    position: relative;
+    color: #333333;
+    display: none;
+    margin-top: 30px;
+}
+
+.left_menu_team_list img {
+    width: 40px;
+    margin-right: 8px;
+}
+
+.left_menu_team_list .team_category {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 11px 5%;
+    color: #333333;
+    text-decoration: none;
+    border-bottom: 1px solid #dddddd;
+}
+
+#left_menu_extend {
+    display: none;
+}
+
+
+input#left_menu_extend:checked+label {
+    clip-path: polygon(0% 30%, 0% 70%, 100% 70%, 100% 30%);
+}
+
+.team_avatar_edit button {
+    background: none;
+    border: none;
+    width: 84px;
+    margin-bottom: 20px;
+}
+
+.team_avatar_edit img {
+    width: 80px;
+    margin-bottom: 14px;
+}
+
+.team_info_edit_form .team_edit_btn {
+    width: 175px;
+    height: 45px;
+    color: white;
+    border-radius: 10px;
+    background: #3FBAEE;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 2.4;
+    margin: auto;
+}
+
+.team_edit_modal {
+
+    display: block;
+    position: absolute;
+    top: 29%;
+    transform: translate(16%, 0px);
+    width: 326px;
+    background: #555555;
+    color: white;
+    height: 165px;
+}
+
+.team_edit_modal h4 {
+    font-size: 18px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.team_edit_modal p {
+    margin: auto 23px;
+    font-size: 14px;
+}
+
+.team_edit_modal_btn {
+    display: flex;
+    font-size: 16px;
+    margin-top: 11px;
+}
+
+.team_edit_modal_btn button {
+    border: none;
+    background: none;
+    color: white;
+    font-weight: 700;
+}
+
+.team_edit_success_modal {
+
+    display: block;
+    position: absolute;
+    top: 29%;
+    transform: translate(16%, 0px);
+    width: 326px;
+    background: #555555;
+    color: white;
+    height: 188px;
+}
+
+.team_edit_success_modal h4 {
+    font-size: 18px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.team_edit_success_modal p {
+    margin: auto 23px;
+    font-size: 14px;
+}
+
+.team_edit_success_modal_btn button {
+    border: none;
+    background: none;
+    color: white;
+    font-weight: 700;
+}
+
+.team_edit_success_modal_btn {
+    text-align: center;
+    margin-top: 12px;
 }
