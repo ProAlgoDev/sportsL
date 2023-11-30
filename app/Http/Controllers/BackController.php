@@ -106,9 +106,10 @@ class BackController extends Controller
     {
         return redirect('login');
     }
-    public function back(Request $request)
+    public function back(Request $request, $url, $teamId)
     {
-        return back();
+        dump($url, $teamId);
+        return redirect($url . '/' . $teamId);
     }
     function validate_login(Request $request)
     {
@@ -369,6 +370,7 @@ class BackController extends Controller
             return view('bookDashboard', ['teamId' => $teamId, 'owner' => $ownerCheck, 'userName' => $userName, 'teamName' => $teamName, 'type' => $type, 'teamAvatar' => $teamAvatar, 'book' => $book, 'teamIdList' => $teamIdList, 'memberIdList' => $memeberIdList]);
         }
     }
+
     public function validate_book_dashboard(Request $request)
     {
 
@@ -413,15 +415,15 @@ class BackController extends Controller
         $area = TeamAreaList::where('areaId', $request->areaList)->first()->areaName;
         $teamId = substr($team->teamId, -7, 1);
         $teamId .= $request->sportsList . $request->areaList . $request->age . $request->sex;
-        // $team->teamId = $teamId;
+        $team->teamId = $teamId;
         $team->teamName = $request->teamName;
         $team->sportsType = $sports;
         $team->area = $area;
         $team->age = $age;
         $team->sex = $sex;
         $team->save();
-        return back()->with('teamEditSuccess', 'Image uploaded successfully')->withHeaders(['Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0']);
-        ;
+        return redirect("team_edit_detail/$teamId")->with('teamEditSuccess', 'Image uploaded successfully');
+        // return back()->with('teamEditSuccess', 'Image uploaded successfully')->withHeaders(['Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0']);
     }
     public function team_edit($teamId)
     {

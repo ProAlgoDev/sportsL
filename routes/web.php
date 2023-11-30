@@ -43,7 +43,7 @@ Route::controller(BackController::class)->group(function () {
     Route::get("book_dashboard/{teamId}/{type}", 'book_dashboard')->middleware('is_login_status')->middleware('is_register_book_status')->name('book_dashboard');
     Route::post("validate_book_dashboard", 'validate_book_dashboard')->middleware('is_login_status')->middleware('is_register_book_status')->name('validate_book_dashboard');
 
-    Route::get('back', 'back')->name('back');
+    Route::get('back/{url}/{teamId}', 'back')->name('back');
     Route::post('validate_team_edit', 'validate_team_edit')->name('validate_team_edit');
 
     Route::get("team_edit/{teamId}", 'team_edit')->middleware('is_login_status')->middleware('is_register_book_status')->name('team_edit');
