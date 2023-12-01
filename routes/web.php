@@ -44,7 +44,7 @@ Route::controller(BackController::class)->group(function () {
     Route::post("validate_book_dashboard", 'validate_book_dashboard')->middleware('is_login_status')->middleware('is_register_book_status')->name('validate_book_dashboard');
 
     Route::get('back/{url}/{teamId}', 'back')->name('back');
-    Route::post('validate_team_edit', 'validate_team_edit')->name('validate_team_edit');
+    Route::post('validate_team_edit/{teamId}', 'validate_team_edit')->name('validate_team_edit');
 
     Route::get("team_edit/{teamId}", 'team_edit')->middleware('is_login_status')->middleware('is_register_book_status')->name('team_edit');
     Route::get("team_edit_detail/{teamId}", 'team_edit_detail')->middleware('is_login_status')->middleware('is_register_book_status')->name('team_edit_detail');
@@ -56,9 +56,10 @@ Route::controller(BackController::class)->group(function () {
     Route::get("ownership_transfer", 'ownership_transfer')->middleware('is_login_status')->middleware('is_register_book_status')->name('ownership_transfer');
     Route::get("account_setting", 'account_setting')->middleware('is_login_status')->middleware('is_register_book_status')->name('account_setting');
 
-    Route::post('validate_initial_amount', 'validate_initial_amount')->middleware('is_login_status')->middleware('is_register_book_status')->name('validate_initial_amount');
+    Route::post('validate_initial_amount/{teamId}', 'validate_initial_amount')->middleware('is_login_status')->middleware('is_register_book_status')->name('validate_initial_amount');
 
     Route::post('validate_default_category_register/{teamId}', 'validate_default_category_register')->middleware('is_login_status')->middleware('is_register_book_status')->name('validate_default_category_register');
     Route::post('validate_category_register/{teamId}', 'validate_category_register')->middleware('is_login_status')->middleware('is_register_book_status')->name('validate_category_register');
+    Route::post('validate_category_name_edit/{teamId}', 'validate_category_name_edit')->middleware('is_login_status')->middleware('is_register_book_status')->name('validate_category_name_edit');
 
 });

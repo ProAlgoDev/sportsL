@@ -22,7 +22,7 @@
                             <h4>登録されている基本項目</h4>
                             <div class="default_category_list_content">
                                 @foreach($defaultList as $defaultCategory)
-                                <span>・{{$defaultCategory}}</span>
+                                <span>・{{$defaultCategory->defaultCategory}}</span>
                                 @endforeach
                             </div>
                             <span onclick="defaultListHidden()" id="default_category_list_hidden">閉じる</span>
@@ -54,8 +54,8 @@
                         @if($categoryList)
                             @foreach($categoryList as $category)
                             <tr>
-                                <td class="category_edit_name" >{{$category}}</td>
-                                <td class="category_edit_button" date-category={{$category}}>
+                                <td class="category_edit_name" >{{$category->categoryList}}</td>
+                                <td class="category_edit_button" data-category={{$category->categoryList}} data-status={{$category->status}}>
                                     <button><img src="{{asset('images/edit-3.svg')}}" /></button>
                                 </td>
                                 <td class="category_delete_button">
@@ -66,28 +66,44 @@
                             @else
                             <tr>
                                 <td class="category_edit_name">登録されている項目名がありません。</td>
-                                <td class="category_edit_button">
+                                <td class="">
                                 </td>
-                                <td class="category_delete_button">
+                                <td class="">
                                 </td>
                             </tr>
                         @endif
-                        
                     </table>
+                    <div class="alert_delete_category">
+                        <h6>項目を削除できません</h6>
+                        <p>この項目は帳簿で利用されているため
+削除することができません。<br>
+
+新しい項目名へ変更するか、帳簿で利用されている項目を全て削除してください。</p>
+<span id="cancel_alert_delete">閉じる</span>
+                    </div>
                     <div class="category_edit_btn">
                         <button id="sendCategoriesButton" class="btn btn-primary register_btn category_register_btn">保存する</button>
                     </div>
                 </div>
 </div>
 <script>
-    function defaultListHidden(){
-        document.getElementById('default_category_list').style.display = 'none';
-        document.getElementById('default_category_show').checked = false;
-    }
-    $(document).ready(function() {
-       $('.category_edit_button').on('click', function(){
+
+var categoryList = {};
+var dCategoryList = {};
+    var currentURL = window.location.href;
+
+var teamId = currentURL.substring(currentURL.lastIndexOf('/') + 1);
+
+function defaultListHidden(){
+    document.getElementById('default_category_list').style.display = 'none';
+    document.getElementById('default_category_show').checked = false;
+}
+$(document).ready(function() {
+    $('.category_edit_button').on('click', function(){
         var row = $(this).closest('tr');
+        var categoryData = row.find('.category_edit_button').data('category');
         var categoryName = row.find('.category_edit_name').text().trim();
+
         var inputElement = $('<input type = "text", class="category_input" value="' + categoryName + '">');
         var divElement = $('<div class="category_edit_div">');
         var buttonElement = $('<button class="save_button">編集</button>');
@@ -100,7 +116,6 @@
             var newValue = $(this).siblings('.category_input').val();
             let existingName = false;
             
-            console.log(categoryName)
             $('.category_edit_name').each(function() {
                 if(newValue == $(this).text().trim() && newValue != categoryName)  {
                     spanElement.text('すでに存在する名前です。');
@@ -109,10 +124,49 @@
                 }
             });
             if(!existingName){
+                if(categoryData !=newValue){
+                    categoryList[categoryData] = newValue;
+                }
                 $(this).closest('tr').find('.category_edit_name').text(newValue);
                 $(this).closest('div').remove();
             }
         });
+       });
+
+       $('.category_delete_button').on('click', function(){
+        var row = $(this).closest('tr');
+        var categoryStatus = row.find('.category_edit_button').data('status');
+        var categoryData = row.find('.category_edit_button').data('category');
+        if(categoryStatus == 0){
+            dCategoryList[categoryData] = categoryData;
+            row.remove();
+        }else if(categoryStatus == 1){
+            $('.alert_delete_category').css('display','block');
+        }
+       });
+
+       $('#cancel_alert_delete').on('click',function(){
+         $('.alert_delete_category').css('display','none');
+       });
+       $('#sendCategoriesButton').on('click', function() {
+            if(Object.keys(categoryList).length != 0 || Object.keys(dCategoryList).length != 0){
+                $.ajax({
+                type: 'POST',
+                url: `/validate_category_name_edit/${teamId}`,
+                data: { categoryList: categoryList ,
+                    deleteCategory: dCategoryList,
+                    _token: '{{csrf_token()}}'
+                },
+                success: function(response) {
+                    // window.location.reload();
+                    console.log('Category sent successfully', response);       
+                },
+                error: function(error) {
+                    // window.location.reload();
+                    console.error('Error sending category', error);              
+                }
+            });
+            }
        });
     });
 </script>

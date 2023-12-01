@@ -13,6 +13,7 @@ use App\Models\Team;
 use App\Models\InitialAmount;
 use App\Models\Member;
 use App\Models\Category;
+use App\Models\DefaultCategory;
 use App\Models\Book;
 use Illuminate\Support\Facades\Auth;
 use App\Models\UserVerify;
@@ -378,7 +379,7 @@ class BackController extends Controller
 
         return redirect("book_dashboard/$request->teamId/$request->date_switch");
     }
-    public function validate_team_edit(Request $request)
+    public function validate_team_edit(Request $request, $teamId)
     {
         $request->validate([
             'teamName' => 'required',
@@ -431,7 +432,11 @@ class BackController extends Controller
     {
         $teamInfo = Team::where('teamId', $teamId)->first();
         $teamInitialAmount = InitialAmount::where('teamId', $teamId)->first();
-        $createDate = Carbon::parse($teamInitialAmount->createDate)->format('Y-m');
+        if ($teamInitialAmount) {
+            $createDate = Carbon::parse($teamInitialAmount->createDate)->format('Y-m');
+        } else {
+            $createDate = '';
+        }
         return view('teamEdit', ['title' => 'チーム情報編集', 'teamInfo' => $teamInfo, 'initialAmount' => $teamInitialAmount, 'amount' => $createDate]);
     }
     public function team_edit_detail($teamId)
@@ -478,22 +483,22 @@ class BackController extends Controller
     }
     public function accounting_category_register($teamId)
     {
-        $defaultCategory = Category::where('teamId', $teamId)->first();
+        $defaultCategory = DefaultCategory::where('teamId', $teamId)->first();
+
         if (!$defaultCategory) {
-            $defaultCategory = Category::where('teamId', 'default')->first();
+            $defaultCategory = DefaultCategory::where('teamId', 'default')->get();
+            $defaultCategory->map(function ($item) use ($teamId) {
+                DefaultCategory::create([
+                    'teamId' => $teamId,
+                    'defaultCategory' => $item->defaultCategory
+                ]);
+            });
         }
+        $defaultCategoryList = DefaultCategory::where('teamId', $teamId)->get();
 
-        $decodeUnicodeString = function ($unicodeText) {
-            $unicodeTextWithEscapeSequences = preg_replace_callback('/u([0-9a-fA-F]{4})/', function ($matches) {
-                return mb_convert_encoding('&#x' . $matches[1] . ';', 'UTF-8', 'HTML-ENTITIES');
-            }, $unicodeText);
+        $categoryList = Category::where('teamId', $teamId)->get();
 
-            return json_decode('"' . $unicodeTextWithEscapeSequences . '"');
-        };
-
-        $defaultList = array_map($decodeUnicodeString, $defaultCategory->defaultList);
-        $categoryList = array_map($decodeUnicodeString, $defaultCategory->categoryList);
-        return view('accountingCategoryRegisterEdit', ['defaultList' => $defaultList, 'categoryList' => $categoryList, 'teamId' => $teamId]);
+        return view('accountingCategoryRegisterEdit', ['defaultList' => $defaultCategoryList, 'categoryList' => $categoryList, 'teamId' => $teamId]);
 
     }
     public function validate_default_category_register(Request $request, $teamId)
@@ -506,32 +511,37 @@ class BackController extends Controller
                 'categoryName.required' => 'デフォルトのカテゴリ名フィールドは必須です。'
             ]
         );
-
-        $category = Category::where('teamId', $teamId)->first();
         $requestValue = $request->categoryName;
-        $defaultCategory = [$request->categoryName];
-        if (!$category) {
+        $categories = Category::where('teamId', $teamId)->where('categoryList', $requestValue)->first();
+        if (!$categories) {
             Category::create([
                 'teamId' => $teamId,
-                'categorytList' => $defaultCategory,
+                'categoryList' => $requestValue,
             ]);
         } else {
-            $existingDefaultList = $category->categoryList ?? [];
-            if (!in_array($requestValue, $existingDefaultList)) {
-                $newDefaultList = array_merge($existingDefaultList, $defaultCategory);
-                $category->categoryList = $newDefaultList;
-                $category->save();
-            } else {
-                return redirect("accounting_category_register/$teamId")->with('existingName', 'existingName');
-
-            }
+            return redirect("accounting_category_register/$teamId")->with('existingName', 'existingName');
         }
         return redirect("accounting_category_register/$teamId")->with('success', '');
     }
-    public function validate_category_register(Request $request, $teamId)
+    public function validate_category_name_edit(Request $request, $teamId)
     {
-
-
+        //todo
+        $categoryList = $request->input('categoryList');
+        $dcategoryList = $request->input('deleteCategory');
+        if ($categoryList) {
+            foreach ($categoryList as $key => $value) {
+                echo "$key ':' $value";
+                $category = Category::where('teamId', $teamId)->where('categoryList', $key)->first();
+                $category->categoryList = $value;
+                $category->save();
+            }
+        }
+        if ($dcategoryList) {
+            foreach ($dcategoryList as $item) {
+                $dcategory = Category::where('teamId', $teamId)->where('categoryList', $item)->first();
+                $dcategory->delete();
+            }
+        }
     }
     public function accounting_register()
     {

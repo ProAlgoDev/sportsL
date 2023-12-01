@@ -11,7 +11,7 @@
 </div>
 <div class="team_info_edit_form">
 
-<form action={{route('validate_team_edit')}} method="post" enctype="multipart/form-data">
+<form action={{route('validate_team_edit',[$teamInfo->teamId])}} method="post" enctype="multipart/form-data">
     @csrf
                     <div class="new_team_create1_description">
                         <h3>基本情報</h3>
@@ -170,40 +170,7 @@
                             }
                         });
                     }
-                    // function postTeamInfo() {
-                    //    var avatar =  document.getElementById('fileInput');
-                    //    var file = avatar.files[0];
-                    //    var teamName = document.getElementById('teamEditDetailTeamName').value;
-                    //    var teamSports = document.getElementById('teamEditDetailTeamSports').value;
-                    //    var teamArea = document.getElementById('teamEditDetailTeamArea').value;
-                    //    var teamAge = document.getElementById('teamEditDetailTeamAge').value;
-                    //    var teamGender = document.getElementById('teamEditDetailTeamSex').value;
-                        
-                    //    var formData = new FormData();
-                    //    if(file){
-                    //     formData.append('image',file);
-                    //    }
-                    //    formData.append('teamName',teamName);
-                    //    formData.append('teamSports',teamSports);
-                    //    formData.append('teamArea',teamArea);
-                    //    formData.append('teamAge',teamAge);
-                    //    formData.append('teamGender',teamGender);
-
-                    //    fetch("{{route('validate_team_edit')}}",{
-                    //     method:"POST",
-                    //     body:formData,
-                    //     headers:{
-                    //         'X-CSRF-TOKEN':'{{csrf_token()}}',
-                    //     },
-                    //    })
-                    //    .then(res => res.json())
-                    //    .then(data => {
-                    //     console.log('UPload successful',data);
-                    //    })
-                    //    .catch(error => {
-                    //     console.log('Error', error);
-                    //    })
-                    // }
+                   
                 </script>
 </div>
 @endsection('content')
