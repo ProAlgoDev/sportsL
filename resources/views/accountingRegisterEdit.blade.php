@@ -3,7 +3,7 @@
 @include('bookDashboardLogo')
 <div class="header_menu_title">
     <div class="left_menu_back">
-        <a href="{{URL::previous()}}"><img src="{{asset('images/back.png')}}" alt=""></a>
+        <a href="{{route('book_dashboard',[$teamId,'all'])}}"><img src="{{asset('images/back.png')}}" alt=""></a>
     </div>
     <div class="left_menu_logo">
         会計項目登録・編集
@@ -14,12 +14,12 @@
 </div>
 <div class="accounting_register_edit_form">
 
-<form action="{{route('new_team_create2')}}" method="POST">
+<form action="{{route('validate_accounting_register',[$teamId])}}" method="POST">
                     @csrf
                     <div class="form-group mb-4 accounting_register_edit_input">
                         <div class="accounting_register_edit_date">
                             <span class="">日付</span>
-                            <input type="text" name="teamName" placeholder="" class="form-control" />
+                            <input type="date" name="inputDate" placeholder="" class="form-control  date_icon" />
                             @if($errors->has('teamName'))
                                 <span class="span text-danger">
                                     {{$errors->first('teamName')}}
@@ -28,10 +28,17 @@
                         </div>
                         <div class="accounting_register_edit_category">
                             <span class="">会計項目</span>
-                            <input type="text" name="teamName" placeholder="" class="form-control" />
-                            @if($errors->has('teamName'))
+                            <select name="categoryList" placeholder="" class="form-control select_template triangle_icon" >
+                                
+                                @if($categoryList)
+                                @foreach($categoryList as $category)
+                                <option>{{$category}}</option>
+                                @endforeach
+                                @endif
+                            </select>
+                            @if($errors->has('categoryList'))
                                 <span class="span text-danger">
-                                    {{$errors->first('teamName')}}
+                                    {{$errors->first('categoryList')}}
                                 </span>
                             @endif
                         </div>
@@ -39,35 +46,35 @@
                     <div class="accounting_register_edit_io">
                         <span>収支</span>
                         <div class="accounting_register_edit_io_switch">
-                            <input type="radio" name='io_switch' id='input' value="input"  />
+                            <input type="radio" name='io_switch' id='input' value="収入"  />
                             <label for="input" class="accounting_register_edit_io_input">収入</label>
-                            <input type="radio" name='io_switch' id='output' value="output"  checked/>
+                            <input type="radio" name='io_switch' id='output' value="支出"  checked/>
                             <label for="output" class="accounting_register_edit_io_output ">支出</label>
                         </div>
                     </div>
                     <div class="form-group mb-4 accounting_register_edit_amount_serial">
                         <div class="accounting_register_edit_amount">
                             <span >金額</span>
-                            <input type="text" name="teamName" placeholder="" class="form-control" />
-                            @if($errors->has('teamName'))
+                            <input type="number" pattern="\d*" name="amount" placeholder="" class="form-control" />
+                            @if($errors->has('amount'))
                                 <span class="span text-danger">
-                                    {{$errors->first('teamName')}}
+                                    {{$errors->first('amount')}}
                                 </span>
                             @endif
                         </div>
                         <div class="accounting_register_edit_serial">
                             <span >レシートNo</span>
-                            <input type="text" name="teamName" placeholder="" class="form-control" />
-                            @if($errors->has('teamName'))
+                            <input type="number" pattern="\d*" name="serial" placeholder="" class="form-control" />
+                            @if($errors->has('serial'))
                                 <span class="span text-danger">
-                                    {{$errors->first('teamName')}}
+                                    {{$errors->first('serial')}}
                                 </span>
                             @endif
                         </div>
                     </div>
                     <div class="accounting_register_edit_description">
                         <span>詳細</span>
-                        <textarea name = 'description' >asdfasdfasdfadf</textarea>
+                        <textarea name = 'description' ></textarea>
                     </div>
                     <div class="d-grid mx-auto">
                         <button class="btn btn-primary register_btn category_register_btn" type="submit">登録する</button>
@@ -84,17 +91,16 @@
                             <th class="serial">レシートNo</th>
                         </tr>
                         <tr>
-                            <td>2021/10/10</td>
-                            <td>保険</td>
-                            <td>支出</td>
-                            <td>2,000円</td>
-                            <td>10</td>
+                            <td id="previewDate"></td>
+                            <td id="previewCategory"></td>
+                            <td id="previewIo"></td>
+                            <td id="previewAmount"></td>
+                            <td id="previewSerial"></td>
                         </tr>
                     </table>
                     <div class="accounting_register_edit_preview_description">
                         <span>詳細</span>
-                        <p>テキストテキストテキストテキストテキストテキストテキストテ
-テキストテキストテキストテキストテキストテキストテキスト</p>
+                        <p id="previewDescription"></p>
                     </div>
                 </div>
                 <style>
@@ -102,5 +108,34 @@
 </style>
                 
 </div>
+<script>
+    $(document).ready(function(){
+        $('input[name="inputDate"]').change(function()
+        {
+            $('#previewDate').text($(this).val());
+        });
+         $('select[name="categoryList"]').change(function()
+        {
+            $('#previewCategory').text($(this).val());
+        });
+
+        $('input[name="amount"]').change(function()
+        {
+            $('#previewAmount').text($(this).val()+"円");
+        });
+        $('input[name="serial"]').change(function()
+        {
+            $('#previewSerial').text($(this).val());
+        });
+        $('input[name="io_switch"]').change(function()
+        {
+            $('#previewIo').text($(this).val());
+        });
+        $('textarea[name="description"]').change(function()
+        {
+            $('#previewDescription').text($(this).val());
+        });
+    });
+</script>
 
 @endsection('content')

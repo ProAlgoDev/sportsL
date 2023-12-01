@@ -344,6 +344,17 @@ class BackController extends Controller
             'sex' => $request->sex,
             'owner' => $owner
         ]);
+        $defaultCategory = DefaultCategory::where('teamId', $request->teamId)->first();
+        $teamId = $request->teamId;
+        if (!$defaultCategory) {
+            $defaultCategory = DefaultCategory::where('teamId', 'default')->get();
+            $defaultCategory->map(function ($item) use ($teamId) {
+                DefaultCategory::create([
+                    'teamId' => $teamId,
+                    'defaultCategory' => $item->defaultCategory
+                ]);
+            });
+        }
         $name = Auth::user()->name;
         return view('newTeamCreate3', ['name' => $name]);
 
@@ -483,17 +494,7 @@ class BackController extends Controller
     }
     public function accounting_category_register($teamId)
     {
-        $defaultCategory = DefaultCategory::where('teamId', $teamId)->first();
 
-        if (!$defaultCategory) {
-            $defaultCategory = DefaultCategory::where('teamId', 'default')->get();
-            $defaultCategory->map(function ($item) use ($teamId) {
-                DefaultCategory::create([
-                    'teamId' => $teamId,
-                    'defaultCategory' => $item->defaultCategory
-                ]);
-            });
-        }
         $defaultCategoryList = DefaultCategory::where('teamId', $teamId)->get();
 
         $categoryList = Category::where('teamId', $teamId)->get();
@@ -525,7 +526,7 @@ class BackController extends Controller
     }
     public function validate_category_name_edit(Request $request, $teamId)
     {
-        //todo
+        //todo change category name from book model
         $categoryList = $request->input('categoryList');
         $dcategoryList = $request->input('deleteCategory');
         if ($categoryList) {
@@ -543,9 +544,17 @@ class BackController extends Controller
             }
         }
     }
-    public function accounting_register()
+    public function accounting_register($teamId)
     {
-        return view('accountingRegisterEdit');
+        $defaultCategory = DefaultCategory::where('teamId', $teamId)->pluck('defaultCategory');
+        $category = Category::where('teamId', $teamId)->pluck('categoryList');
+        $category = $category ?? [];
+        $categoryList = $defaultCategory->merge($category)->all();
+        return view('accountingRegisterEdit', ['teamId' => $teamId, 'categoryList' => $categoryList]);
+    }
+    public function validate_accounting_register(Request $request, $teamId)
+    {
+        dump($request);
     }
     public function player_register()
     {

@@ -50,7 +50,7 @@ Route::controller(BackController::class)->group(function () {
     Route::get("team_edit_detail/{teamId}", 'team_edit_detail')->middleware('is_login_status')->middleware('is_register_book_status')->name('team_edit_detail');
     Route::get("team_edit_amount/{teamId}", 'team_edit_amount')->middleware('is_login_status')->middleware('is_register_book_status')->name('team_edit_amount');
     Route::get("accounting_category_register/{teamId}", 'accounting_category_register')->middleware('is_login_status')->middleware('is_register_book_status')->name('accounting_category_register');
-    Route::get("accounting_register", 'accounting_register')->middleware('is_login_status')->middleware('is_register_book_status')->name('accounting_register');
+    Route::get("accounting_register/{teamId}", 'accounting_register')->middleware('is_login_status')->middleware('is_register_book_status')->name('accounting_register');
     Route::get("player_register", 'player_register')->middleware('is_login_status')->middleware('is_register_book_status')->name('player_register');
     Route::get("invite_team", 'invite_team')->middleware('is_login_status')->middleware('is_register_book_status')->name('invite_team');
     Route::get("ownership_transfer", 'ownership_transfer')->middleware('is_login_status')->middleware('is_register_book_status')->name('ownership_transfer');
@@ -61,5 +61,7 @@ Route::controller(BackController::class)->group(function () {
     Route::post('validate_default_category_register/{teamId}', 'validate_default_category_register')->middleware('is_login_status')->middleware('is_register_book_status')->name('validate_default_category_register');
     Route::post('validate_category_register/{teamId}', 'validate_category_register')->middleware('is_login_status')->middleware('is_register_book_status')->name('validate_category_register');
     Route::post('validate_category_name_edit/{teamId}', 'validate_category_name_edit')->middleware('is_login_status')->middleware('is_register_book_status')->name('validate_category_name_edit');
+
+    Route::post('validate_accounting_register/{teamId}', 'validate_accounting_register')->middleware('is_login_status')->middleware('is_register_book_status')->name('validate_accounting_register');
 
 });

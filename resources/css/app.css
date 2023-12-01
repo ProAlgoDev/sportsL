@@ -1991,3 +1991,8 @@ input#left_menu_extend:checked+label {
     margin: auto;
     margin-bottom: 10px;
 }
+
+.select_template {
+    background: #eeeeee;
+    border-radius: 10px;
+}
