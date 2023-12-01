@@ -1,0 +1,1960 @@
+@font-face {
+    font-family: mulish;
+    src: url('/font/Mulish-VariableFont_wght.ttf');
+}
+
+.initial {
+    /* max-width: 430px; */
+    border: none;
+    outline: none;
+    margin: auto;
+}
+
+#initial button {
+    border: none;
+    outline: none;
+    padding: 0;
+    width: 100%;
+}
+
+#initial img {
+    width: 100%;
+}
+
+.login_container {
+    background-color: #F1F7FE;
+}
+
+.login_content {
+    margin: auto;
+    max-width: 430px;
+    padding: 38px;
+}
+
+.login_email span {
+    font-family: mulish;
+    font-weight: 800;
+    font-size: 17px;
+    color: #383838;
+    padding-bottom: 7px;
+    display: block;
+    padding-left: 20px;
+}
+
+.login_email {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.login_password span {
+    font-family: mulish;
+    font-weight: 800;
+    font-size: 17px;
+    color: #383838;
+    padding-bottom: 7px;
+    display: block;
+    padding-left: 20px;
+}
+
+.login_email input {
+    border-radius: 10px;
+    height: 50px;
+    padding-left: 60px;
+}
+
+.login_email img {
+    width: 28px;
+    position: absolute;
+    opacity: .5;
+    left: 14px;
+    top: 44px;
+}
+
+.login_password_input {
+    width: 28px;
+    position: absolute;
+    opacity: .5;
+    left: 14px;
+    top: 44px;
+}
+
+.login_password input {
+    border-radius: 10px;
+    height: 50px;
+    padding-left: 60px;
+}
+
+.login_password {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.login_logo {
+    padding-top: 25%;
+    padding-bottom: 25%;
+    margin: auto;
+    text-align: center;
+    display: block;
+}
+
+.login_btn button {
+    background-color: #3FBAEE;
+    border: none;
+    width: 300px;
+    height: 55px;
+    font-size: 20px;
+    font-family: 'mulish';
+    font-weight: 900;
+    border-radius: 10px;
+}
+
+.login_btn button:hover {
+    background-color: #00affa;
+
+}
+
+.login_btn {
+    text-align: center;
+}
+
+.login_forgot a {
+    text-decoration: none;
+    color: #858789;
+    font-weight: 700;
+    display: block;
+    padding-bottom: 16px;
+    padding-left: 20px;
+}
+
+.login_forgot a:hover {
+    color: #3e6283;
+
+}
+
+.login_register a {
+    text-decoration: none;
+    color: #497DFF;
+    font-weight: 700;
+    display: block;
+    padding-bottom: 16px;
+    padding-left: 20px;
+    text-align: center;
+    padding-top: 16px;
+}
+
+.login_register a:hover {
+    color: #1d5cfa;
+}
+
+.login_social a {
+    width: 60px;
+    height: 60px;
+    display: block;
+}
+
+.login_social img {
+    width: 100%;
+}
+
+.login_social {
+    display: flex;
+    padding-bottom: 60px;
+    gap: 10px;
+    justify-content: center;
+}
+
+#login_password_show {
+    width: 33px;
+    position: absolute;
+    opacity: .8;
+    right: 16px;
+    top: 45px;
+}
+
+#login_password_show img {
+    width: 100%;
+}
+
+.register_content {
+    max-width: 430px;
+    margin: auto;
+}
+
+.register_logo {
+    width: 300px;
+    margin: auto;
+    margin-top: 45px;
+    margin-bottom: 12px;
+}
+
+.register_logo img {
+    width: 100%;
+}
+
+.register_title h1 {
+    font-family: 'mulish';
+    font-weight: 900;
+    color: #383838;
+    font-size: 30px;
+}
+
+.register_title {
+    text-align: center;
+}
+
+.register_progress img {
+    width: 100%;
+}
+
+.register_progress {
+    width: 350px;
+    margin: auto;
+}
+
+.register_form {
+    margin-top: 55px;
+}
+
+.register_form input {
+    height: 50px;
+    border-radius: 10px;
+    width: 320px;
+    margin: auto;
+    padding-left: 47px;
+}
+
+.register_form span {
+    padding-left: 13%;
+}
+
+.register_form div {
+    position: relative;
+}
+
+.register_form img {
+    position: absolute;
+    width: 28px;
+    left: 69px;
+    top: 11px;
+    opacity: .5;
+}
+
+.register_btn {
+    width: 280px;
+    height: 55px;
+    margin: auto;
+    margin-top: 15px;
+    background-color: #3FBAEE;
+    border: none;
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    border-radius: 10px;
+}
+
+.register_btn:hover {
+    background-color: #00affa;
+}
+
+.register_back a {
+    display: block;
+    width: 280px;
+    height: 40px;
+    margin: auto;
+    text-align: center;
+    margin-top: 20px;
+    background-color: #9CA6A9;
+    padding: 7px;
+    color: white;
+    font-size: 17px;
+    font-weight: 900;
+    text-decoration: none;
+    border-radius: 10px;
+    letter-spacing: 4px;
+}
+
+.register_back a:hover {
+    background-color: #7f7f7f;
+}
+
+.register2_form img {
+    width: 32px;
+    margin-right: 14px;
+    opacity: .6;
+}
+
+.register2_form {
+    width: 370px;
+    margin: auto;
+    margin-top: 40px;
+}
+
+.register2_field {
+    margin-bottom: 10px;
+}
+
+.register2_result {
+    padding-left: 44px;
+    font-size: 18px;
+}
+
+.policy {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.policy input {
+    height: 20px;
+    width: 20px;
+    margin-right: 10px;
+}
+
+.policy span {
+    display: inline-block;
+    color: #2790BD;
+}
+
+.register3_form a {
+    color: white;
+    text-decoration: none;
+    line-height: 2.5;
+
+}
+
+.register3_form {
+    text-align: center;
+}
+
+.register3_form h2 {
+    margin-top: 55px;
+    margin-bottom: 38px;
+    font-size: 20px;
+    font-weight: 999;
+}
+
+.register3_logo img {
+    width: 77%;
+}
+
+.register3_content {
+    margin-top: 22px;
+}
+
+.resend_email_content {
+    text-align: center;
+    font-size: 21px;
+    margin-bottom: 24px;
+}
+
+.dashboard_title {
+    gap: 20px;
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.dashboard_title img {
+    width: 54px;
+    object-fit: contain;
+}
+
+.dashboard_w h2 {
+    font-size: 22px;
+}
+
+.dashboard_how {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.dashboard_how h3 {
+    font-size: 20px;
+    color: #009BF2;
+    border-bottom: 2px dotted #009BF2;
+    font-weight: bold;
+}
+
+.dashboard_how h3 {
+    font-size: 20px;
+    color: #009BF2;
+    border-bottom: 2px dotted #009BF2;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.dashboard_how {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.dashboard_group {
+    display: flex;
+    background-color: #3FBAEE;
+    justify-content: center;
+    gap: 13px;
+    align-items: center;
+    width: 290px;
+    text-align: center;
+    margin: auto;
+    margin-top: 30px;
+    height: 56px;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+.dashboard_group img {
+    width: 40px;
+}
+
+.dashboard_group_content {
+    color: white;
+    font-weight: 999;
+    font-size: 18px;
+}
+
+.new_team_create1_description p {
+    display: inline-block;
+    border-bottom: 2px dotted #383838;
+    padding: 5px;
+}
+
+.new_team_create1_description {
+    text-align: center;
+    padding-top: 20px;
+    font-size: 18px;
+    padding-bottom: 15px;
+}
+
+.new_team_create1_form input {
+    margin: auto;
+    width: 300px;
+    height: 35px;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+}
+
+.new_team_create1_form span {
+    display: block;
+    width: 300px;
+    margin: auto;
+    margin-bottom: 5px;
+    color: #383838;
+    font-size: 18px;
+}
+
+.new_team_create1_form select {
+    margin: auto;
+    width: 300px;
+    height: 35px;
+    border-radius: 10px;
+    background-color: #f0f0f0 !important;
+    background: url('/images/triangle.png');
+    background-repeat: no-repeat;
+    background-size: 22px;
+    background-position: right 15px top 8px;
+}
+
+.new_team_create2_form .m_select {
+    text-align: center;
+    font-size: 18px;
+    border-bottom: 1px solid #d9d9d9;
+    width: 300px;
+    margin: auto;
+    padding: 7px;
+}
+
+.new_team_create2_form .m_data {
+    display: block;
+}
+
+.new_team_create3_form {
+    margin-top: 36px;
+}
+
+.new_team_create3_description {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    border-bottom: 1px solid #bebebe;
+    padding-bottom: 10px;
+}
+
+.new_team_create3_description img {
+    width: 60px;
+    object-fit: contain;
+}
+
+.new_team_create3_w h2 {
+    text-align: center;
+    font-size: 27px;
+    color: #383838;
+}
+
+.new_team_create3_content {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 20px;
+}
+
+.page_logo {
+    text-align: center;
+    border-bottom: 1px solid #DDDDDD;
+    padding: 5px;
+}
+
+.page_logo img {
+    width: 200px;
+}
+
+.success_verify {
+    text-align: center;
+    font-size: 23px;
+    color: #009fff;
+    margin-bottom: 14px;
+    font-weight: 999;
+}
+
+.book_header {
+    display: flex;
+    gap: 9px;
+    padding: 7px;
+    padding-left: 18px;
+    box-shadow: 0px 2px 3px #c3c3c3;
+    align-items: center;
+}
+
+.book_header img {
+    width: 40px;
+    object-fit: contain;
+}
+
+.book_header_id span {
+    display: block;
+}
+
+.book_header button {
+    border: none;
+    background: none;
+}
+
+.book_date_switch input {
+    display: none;
+}
+
+.book_date_switch {
+    color: white;
+    padding: 10px;
+    padding-left: 25px;
+    position: relative;
+    box-shadow: 0px 2px 3px #c3c3c3;
+}
+
+/* .book_date_switch::before {
+    content: '';
+    width: 200px;
+    left: 43px;
+    height: 24px;
+    background-color: #aaaaaa;
+    position: absolute;
+    z-index: -1;
+    bottom: 13px;
+} */
+
+.book_date_switch label {
+    width: 90px;
+    background-color: #aaaaaa;
+    text-align: center;
+}
+
+.book_date_switch form {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.book_date_switch .book_date_all {
+    border-radius: 28px 0 0 28px;
+}
+
+.book_date_switch .book_date_year {
+    transform: translate(-15px, 0px);
+}
+
+.book_date_switch .book_date_month {
+    border-radius: 0 28px 28px 0;
+    transform: translate(-30px, 0px);
+}
+
+.book_date_switch .date_active {
+    background-color: #008DB9;
+    border-radius: 30px;
+    width: 90px;
+    padding-top: 3px;
+    height: 26px;
+    z-index: 2;
+}
+
+.date_from_to h4 {
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.date_from_to {
+    margin-top: 13px;
+}
+
+.book_summer_bar {
+    display: block;
+    width: 85%;
+    height: 5px;
+    background-color: #008DB9;
+    margin: auto;
+}
+
+.book_summer_input {
+    height: 65px;
+    width: 100%;
+    border: 1px solid #C4C4C4;
+    border-top: none;
+}
+
+.book_summer_output {
+    height: 65px;
+    width: 100%;
+    border: 1px solid #C4C4C4;
+    border-top: none;
+}
+
+.book_summer_sum {
+    height: 65px;
+    width: 100%;
+    border: 1px solid #C4C4C4;
+    border-top: none;
+}
+
+.book_summer_content {
+    display: flex;
+    margin: 0 7.5%;
+    gap: 5%;
+}
+
+.book_summber_title {
+    font-size: 16px;
+    padding: 7px;
+    display: inline-block;
+}
+
+.book_summber_amount {
+    text-align: right;
+    display: block;
+    font-size: 14px;
+    padding-right: 10px;
+}
+
+.book_summber_graph {
+    margin-top: 40px;
+    margin-left: 25px;
+    text-align: center;
+}
+
+.book_summber_graph h2 {
+    font-size: 18px;
+    font-weight: 900;
+    text-align: left;
+}
+
+.book_summber_graph img {
+    width: 100px;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.book_summber_graph h3 {
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+
+.book_summber_table {
+    margin-top: 40px;
+    margin-left: 25px;
+    text-align: center;
+}
+
+.book_summber_table h2 {
+    font-size: 18px;
+    font-weight: 900;
+    text-align: left;
+}
+
+.book_summber_table img {
+    width: 100px;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.book_summber_table h3 {
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.book_dashboard_menu_container {
+    position: absolute;
+    width: 353px;
+    height: 736px;
+    transition: all .6s;
+    transform: translate(-353px, 0px);
+    z-index: 8;
+}
+
+.menu_background {
+    background-color: #0404044f;
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    transition: all .5s;
+}
+
+.menu_header {
+    z-index: 8;
+    position: relative;
+    margin-top: 23px;
+    margin-left: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.menu_content {
+    z-index: 8;
+    position: relative;
+    margin-top: 24px;
+}
+
+.menu_header_info {
+    margin-left: 20px;
+    color: #333333;
+}
+
+.menu_header_info_userName span {
+    font-size: 13px;
+    margin-left: 7px;
+    background-color: #D9D9D9;
+    padding: 2px 8px;
+    font-weight: 999;
+}
+
+.menu_header_list {
+    clip-path: polygon(0% 0%, 50% 100%, 100% 0%);
+    height: 26px;
+    width: 28px;
+    border: none;
+    background-color: #3a3a3a;
+    position: absolute;
+    right: 13px;
+    transition: all 0.7s;
+}
+
+.menu_header_avatar {
+    width: 78px;
+}
+
+.menu_background_1 {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    position: absolute;
+    background-color: white;
+    z-index: 6;
+}
+
+.menu_active {
+    background-color: #555555;
+}
+
+.menu_content_home_title {
+    display: flex;
+    gap: 16px;
+    color: #333333;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 8px 0 8px 25px;
+    text-decoration: none;
+    border-top: 1px solid #d9d9d9;
+    border-bottom: 1px solid #d9d9d9;
+    cursor: pointer;
+    transition: all 0.6s;
+}
+
+.menu_content_home_title:hover {
+    color: #0d6efd;
+}
+
+.menu_content_home_list {
+    height: 0;
+    overflow: hidden;
+    transition: all 0.6s;
+}
+
+input#home_menu:checked~.menu_content_home_list {
+    height: 300px;
+}
+
+input#home_menu:checked+label {
+    color: white;
+    background: #555555;
+    border-bottom: 1px solid #ffffff00 !important;
+}
+
+#home_menu:checked+.menu_content_home_title #home_image {
+    filter: invert(0);
+}
+
+input#home_menu:checked+img {
+    display: none;
+}
+
+.menu_content_home_title img {
+    filter: invert(1);
+    opacity: .7;
+}
+
+.menu_content_home_item {
+    margin-left: 59px;
+    display: flex;
+    padding: 13px 0;
+    gap: 15px;
+    color: #333333;
+    text-decoration: none;
+}
+
+.menu_account_setting {
+    display: flex;
+    gap: 16px;
+    color: #333333;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 8px 0 8px 25px;
+    text-decoration: none;
+    border-top: 1px solid #d9d9d9;
+    border-bottom: 1px solid #d9d9d9;
+}
+
+.menu_account_logout {
+    display: flex;
+    gap: 16px;
+    color: #333333;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 8px 0 8px 25px;
+    text-decoration: none;
+    border-bottom: 1px solid #d9d9d9;
+}
+
+.menu_content_version {
+    position: absolute;
+    bottom: 0;
+    color: #676767;
+    z-index: 999;
+    text-align: center;
+    font-size: 12px;
+    border-top: 1px solid #d9d9d9;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 100%;
+}
+
+.header_menu_title {
+    position: relative;
+
+    box-shadow: 0px 3px 4px #ababab40;
+}
+
+.left_menu_back {
+    position: absolute;
+    padding: 10px;
+    padding-left: 25px;
+    margin-top: 3px;
+}
+
+.left_menu_back img {
+    width: 10px;
+}
+
+.left_menu_back button {
+    border: none;
+    background: none;
+}
+
+.left_menu_logo {
+    text-align: center;
+    padding: 10px;
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: #383838;
+}
+
+.team_info_edit h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 25px;
+}
+
+.team_info_edit img {
+    width: 78px;
+    margin-top: 12px;
+    margin-left: 10%;
+    margin-bottom: 15px;
+}
+
+.team_info_edit table {
+    margin-left: 10%;
+    width: 100%;
+}
+
+.team_info_edit td {
+    min-width: 100px;
+    height: 30px;
+
+}
+
+.team_info_edit td:first-child {
+    width: 80px;
+}
+
+.team_info_edit tr {
+    position: relative;
+    padding: 4px 0;
+    display: block;
+}
+
+.team_info_edit tr::after {
+    content: "";
+    width: 88%;
+    height: 1px;
+    display: block;
+    position: absolute;
+    left: 0;
+    transform: translate(-5%, 0px);
+    bottom: 0;
+    border-bottom: 1px dotted #8a8a8a;
+}
+
+.team_info_edit_btn {
+    text-align: center;
+    padding: 20px;
+}
+
+.team_info_edit_btn a {
+    width: 120px;
+    height: 40px;
+    background-color: #3FBAEE;
+    color: white;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    display: block;
+    margin: auto;
+    text-decoration: none;
+    line-height: 2.4;
+
+}
+
+
+.initial_amount_set h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 15px;
+}
+
+
+
+.initial_amount_set table {
+    margin-left: 10%;
+    width: 100%;
+}
+
+.initial_amount_set td {
+    min-width: 100px;
+    height: 30px;
+
+}
+
+.initial_amount_set td:first-child {
+    width: 80px;
+}
+
+.initial_amount_set p {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.initial_amount_set tr {
+    position: relative;
+    padding: 4px 0;
+    display: block;
+}
+
+.initial_amount_set tr::after {
+    content: "";
+    width: 88%;
+    height: 1px;
+    display: block;
+    position: absolute;
+    left: 0;
+    transform: translate(-5%, 0px);
+    bottom: 0;
+    border-bottom: 1px dotted #8a8a8a;
+}
+
+.initial_amount_btn {
+    text-align: center;
+    padding: 20px;
+}
+
+.initial_amount_btn a {
+    width: 120px;
+    height: 40px;
+    background-color: #3FBAEE;
+    color: white;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    display: block;
+    margin: auto;
+    text-decoration: none;
+    line-height: 2.4;
+}
+
+.team_info_edit_form {
+    margin: 0 6%;
+}
+
+.team_info_edit_form h3 {
+    border-bottom: 2px dotted #8a8a8a;
+    padding-bottom: 7px;
+}
+
+.team_edit_info_detail {
+    margin-bottom: 14px !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 352px;
+    flex-wrap: wrap;
+}
+
+.team_edit_info_detail .span {
+    margin-left: 44px;
+}
+
+.team_edit_info_detail_title {
+    font-size: 16px;
+    color: #333333;
+    float: left;
+    width: 90px;
+    line-height: 2.4;
+}
+
+.team_edit_info_detail input {
+    width: 260px;
+    border-radius: 10px;
+}
+
+.team_edit_info_detail .text-danger {
+    font-size: 14px;
+}
+
+.team_edit_info_detail select {
+    width: 260px;
+    border-radius: 10px;
+}
+
+.team_info_edit_form button {
+    width: 190px;
+}
+
+.team_info_edit_form {
+    max-width: 350px;
+    margin: auto;
+}
+
+.team_info_edit_form select {
+
+    background-color: #f0f0f0 !important;
+    background: url('/images/triangle.png');
+    background-repeat: no-repeat;
+    background-size: 22px;
+    background-position: right 15px top 8px;
+}
+
+.team_info_edit_form input {
+    background-color: #f0f0f0;
+}
+
+#calendar {
+    background-image: url(/public/images/birth.png);
+    background-repeat: no-repeat;
+    background-size: 22px;
+    background-position: top 50% right 15px;
+}
+
+.account_register_edit_category_name {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.account_register_edit_category_name span {
+    display: block;
+}
+
+.account_register_edit_category_name a {
+    display: block;
+}
+
+.accounting_category_register_edit_form {
+    max-width: 320px;
+    margin: auto;
+    margin-top: 30px;
+}
+
+.accounting_category_register_edit_form input {
+    height: 45px;
+}
+
+.accounting_category_register_edit_form span {
+    margin-bottom: 10px;
+    display: block;
+}
+
+.category_register_btn {
+    width: 180px;
+    margin-top: 0;
+}
+
+.category_edit {
+    max-width: 360px;
+    margin: auto;
+    margin-top: 35px;
+}
+
+.category_edit table {
+    background-color: #eeeeee;
+}
+
+.category_edit_btn {
+    text-align: center;
+}
+
+.category_edit_btn {
+    margin-top: 35px;
+}
+
+.category_edit_name {
+    padding: 10px 0px;
+    width: 230px;
+    padding-left: 20px;
+}
+
+.category_edit_title {
+    padding: 10px 20px;
+}
+
+.category_edit_button {
+    width: 60px;
+}
+
+.category_delete_button {
+    width: 60px;
+}
+
+.category_edit_list img {
+    width: 24px;
+    opacity: .7;
+}
+
+.category_edit_list button {
+    border: none;
+}
+
+.category_edit_list tr {
+    border-bottom: 1px solid #989898;
+    position: relative;
+}
+
+.accounting_category_register_edit_form input {
+    border-radius: 10px;
+    background: #eeeeee;
+    background-image: url(/public/images/category1.png);
+    background-repeat: no-repeat;
+    background-size: 30px;
+    background-position: left 15px top 50%;
+    padding-left: 50px;
+}
+
+.accounting_category_edit_btn {
+    position: absolute;
+    top: 60px;
+    right: 15px;
+    font-size: 14px;
+}
+
+.accounting_category_edit_btn button {
+    border: none;
+    background: none;
+}
+
+.accounting_register_edit_form {
+    margin-top: 36px;
+    color: #333333;
+}
+
+.accounting_register_edit_input {
+    display: flex;
+    gap: 28px;
+    justify-content: center;
+}
+
+.accounting_register_edit_date span {
+    margin-bottom: 4px;
+    display: block;
+}
+
+.accounting_register_edit_category span {
+    margin-bottom: 4px;
+    display: block;
+}
+
+.accounting_register_edit_date {
+    width: 166px;
+}
+
+.accounting_register_edit_category {
+    width: 166px;
+}
+
+.accounting_register_edit_date input {
+    background: #eeeeee;
+    border-radius: 10px;
+}
+
+.accounting_register_edit_category input {
+    background: #eeeeee;
+    border-radius: 10px;
+}
+
+.accounting_register_edit_io {
+    display: flex;
+    width: 360px;
+    margin: auto;
+    gap: 40px;
+}
+
+.accounting_register_edit_io_switch input {
+    display: none;
+}
+
+.accounting_register_edit_amount_serial {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+    gap: 30px;
+}
+
+.accounting_register_edit_amount input {
+    width: 166px;
+    border-radius: 10px;
+    background: #f0f0f0;
+    margin-top: 10px;
+}
+
+.accounting_register_edit_serial input {
+    width: 166px;
+    border-radius: 10px;
+    background: #f0f0f0;
+    margin-top: 10px;
+}
+
+.accounting_register_edit_io_switch label {
+    width: 90px;
+    background: #AAAAAA;
+    text-align: center;
+    border-radius: 20px;
+    color: white;
+    height: 30px;
+    line-height: 1.8;
+}
+
+.accounting_register_edit_io_output {
+
+    transform: translate(-30px, 0px);
+}
+
+[name="io_switch"]:checked+label {
+    background-color: #3FBAEE !important;
+    z-index: 99;
+    position: relative;
+}
+
+.accounting_register_edit_description {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    max-width: 364px;
+    margin-bottom: 20px;
+}
+
+.accounting_register_edit_description span {
+    display: block;
+    transform: translate(14px, 10px);
+    z-index: 9;
+    background: white;
+    width: 45px;
+    text-align: center;
+}
+
+.accounting_register_edit_description textarea {
+    position: relative;
+    display: block;
+    margin: auto;
+    min-width: 362px;
+    min-height: 100px;
+    border: 1px solid #878787;
+    padding: 10px;
+}
+
+.accounting_register_edit_description textarea:focus-visible {
+    border: 1px solid rgb(88, 88, 88);
+    outline: none !important;
+}
+
+.accounting_register_edit_preview {
+    color: #333333;
+    max-width: 364px;
+    margin: auto;
+    margin-top: 30px;
+}
+
+.accounting_register_edit_preview h4 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.accounting_register_edit_preview tr {
+    background: #eeeeee;
+    border-bottom: 2px solid white;
+}
+
+.accounting_register_edit_preview th {
+    min-width: 50px;
+    font-size: 15px;
+}
+
+.accounting_register_edit_preview td {
+    font-size: 14px;
+}
+
+.accounting_register_edit_preview .date {
+    width: 96px;
+}
+
+.accounting_register_edit_preview .amount {
+    width: 83px;
+}
+
+.accounting_register_edit_preview_description {
+    margin-top: 10px;
+}
+
+.accounting_register_edit_preview_description span {
+    margin-left: 13px;
+    transform: translate(3px, 11px);
+    display: block;
+    background: white;
+    width: 40px;
+    text-align: center;
+}
+
+.accounting_register_edit_preview_description p {
+    border: 1px solid #878787;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.input_form {
+    display: flex;
+    max-width: 260px;
+    margin: auto;
+    gap: 5px;
+    margin-top: 15px;
+    align-items: center;
+    color: #333333;
+}
+
+.input_form span {
+    width: 80px;
+    display: block;
+}
+
+.input_form input {
+    background: #f0f0f0;
+    background: #f0f0f0;
+    border-radius: 10px;
+}
+
+.player_name {
+    margin-top: 40px;
+}
+
+.player_enter_date {
+    margin-bottom: 30px;
+}
+
+.player_style label {
+    color: #aaaaaa;
+    border-bottom: 1px solid #aaaaaa;
+}
+
+.player_style input {
+    display: none;
+}
+
+.player_result_table {
+    max-width: 400px;
+    margin: auto;
+    margin-top: 40px;
+    color: #333333;
+    padding: 0 8px;
+}
+
+.player_edit {
+    margin-top: 20px;
+}
+
+.player_edit .name {
+    width: 106px;
+}
+
+.player_edit .gender {
+    width: 40px;
+}
+
+.player_edit .date {
+    width: 74px;
+}
+
+.player_edit td {
+    font-size: 14px;
+}
+
+.player_edit tr {
+    height: 46px;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+.player_edit img {
+    width: 26px;
+}
+
+.player_edit a {
+    padding: 0 8px;
+    text-decoration: none;
+}
+
+.triangle_icon {
+    background-image: url(/public/images/triangle.png) !important;
+    background-repeat: no-repeat !important;
+    background-size: 24px !important;
+    background-position: right 11px top 8px !important;
+}
+
+.date_icon {
+    background-image: url(/public/images/birth.png) !important;
+    background-repeat: no-repeat !important;
+    background-size: 24px !important;
+    background-position: right 11px top 6px !important;
+}
+
+[name='playerStyle']:checked+label {
+    color: #2790BD !important;
+    border-bottom: 2px solid #2790BD;
+    font-weight: 800;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: none;
+    /* padding: 0;
+    margin: 0;
+    display: none; */
+}
+
+.invite_team_form {
+    color: #333333;
+    margin-top: 76px;
+    text-align: center;
+}
+
+.invite_team_form input {
+    height: 50px;
+}
+
+.invite_team_form h4 {
+    margin-bottom: 20px;
+}
+
+.invite_team_form input {
+    background: #f0f0f0;
+    background-image: url(/public/images/email1.png);
+    background-repeat: no-repeat;
+
+    font-size: 20px;
+    width: 320px;
+    margin: auto;
+    border-radius: 10px;
+    padding-left: 58px;
+    background-size: 38px;
+    background-position: left 11px top 5px;
+}
+
+.invite_team_form button {
+    margin-top: 30px;
+}
+
+.ownerlist input {
+    /* display: none; */
+}
+
+.owner_edit_form {
+    color: #333333;
+}
+
+.owner_edit_form h3 {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 18px;
+}
+
+.owner_edit_form p {
+    max-width: 390px;
+    margin: auto;
+    padding: 0 8px;
+}
+
+.owner_edit_form form {
+    margin: 20px auto;
+    max-width: 390px;
+    padding: 0 8px;
+}
+
+.owner_edit_form h4 {
+    padding: 10px;
+    font-size: 18px;
+    color: #2790BD;
+    border-bottom: 2px solid #2790BD;
+    width: 150px;
+    font-weight: 800;
+    text-align: center;
+}
+
+.ownerlist span {
+    display: inline-block;
+    font-size: 15px;
+}
+
+.ownerlist button {
+    margin-top: 40px;
+}
+
+.ownerlist input {
+    transform: scale(1.5);
+    width: 44px;
+}
+
+.ownerlist img {
+    width: 30px;
+    margin-left: 10px;
+}
+
+.ownerlist label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 44px;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+.accounting_setting_form .personal_info {
+    display: flex;
+    margin-left: 20px;
+    margin-top: 26px;
+    margin-bottom: 20px;
+}
+
+.accounting_setting_form .personal_info img {
+    width: 74px;
+}
+
+.accounting_setting_form .personal_info button {
+    border: none;
+    background: none;
+}
+
+.accounting_setting_form .personal_info_content p {
+    margin-block-end: 0;
+    padding: 5px;
+
+}
+
+.accounting_setting_form .included_team {
+    margin-left: 20px;
+}
+
+.accounting_setting_form .included_team h4 {
+    font-size: 18px;
+}
+
+.accounting_setting_form .included_team td {
+    padding-right: 20px;
+    padding-top: 5px;
+}
+
+.accounting_setting_form .account_detail_info {
+    margin: 30px 20px;
+}
+
+.account_detail_info .birthday .title {
+    background-image: url(/public/images/birth.png);
+    background-repeat: no-repeat;
+    background-size: 26px;
+    padding-left: 34px;
+}
+
+.account_detail_info .gender .title {
+    background-image: url(/public/images/gender.png);
+    background-repeat: no-repeat;
+    background-size: 26px;
+    padding-left: 34px;
+}
+
+.account_detail_info .email .title {
+    background-image: url(/public/images/email1.png);
+    background-repeat: no-repeat;
+    background-size: 26px;
+    padding-left: 34px;
+    display: flex;
+    flex-direction: column;
+    background-position-y: 7px;
+}
+
+.account_detail_info .password .title {
+    background-image: url(/public/images/password.png);
+    background-repeat: no-repeat;
+    background-size: 26px;
+    padding-left: 34px;
+    display: flex;
+    flex-direction: column;
+    background-position-y: 7px;
+}
+
+.account_detail_info div {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0px;
+    border-bottom: 2px dotted #767676;
+    min-height: 46px;
+}
+
+.account_detail_info .email .title {
+    border: none !important;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.account_detail_info .password .title {
+    border: none !important;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.account_detail_info .password button {
+    border: none;
+    background: none;
+}
+
+.account_detail_info .password .title img {
+    width: 30px;
+}
+
+.account_detail_info .email button {
+    border: none;
+    background: none;
+}
+
+.account_detail_info .email .title img {
+    width: 30px;
+}
+
+.accounting_setting_form .team_relative_btn {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.accounting_setting_form .team_relative_btn a {
+    line-height: 2.3;
+}
+
+.accounting_setting_form .security {
+    margin: 0 20px;
+    font-size: 14px;
+    color: #808080;
+}
+
+.accounting_setting_form .account_delete_btn {
+    background: #9CA6A9;
+    color: white;
+    font-weight: 800;
+    text-decoration: none;
+    text-align: center;
+    margin: auto;
+    display: block;
+    max-width: 280px;
+    height: 40px;
+    margin-top: 20px;
+    border-radius: 10px;
+    line-height: 2.4;
+}
+
+.left_menu_team_list {
+    z-index: 10;
+    position: relative;
+    color: #333333;
+    display: none;
+    margin-top: 30px;
+}
+
+.left_menu_team_list img {
+    width: 40px;
+    margin-right: 8px;
+}
+
+.left_menu_team_list .team_category {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 11px 5%;
+    color: #333333;
+    text-decoration: none;
+    border-bottom: 1px solid #dddddd;
+}
+
+#left_menu_extend {
+    display: none;
+}
+
+
+input#left_menu_extend:checked+label {
+    clip-path: polygon(0% 30%, 0% 70%, 100% 70%, 100% 30%);
+}
+
+.team_avatar_edit button {
+    background: none;
+    border: none;
+    width: 84px;
+    margin-bottom: 20px;
+}
+
+.team_avatar_edit img {
+    width: 80px;
+    margin-bottom: 14px;
+}
+
+.team_info_edit_form .team_edit_btn {
+    width: 175px;
+    height: 45px;
+    color: white;
+    border-radius: 10px;
+    background: #3FBAEE;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 2.4;
+    margin: auto;
+}
+
+.team_edit_modal {
+
+    display: block;
+    position: absolute;
+    top: 29%;
+    transform: translate(16%, 0px);
+    width: 326px;
+    background: #555555;
+    color: white;
+    height: 165px;
+}
+
+.team_edit_modal h4 {
+    font-size: 18px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.team_edit_modal p {
+    margin: auto 23px;
+    font-size: 14px;
+}
+
+.team_edit_modal_btn {
+    display: flex;
+    font-size: 16px;
+    margin-top: 11px;
+}
+
+.team_edit_modal_btn button {
+    border: none;
+    background: none;
+    color: white;
+    font-weight: 700;
+}
+
+.team_edit_success_modal {
+
+    display: block;
+    position: absolute;
+    top: 29%;
+    transform: translate(16%, 0px);
+    width: 326px;
+    background: #555555;
+    color: white;
+    height: 188px;
+}
+
+.team_edit_success_modal h4 {
+    font-size: 18px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.team_edit_success_modal p {
+    margin: auto 23px;
+    font-size: 14px;
+}
+
+.team_edit_success_modal_btn button {
+    border: none;
+    background: none;
+    color: white;
+    font-weight: 700;
+}
+
+.team_edit_success_modal_btn {
+    text-align: center;
+    margin-top: 12px;
+}
+
+.initial_amount_form .team_edit_info_detail .text-danger {
+    margin-left: 88px;
+}
+
+.default_category_show {
+    margin-bottom: 10px;
+    color: rgb(0, 89, 255);
+    cursor: pointer;
+}
+
+.default_category_list {
+    background: #555555;
+    color: white;
+    display: none;
+    position: absolute;
+    width: 300px;
+    z-index: 10;
+}
+
+.default_category_list h4 {
+    font-size: 18px;
+    padding: 16px;
+}
+
+.default_category_list span {
+    margin-bottom: 0;
+    text-align: left;
+    margin-left: 50px;
+}
+
+#default_category_list_hidden {
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#default_category_show:checked~.default_category_list {
+    display: block !important;
+}
+
+.default_category_list_content {
+    max-height: 390px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    overflow-y: scroll;
+}
+
+.default_category_list_content::-webkit-scrollbar {
+    display: none;
+
+}
+
+.category_edit_name input {
+    background: none;
+    border: none;
+    padding-left: 0;
+}
+
+.category_edit_name input:focus {
+    box-shadow: none !important;
+    border: none !important;
+    outline: none !important;
+}
+
+.category_edit_div {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    background: #eeeeee;
+}
+
+.category_edit_div input {
+    background: white;
+    padding-left: 10px;
+    box-shadow: none;
+    border: 1px solid gray;
+}
+
+.category_edit_div button {
+    background: #009fff;
+    color: white;
+    margin-left: 23px;
+    padding: 5px;
+    width: 80px;
+    border-radius: 10px;
+}
+
+.alert_existing_name {
+    background: none;
+    z-index: 20;
+    position: absolute;
+    height: 40px;
+    line-height: 1.7;
+    left: 0;
+    height: 30px;
+    width: 100%;
+}

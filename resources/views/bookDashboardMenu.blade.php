@@ -38,16 +38,18 @@
             <div class="menu_search">
             </div>
             <div class="menu_content_home book_menu">
-                <a href="#" class="menu_content_home_title menu_active">
-                    <img src="{{asset('images/home.svg')}}" alt="">
+                <input id="home_menu" type="checkbox" class="left_home_menu" style="display:none;">
+                <label for='home_menu' href="#" class="menu_content_home_title">
+                    <img id="home_image" src="{{asset('images/home.svg')}}" alt="">
                     <div class="">ホーム</div>
-                </a>
+                </label>
+
                 <div class="menu_content_home_list">
                     <a href="{{route('team_edit',[$teamId])}}" class="menu_content_home_item">
                         <img src="{{asset('images/edit-2.svg')}}" alt="">
                     <div class="">チーム情報編集</div>
                 </a>
-                    <a href="{{route('accounting_category_register')}}" class="menu_content_home_item">
+                    <a href="{{route('accounting_category_register',[$teamId])}}" class="menu_content_home_item">
                         <img src="{{asset('images/list.svg')}}" alt="">
                         <div class="">会計項目登録・編集</div>
                     </a>

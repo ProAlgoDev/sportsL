@@ -43,16 +43,26 @@
     <table>
         <tr>
             <td>初期金額</td>
-            <td>-</td>
+            <td>
+                @if($initialAmount)
+                    {{$initialAmount->amount}}
+                @else
+                -
+                @endif
+            </td>
         </tr>
         <tr>
             <td>年度開始月</td>
-            <td>-</td>
+            <td>@if($amount)
+                    {{$amount}}
+                @else
+                -
+                @endif</td>
         </tr>
     </table>
     <p>※会計を締めるのは年度開始月の前月になります。</p>
     <div class="initial_amount_btn">
-        <a href="{{route('team_edit_amount')}}" class="">編集する</a>
+        <a href="{{route('team_edit_amount',[$teamInfo->teamId])}}" class="">編集する</a>
     </div>
 </div>
 @endsection('content')

@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Hash;
+use Carbon\Carbon;
 use Session;
 use App\Models\User;
 use App\Models\TeamAreaList;
 use App\Models\TeamSportsList;
 use App\Models\Team;
+use App\Models\InitialAmount;
 use App\Models\Member;
+use App\Models\Category;
 use App\Models\Book;
 use Illuminate\Support\Facades\Auth;
 use App\Models\UserVerify;
@@ -108,7 +111,6 @@ class BackController extends Controller
     }
     public function back(Request $request, $url, $teamId)
     {
-        dump($url, $teamId);
         return redirect($url . '/' . $teamId);
     }
     function validate_login(Request $request)
@@ -428,7 +430,9 @@ class BackController extends Controller
     public function team_edit($teamId)
     {
         $teamInfo = Team::where('teamId', $teamId)->first();
-        return view('teamEdit', ['title' => 'チーム情報編集', 'teamInfo' => $teamInfo]);
+        $teamInitialAmount = InitialAmount::where('teamId', $teamId)->first();
+        $createDate = Carbon::parse($teamInitialAmount->createDate)->format('Y-m');
+        return view('teamEdit', ['title' => 'チーム情報編集', 'teamInfo' => $teamInfo, 'initialAmount' => $teamInitialAmount, 'amount' => $createDate]);
     }
     public function team_edit_detail($teamId)
     {
@@ -437,13 +441,97 @@ class BackController extends Controller
         $areaList = TeamAreaList::all();
         return view("teamInfoEdit", ['title' => 'チーム情報編集', 'teamInfo' => $teamInfo, 'sportsList' => $sportsList, 'areaList' => $areaList]);
     }
-    public function team_edit_amount()
+    public function team_edit_amount($teamId)
     {
-        return view("teamInitialAmountEdit", ['title' => '会計項目登録・編集']);
+        return view("teamInitialAmountEdit", ['title' => '会計項目登録・編集', 'teamId' => $teamId]);
     }
-    public function accounting_category_register()
+    public function validate_initial_amount(Request $request)
     {
-        return view('accountingCategoryRegisterEdit');
+        $request->validate([
+            'initialAmount' => 'required | numeric',
+            'createDate' => 'required | date'
+        ], [
+            'initialAmount.required' => '初期金額フィールドは必須です。',
+            'createDate.required' => '日付フィールドは必須です。',
+            'initialAmount.numeric' => '初期金額は数値である必要があります。'
+        ]);
+        $teamId = Team::where('owner', Auth::user()->id)->first();
+        $initial = InitialAmount::where('teamId', $teamId->teamId)->first();
+        if (!$initial) {
+            InitialAmount::create([
+                'owner' => Auth::user()->id,
+                'teamId' => $teamId->teamId,
+                'amount' => $request->initialAmount,
+                'createDate' => $request->createDate
+            ]);
+        } else {
+
+            $initial->update([
+                'owner' => Auth::user()->id,
+                'teamId' => $teamId->teamId,
+                'amount' => $request->initialAmount,
+                'createDate' => $request->createDate
+
+            ]);
+        }
+        return redirect("team_edit_amount/$teamId->teamId")->with('initalEditSuccess', 'successfully');
+    }
+    public function accounting_category_register($teamId)
+    {
+        $defaultCategory = Category::where('teamId', $teamId)->first();
+        if (!$defaultCategory) {
+            $defaultCategory = Category::where('teamId', 'default')->first();
+        }
+
+        $decodeUnicodeString = function ($unicodeText) {
+            $unicodeTextWithEscapeSequences = preg_replace_callback('/u([0-9a-fA-F]{4})/', function ($matches) {
+                return mb_convert_encoding('&#x' . $matches[1] . ';', 'UTF-8', 'HTML-ENTITIES');
+            }, $unicodeText);
+
+            return json_decode('"' . $unicodeTextWithEscapeSequences . '"');
+        };
+
+        $defaultList = array_map($decodeUnicodeString, $defaultCategory->defaultList);
+        $categoryList = array_map($decodeUnicodeString, $defaultCategory->categoryList);
+        return view('accountingCategoryRegisterEdit', ['defaultList' => $defaultList, 'categoryList' => $categoryList, 'teamId' => $teamId]);
+
+    }
+    public function validate_default_category_register(Request $request, $teamId)
+    {
+        $request->validate(
+            [
+                'categoryName' => 'required'
+            ],
+            [
+                'categoryName.required' => 'デフォルトのカテゴリ名フィールドは必須です。'
+            ]
+        );
+
+        $category = Category::where('teamId', $teamId)->first();
+        $requestValue = $request->categoryName;
+        $defaultCategory = [$request->categoryName];
+        if (!$category) {
+            Category::create([
+                'teamId' => $teamId,
+                'categorytList' => $defaultCategory,
+            ]);
+        } else {
+            $existingDefaultList = $category->categoryList ?? [];
+            if (!in_array($requestValue, $existingDefaultList)) {
+                $newDefaultList = array_merge($existingDefaultList, $defaultCategory);
+                $category->categoryList = $newDefaultList;
+                $category->save();
+            } else {
+                return redirect("accounting_category_register/$teamId")->with('existingName', 'existingName');
+
+            }
+        }
+        return redirect("accounting_category_register/$teamId")->with('success', '');
+    }
+    public function validate_category_register(Request $request, $teamId)
+    {
+
+
     }
     public function accounting_register()
     {

@@ -14,8 +14,10 @@ return new class extends Migration {
     {
         Schema::create('initialamount', function (Blueprint $table) {
             $table->id();
-            $table->integer('amount');
+            $table->decimal('amount', 40, 2);
             $table->date('createDate');
+            $table->string('teamId');
+            $table->string('owner');
             $table->timestamps();
         });
     }

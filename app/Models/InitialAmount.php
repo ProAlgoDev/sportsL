@@ -9,7 +9,9 @@ class InitialAmount extends Model
 {
     public $table = 'initialamount';
     protected $fillable = [
-        'initialAmount',
+        'amount',
+        'teamId',
+        'owner',
         'createDate'
     ];
     use HasFactory;
