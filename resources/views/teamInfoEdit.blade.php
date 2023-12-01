@@ -1,7 +1,14 @@
 @extends('main')
 @section('content')
 @include('bookDashboardLogo')
-@include('leftMenuHeader')
+<div class="header_menu_title">
+    <div class="left_menu_back">
+        <a href="{{route('back',['team_edit',"$teamInfo->teamId"])}}"><img src="{{asset('images/back.png')}}" alt=""></a>
+    </div>
+    <div class="left_menu_logo">
+        {{$title}}
+    </div>
+</div>
 <div class="team_info_edit_form">
 
 <form action={{route('validate_team_edit')}} method="post" enctype="multipart/form-data">

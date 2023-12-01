@@ -10,9 +10,14 @@ class Category extends Model
     use HasFactory;
     public $table = 'category';
     protected $fillable = [
-        'teamId'
+        'teamId',
+        'categoryList',
+        'defaultList'
     ];
+
     protected $casts = [
-        'categoryList' => 'array'
+        'categoryList' => 'array',
+        'defaultList' => 'array'
     ];
+
 }
