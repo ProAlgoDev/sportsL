@@ -53,7 +53,7 @@
                         <img src="{{asset('images/list.svg')}}" alt="">
                         <div class="">会計項目登録・編集</div>
                     </a>
-                    <a href="{{route('accounting_register')}}" class="menu_content_home_item">
+                    <a href="{{route('accounting_register',[$teamId])}}" class="menu_content_home_item">
                         <img src="{{asset('images/dollar-sign.svg')}}" alt="">
                         <div class="">会計登録・編集</div>
                     </a>

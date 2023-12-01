@@ -11,7 +11,7 @@
 </div>
 <div class="team_info_edit_form initial_amount_form">
 
-<form action="{{route('validate_initial_amount')}}" method="POST">
+<form action="{{route('validate_initial_amount',[$teamId])}}" method="POST">
                     @csrf
                     <div class="new_team_create1_description">
                         <h3>会計初期設定</h3>
@@ -77,13 +77,12 @@
                         var modal = document.getElementById("team_edit_modal");
                         modal.style.display = 'none';
                     }
-    // Enable the year and month picker
-    jSuites.calendar(document.getElementById('calendar'), {
-        type: 'year-month-picker',
-        format: 'YYYY-MM',
-        validRange: ['2000-02-01', '2024-12-31'],
-    });
+    // // Enable the year and month picker
+    // jSuites.calendar(document.getElementById('calendar'), {
+    //     type: 'year-month-picker',
+    //     format: 'YYYY-MM',
+    //     validRange: ['2000-02-01', '2024-12-31'],
+    // });
 
-    
 </script>
 @endsection('content')

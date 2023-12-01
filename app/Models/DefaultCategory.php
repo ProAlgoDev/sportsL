@@ -5,15 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class DefaultCategory extends Model
 {
-    use HasFactory;
-    public $table = 'category';
+    public $table = 'defaultcategory';
     protected $fillable = [
         'teamId',
-        'categoryList',
-        'status'
+        'defaultCategory'
     ];
-
-
+    use HasFactory;
 }

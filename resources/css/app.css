@@ -1144,6 +1144,7 @@ input#home_menu:checked+img {
     max-width: 360px;
     margin: auto;
     margin-top: 35px;
+    position: relative;
 }
 
 .category_edit table {
@@ -1957,4 +1958,41 @@ input#left_menu_extend:checked+label {
     left: 0;
     height: 30px;
     width: 100%;
+}
+
+.alert_delete_category {
+    display: none;
+    position: absolute;
+    width: 300px;
+    background: #555555;
+    color: white;
+    top: 0;
+    left: 12px;
+}
+
+.alert_delete_category h6 {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 18px;
+}
+
+.alert_delete_category p {
+    font-size: 14px;
+    padding: 3px 16px;
+    margin-block-end: 0;
+    font-weight: 100;
+}
+
+.alert_delete_category span {
+    display: block;
+    padding: 10px 16px;
+    width: 100px;
+    text-align: center;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+.select_template {
+    background: #eeeeee;
+    border-radius: 10px;
 }
