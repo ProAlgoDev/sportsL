@@ -3,7 +3,7 @@
 @include('bookDashboardLogo')
 <div class="header_menu_title">
     <div class="left_menu_back">
-        <a href="{{route('book_dashboard',[$teamId,'all'])}}"><img src="{{asset('images/back.png')}}" alt=""></a>
+        <a href="{{route('accounting_register',[$teamId])}}"><img src="{{asset('images/back.png')}}" alt=""></a>
     </div>
     <div class="left_menu_logo">
         会計項目登録・編集
@@ -13,24 +13,13 @@
     <a href="{{route('monthly_report',$teamId)}}">編集</a>
 </div>
 <div class="accounting_register_edit_form">
-@if(session('accountingRegister'))
-<form action="{{route('monthly_report',$teamId)}}" method="GET" class="accounting_report_modal">
-    <h6>会計が登録されました</h6>
-    <p>登録した情報の編集を行う場合は、
-月次レポートから編集をお願いします。</p>
-    <div class="report_modal_btn">
-        <button type="submit" id="month_report">月次レポートを見る</button>
-        <span id="cancel_report_modal">閉じる</span>
-    </div>
-</form>
-@endif
 
 <form action="{{route('validate_accounting_register',[$teamId])}}" method="POST">
                     @csrf
                     <div class="form-group mb-4 accounting_register_edit_input">
                         <div class="accounting_register_edit_date">
                             <span class="">日付</span>
-                            <input type="date" name="inputDate" placeholder="" class="form-control  date_icon" />
+                            <input  id="yearpicker"  name="inputDate" placeholder="" class="form-control  date_icon date-own" />
                             @if($errors->has('inputDate'))
                                 <span style="width:166px; display:block;" class="span text-danger">
                                     {{$errors->first('inputDate')}}
@@ -39,13 +28,7 @@
                         </div>
                         <div class="accounting_register_edit_category">
                             <span class="">会計項目</span>
-                            <select name="categoryList" placeholder="" class="form-control select_template triangle_icon" >
-                                @if($categoryList)
-                                @foreach($categoryList as $category)
-                                <option>{{$category}}</option>
-                                @endforeach
-                                @endif
-                            </select>
+                           <input  id="monthpicker"  name="inputDate" placeholder="" class="form-control  date_icon date-own" />
                             @if($errors->has('categoryList'))
                                 <span style="width:166px; display:block;" class="span text-danger">
                                     {{$errors->first('categoryList')}}
@@ -78,13 +61,7 @@
                             @endif
                         </div>
                         <div class="accounting_register_edit_serial">
-                            <span >レシートNo</span>
-                            <input type="text" value="{{$teamId}}_{{$serial}}" name="serial" placeholder="" class="form-control" readonly/>
-                            @if($errors->has('serial'))
-                                <span style="width:166px; display:block;" class="span text-danger">
-                                    {{$errors->first('serial')}}
-                                </span>
-                            @endif
+                           
                         </div>
                     </div>
                     <div class="accounting_register_edit_description">
@@ -129,46 +106,19 @@
                 
 </div>
 <script>
-    $(document).ready(function(){
-        const currentTimestampInSeconds = Math.floor(Date.now() / 1000);
-console.log(currentTimestampInSeconds);
-        var serialId = $('input[name="serial"]').val();
-        var serial = $('#previewSerial').text(serialId);
-        $('input[name="inputDate"]').change(function()
-        {
-            $('#previewDate').text($(this).val());
-        });
-         $('select[name="categoryList"]').change(function()
-        {
-            $('#previewCategory').text($(this).val());
-        });
+   $("#yearpicker").datepicker({
+    format: "yyyy",
+    viewMode: "years", 
+    minViewMode: "years",
+    autoclose:true //to close picker once year is selected
+});
 
-        $('input[name="amount"]').change(function()
-        {
-            $('#previewAmount').text($(this).val()+"円");
-        });
-        $('input[name="serial"]').change(function()
-        {
-            $('#previewSerial').text($(this).val());
-        });
-        $('input[name="io_switch"]').change(function()
-        {
-            if($(this).val() == 0){
-                $('#previewIo').text('収入');
-            }
-            if($(this).val() ==1){
-                $('#previewIo').text('支出');
-            }
-        });
-        $('textarea[name="description"]').change(function()
-        {
-            $('#previewDescription').text($(this).val());
-        });
-
-        $('#cancel_report_modal').on('click', function(){
-            $('.accounting_report_modal').css('display','none');
-        })
-    });
+$("#monthpicker").datepicker({
+    format: "mm",
+    viewMode: "months", 
+    minViewMode: "months",
+    autoclose:true //to close picker once year is selected
+});
 </script>
 
 @endsection('content')

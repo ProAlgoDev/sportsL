@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->date('changeDate');
             $table->string('item');
             $table->boolean('ioType');
-            $table->bigInteger('amount');
+            $table->decimal('amount', 40, 2);
             $table->string('teamId');
             $table->string('description');
             $table->string('serialNumber');

@@ -64,4 +64,6 @@ Route::controller(BackController::class)->group(function () {
 
     Route::post('validate_accounting_register/{teamId}', 'validate_accounting_register')->middleware('is_login_status')->middleware('is_register_book_status')->name('validate_accounting_register');
 
+    Route::get('monthly_report/{teamId}', 'monthly_report')->middleware('is_login_status')->middleware('is_register_book_status')->name('monthly_report');
+
 });

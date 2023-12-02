@@ -437,7 +437,6 @@ class BackController extends Controller
         $team->sex = $sex;
         $team->save();
         return redirect("team_edit_detail/$teamId")->with('teamEditSuccess', 'Image uploaded successfully');
-        // return back()->with('teamEditSuccess', 'Image uploaded successfully')->withHeaders(['Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0']);
     }
     public function team_edit($teamId)
     {
@@ -524,6 +523,12 @@ class BackController extends Controller
         }
         return redirect("accounting_category_register/$teamId")->with('success', '');
     }
+    public function monthly_report($teamId)
+    {
+        dump($teamId);
+        $book = Book::where('teamId', $teamId)->get();
+        return view('monthlyReport', ['teamId' => $teamId, 'book' => $book]);
+    }
     public function validate_category_name_edit(Request $request, $teamId)
     {
         //todo change category name from book model
@@ -549,12 +554,48 @@ class BackController extends Controller
         $defaultCategory = DefaultCategory::where('teamId', $teamId)->pluck('defaultCategory');
         $category = Category::where('teamId', $teamId)->pluck('categoryList');
         $category = $category ?? [];
+        $serial = Book::latest()->first();
+        if ($serial) {
+            $serialNumber = $serial->id + 1;
+        } else {
+            $serialNumber = 1;
+        }
         $categoryList = $defaultCategory->merge($category)->all();
-        return view('accountingRegisterEdit', ['teamId' => $teamId, 'categoryList' => $categoryList]);
+        return view('accountingRegisterEdit', ['teamId' => $teamId, 'categoryList' => $categoryList, 'serial' => $serialNumber]);
     }
     public function validate_accounting_register(Request $request, $teamId)
     {
-        dump($request);
+        $request->validate([
+            'inputDate' => 'required | date',
+            'categoryList' => 'required',
+            'io_switch' => 'required',
+            'amount' => 'required | numeric',
+            'serial' => 'required | numeric',
+            'description' => 'required'
+        ], [
+            'inputDate.required' => '日付フィールドの入力は必須です。',
+            'categoryList.required' => 'カテゴリ名の入力フィールドは必須です。',
+            'io_switch.required' => '入力タイプフィールドは必須です。',
+            'amount.required' => '金額の入力欄は必須です。',
+            'serial.required' => 'シリアル番号の入力フィールドは必須です。',
+            'description.required' => '説明フィールドの入力は必須です。',
+        ]);
+        $inputDate = $request->inputDate;
+        $category = $request->categoryList;
+        $io = $request->io_switch;
+        $amount = $request->amount;
+        $serial = $request->serial;
+        $description = $request->description;
+        Book::create([
+            'teamId' => $teamId,
+            'changeDate' => now(),
+            'item' => $category,
+            'ioType' => $io,
+            'amount' => $amount,
+            'serialNumber' => $serial,
+            'description' => $description
+        ]);
+        return redirect("accounting_register/$teamId")->with('accountingRegister', 'success');
     }
     public function player_register()
     {
