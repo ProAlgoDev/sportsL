@@ -14,7 +14,8 @@ class Book extends Model
         'ioType',
         'teamId',
         'description',
-        'serialNumber'
+        'serialNumber',
+        'amount'
 
     ];
     use HasFactory;
