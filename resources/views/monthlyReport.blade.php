@@ -9,96 +9,85 @@
         会計項目登録・編集
     </div>
 </div>
-<div class="accounting_category_edit_btn">
-    <a href="{{route('monthly_report',$teamId)}}">編集</a>
-</div>
-<div class="accounting_register_edit_form">
 
+<div class="accounting_register_edit_form">
 <form action="{{route('validate_accounting_register',[$teamId])}}" method="POST">
                     @csrf
                     <div class="form-group mb-4 accounting_register_edit_input">
-                        <div class="accounting_register_edit_date">
-                            <span class="">日付</span>
-                            <input  id="yearpicker"  name="inputDate" placeholder="" class="form-control  date_icon date-own" />
-                            @if($errors->has('inputDate'))
+                        <div class="monthly_report_year">
+                            <span class="">年度</span>
+                            <input  id="yearpicker"  name="year" placeholder="" class="form-control  date_icon date-own" />
+                            @if($errors->has('year'))
                                 <span style="width:166px; display:block;" class="span text-danger">
-                                    {{$errors->first('inputDate')}}
+                                    {{$errors->first('year')}}
                                 </span>
                             @endif
                         </div>
-                        <div class="accounting_register_edit_category">
-                            <span class="">会計項目</span>
-                           <input  id="monthpicker"  name="inputDate" placeholder="" class="form-control  date_icon date-own" />
-                            @if($errors->has('categoryList'))
+                        <div class="monthly_report_year">
+                            <span class="">月</span>
+                           <input  id="monthpicker"  name="month" placeholder="" class="form-control  date_icon date-own" />
+                            @if($errors->has('month'))
                                 <span style="width:166px; display:block;" class="span text-danger">
-                                    {{$errors->first('categoryList')}}
+                                    {{$errors->first('month')}}
                                 </span>
                             @endif
                         </div>
                     </div>
-                    <div class="accounting_register_edit_io">
-                        <span>収支</span>
-                        <div class="accounting_register_edit_io_switch">
-                            <input type="radio" name='io_switch' id='input' value="0"  />
-                            <label for="input" class="accounting_register_edit_io_input">収入</label>
-                            <input type="radio" name='io_switch' id='output' value="1"  checked/>
-                            <label for="output" class="accounting_register_edit_io_output ">支出</label>
-                        </div>
-                         @if($errors->has('io_switch'))
-                                <span style="width:166px; display:block;" class="span text-danger">
-                                    {{$errors->first('io_switch')}}
-                                </span>
-                            @endif
-                    </div>
-                    <div class="form-group mb-4 accounting_register_edit_amount_serial">
-                        <div class="accounting_register_edit_amount">
-                            <span >金額</span>
-                            <input type="text" pattern="\d+(\.\d+)?" name="amount" placeholder="" class="form-control" />
-                            @if($errors->has('amount'))
-                                <span style="width:166px; display:block;" class="span text-danger">
-                                    {{$errors->first('amount')}}
-                                </span>
-                            @endif
-                        </div>
-                        <div class="accounting_register_edit_serial">
-                           
-                        </div>
-                    </div>
-                    <div class="accounting_register_edit_description">
-                        <span>詳細</span>
-                        <textarea name = 'description' ></textarea>
-                        @if($errors->has('description'))
-                                <span style="width:100%;" class="span text-danger">
-                                    {{$errors->first('description')}}
-                                </span>
-                            @endif
-                    </div>
-                    <div class="d-grid mx-auto">
-                        <button class="btn btn-primary register_btn category_register_btn" type="submit">登録する</button>
+                    <div class="d-none mx-auto">
+                        <button id="report_retrive" type="submit"></button>
                     </div>
                 </form>
-                <div class="accounting_register_edit_preview">
-                    <h4>仕分けプレビュー</h4>
+                <div class="accounting_register_edit_preview monthly_report_table">
                     <table>
-                        <tr>
-                            <th class="date">発生日</th>
-                            <th class="category">項目</th>
-                            <th class="io">収支</th>
-                            <th class="amount">金額</th>
-                            <th class="serial">レシートNo</th>
-                        </tr>
-                        <tr>
-                            <td id="previewDate"></td>
-                            <td id="previewCategory"></td>
-                            <td id="previewIo"></td>
-                            <td id="previewAmount"></td>
-                            <td id="previewSerial"></td>
-                        </tr>
-                    </table>
-                    <div class="accounting_register_edit_preview_description">
-                        <span>詳細</span>
-                        <p id="previewDescription"></p>
-                    </div>
+                            <tr>
+                                <th class="date">発生日</th>
+                                <th class="category">項目</th>
+                                <th class="io">収支</th>
+                                <th class="amount">金額</th>
+                                <th class="serial">レシートNo</th>
+                            </tr>
+                            @if($book)
+                            @foreach($book as $key=>$value)
+                            @if($key % 2==0)
+                                <tr class="monthly_report_content_even">
+                                        <td>{{$value->changeDate}}</td>
+                                        <td>{{$value->item}}</td>
+                                        <td>
+                                            @if($value->ioType == 0)
+                                            収入
+                                            @elseif($value->ioType ==1)
+                                            支出
+                                            @endif
+                                        </td>
+                                        <td>{{$value->amount}}円</td>
+                                        <td>{{$value->serialNumber}}</td>
+                                    </tr>
+                                    <tr class="monthly_description_even">
+                                        <td colspan="5">{{$value->description}}</td>
+                                    </tr>
+                                    @endif
+                                    @if($key % 2==1)
+                                    <tr class="monthly_report_content_odd" >
+                                        <td>{{$value->changeDate}}</td>
+                                        <td>{{$value->item}}</td>
+                                        <td>
+                                            @if($value->ioType == 0)
+                                    収入
+                                    @elseif($value->ioType ==1)
+                                    支出
+                                    @endif
+                                </td>
+                                <td>{{$value->amount}}円</td>
+                                <td>{{$value->serialNumber}}</td>
+                            </tr>
+                            <tr  style="" class="monthly_description_odd">
+                                <td colspan="5">{{$value->description}}</td>
+                            </tr>
+                            @endif
+                            @endforeach
+                            @endif
+                          
+                        </table>
                 </div>
                 <style>
                     
