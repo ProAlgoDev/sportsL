@@ -1340,9 +1340,18 @@ input#home_menu:checked+img {
 
 .accounting_register_edit_preview {
     color: #333333;
-    max-width: 364px;
+    max-width: 540px;
     margin: auto;
     margin-top: 30px;
+    max-width: 386px;
+    overflow-y: scroll;
+}
+
+
+.accounting_register_edit_preview table {
+    margin: auto;
+    width: 100%;
+    max-width: 600px;
 }
 
 .accounting_register_edit_preview h4 {
@@ -1361,15 +1370,15 @@ input#home_menu:checked+img {
 }
 
 .accounting_register_edit_preview td {
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .accounting_register_edit_preview .date {
-    width: 96px;
+    min-width: 96px;
 }
 
 .accounting_register_edit_preview .amount {
-    width: 83px;
+    min-width: 83px;
 }
 
 .accounting_register_edit_preview_description {
@@ -2037,3 +2046,62 @@ input#left_menu_extend:checked+label {
     border: none;
     color: white;
 }
+
+.monthly_report_year input {
+    width: 166px;
+    background: #eeeeee;
+    border-radius: 10px;
+}
+
+.monthly_report_year span {
+    margin-left: 10px;
+}
+
+.monthly_report_table th {
+    background: #3FBAEE;
+    color: white;
+}
+
+.monthly_report_table tr {
+    position: relative;
+    min-height: 50px;
+}
+
+
+.monthly_report_table .description {
+    position: absolute;
+    top: 22px;
+    width: 100%;
+    height: 40px;
+    left: 0;
+}
+
+.monthly_report_table tr:nth-child(1) {
+    min-height: 26px !important;
+}
+
+.monthly_report_table .monthly_report_content_even {
+    background: #eeeeee;
+    border-bottom: none;
+    height: 30px;
+}
+
+.monthly_report_table .monthly_description_even {
+    background: #eeeeee;
+    border-bottom: 1px solid #c5c5c5;
+    height: 30px;
+}
+
+.monthly_report_table .monthly_report_content_odd {
+    background: white;
+    border-bottom: none;
+    height: 30px;
+}
+
+.monthly_report_table .monthly_description_odd {
+    background: white;
+    border-bottom: 1px solid #c5c5c5;
+    height: 30px;
+}
+
+/* 192.168.107.215 */

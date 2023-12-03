@@ -525,8 +525,8 @@ class BackController extends Controller
     }
     public function monthly_report($teamId)
     {
-        dump($teamId);
         $book = Book::where('teamId', $teamId)->get();
+        dump($book);
         return view('monthlyReport', ['teamId' => $teamId, 'book' => $book]);
     }
     public function validate_category_name_edit(Request $request, $teamId)
