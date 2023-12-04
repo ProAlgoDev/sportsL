@@ -23,7 +23,7 @@
                 </form>
         </div>
         @if(isset($book))
-        <span>gssdfsdf</span>
+        <span>graph</span>
         @else
         @include('noBookRegister')
         @endif

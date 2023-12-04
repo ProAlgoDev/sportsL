@@ -1,40 +1,51 @@
 @extends('main')
 @section('content')
 @include('bookDashboardLogo')
-@include('leftMenuHeader')
+<div class="header_menu_title">
+    <div class="left_menu_back">
+        <a href="{{route('book_dashboard',[$teamId,'all'])}}"><img src="{{asset('images/back.png')}}" alt=""></a>
+    </div>
+    <div class="left_menu_logo">
+        会計登録
+    </div>
+</div>
 
 <div class="player_register_form">
 
-<form action="{{route('new_team_create2')}}" method="POST">
+<form action="{{route('validate_player_register',[$teamId])}}" method="POST">
                     @csrf
                     <div class="player_name input_form">
                             <span class="">氏名</span>
                             <input type="text" name="playerName" placeholder="" class="form-control" />
-                            @if($errors->has('teamName'))
-                                <span class="span text-danger">
-                                    {{$errors->first('teamName')}}
-                                </span>
-                            @endif
-                    </div>
+                        </div>
+                        @if($errors->has('playerName'))
+                            <span class="span text-danger text-center d-block">
+                                {{$errors->first('playerName')}}
+                            </span>
+                        @endif
                     <div class="player_gender input_form">
                             <span class="">性別</span>
-                            <input type="text" name="playerGender" placeholder="" class="form-control triangle_icon" />
-                            @if($errors->has('teamName'))
-                                <span class="span text-danger">
-                                    {{$errors->first('teamName')}}
-                                </span>
-                            @endif
+                            <select name="gender" id="gender" class="form-control triangle_icon">
+                            <option value="1">男子</option>
+                            <option value="2">女子</option>
+                            <option value="3">混合</option>
+                        </select>
                     </div>
+                    @if($errors->has('gender'))
+                       <span class="span text-danger text-center d-block">
+                           {{$errors->first('gender')}}
+                       </span>
+                   @endif
                     <div class="player_enter_date input_form">
                             <span class="">参加日</span>
-                            <input type="date" name="playerDate" placeholder="" class="form-control date_icon" />
-                            @if($errors->has('teamName'))
-                                <span class="span text-danger">
-                                    {{$errors->first('teamName')}}
-                                </span>
-                            @endif
-                    </div>
-                    <div class="d-grid mx-auto">
+                            <input type="date" name="createdDate" placeholder="01-01-2023" class="form-control date_icon" />
+                        </div>
+                        @if($errors->has('createdDate'))
+                            <span class="span text-danger text-center d-block">
+                                {{$errors->first('createdDate')}}
+                            </span>
+                        @endif
+                    <div class="d-grid mx-auto mt-4">
                         <button class="btn btn-primary register_btn category_register_btn" type="submit">登録する</button>
                     </div>
                 </form>

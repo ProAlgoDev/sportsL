@@ -15,6 +15,7 @@ use App\Models\Member;
 use App\Models\Category;
 use App\Models\DefaultCategory;
 use App\Models\Book;
+use App\MOdels\Player;
 use Illuminate\Support\Facades\Auth;
 use App\Models\UserVerify;
 use Illuminate\Support\Str;
@@ -526,7 +527,6 @@ class BackController extends Controller
     public function monthly_report($teamId)
     {
         $book = Book::where('teamId', $teamId)->get();
-        dump($book);
         return view('monthlyReport', ['teamId' => $teamId, 'book' => $book]);
     }
     public function validate_category_name_edit(Request $request, $teamId)
@@ -570,7 +570,7 @@ class BackController extends Controller
             'categoryList' => 'required',
             'io_switch' => 'required',
             'amount' => 'required | numeric',
-            'serial' => 'required | numeric',
+            'serial' => 'required',
             'description' => 'required'
         ], [
             'inputDate.required' => '日付フィールドの入力は必須です。',
@@ -588,7 +588,7 @@ class BackController extends Controller
         $description = $request->description;
         Book::create([
             'teamId' => $teamId,
-            'changeDate' => now(),
+            'changeDate' => $inputDate,
             'item' => $category,
             'ioType' => $io,
             'amount' => $amount,
@@ -597,9 +597,9 @@ class BackController extends Controller
         ]);
         return redirect("accounting_register/$teamId")->with('accountingRegister', 'success');
     }
-    public function player_register()
+    public function player_register($teamId)
     {
-        return view('playerRegister', ['title' => '選手登録・編集']);
+        return view('playerRegister', ['title' => '選手登録・編集', 'teamId' => $teamId]);
     }
     public function invite_team()
     {
@@ -612,6 +612,96 @@ class BackController extends Controller
     public function account_setting()
     {
         return view('accountSetting', ['title' => 'アカウント設定']);
+    }
+    public function monthly_report_search(Request $request, $teamId)
+    {
+        $yearRequest = $request->year;
+        $monthRequest = $request->month;
+        if ($yearRequest && $monthRequest) {
+            $book = Book::where('teamId', $teamId)->whereYear('changeDate', $request->year)->whereMonth('changeDate', $monthRequest)->get();
+        } elseif (!$yearRequest && !$monthRequest) {
+            $book = Book::where('teamId', $teamId)->get();
+        } elseif ($yearRequest) {
+            $book = Book::where('teamId', $teamId)->whereYear('changeDate', $yearRequest)->get();
+        } elseif ($monthRequest) {
+            $book = Book::where('teamId', $teamId)->whereMonth('changeDate', $monthRequest)->get();
+        }
+        return view('monthlyReport', ['teamId' => $teamId, 'book' => $book]);
+    }
+    public function accounting_edit(Request $request, $teamId)
+    {
+        $defaultCategory = DefaultCategory::where('teamId', $teamId)->pluck('defaultCategory');
+        $category = Category::where('teamId', $teamId)->pluck('categoryList');
+        $category = $category ?? [];
+        $categoryList = $defaultCategory->merge($category)->all();
+
+
+        $book = Book::where('id', $request->id)->first();
+        return view('accountingEdit', ['teamId' => $teamId, 'id' => $request->id, 'book' => $book, 'categoryList' => $categoryList,]);
+    }
+    public function validate_accounting_edit(Request $request, $teamId)
+    {
+        $request->validate([
+            'inputDate' => 'required | date',
+            'categoryList' => 'required',
+            'io_switch' => 'required',
+            'amount' => 'required | numeric',
+            'serial' => 'required',
+            'description' => 'required'
+        ], [
+            'inputDate.required' => '日付フィールドの入力は必須です。',
+            'categoryList.required' => 'カテゴリ名の入力フィールドは必須です。',
+            'io_switch.required' => '入力タイプフィールドは必須です。',
+            'amount.required' => '金額の入力欄は必須です。',
+            'serial.required' => 'シリアル番号の入力フィールドは必須です。',
+            'description.required' => '説明フィールドの入力は必須です。',
+        ]);
+
+        $inputDate = $request->inputDate;
+        $category = $request->categoryList;
+        $io = $request->io_switch;
+        $amount = $request->amount;
+        $serial = $request->serial;
+        $description = $request->description;
+        $book = Book::where('teamId', $teamId)->where('id', $request->itemId)->first();
+        $book->update([
+            'teamId' => $teamId,
+            'changeDate' => $inputDate,
+            'item' => $category,
+            'ioType' => $io,
+            'amount' => $amount,
+            'serialNumber' => $serial,
+            'description' => $description
+        ]);
+        $defaultCategory = DefaultCategory::where('teamId', $teamId)->pluck('defaultCategory');
+        $category = Category::where('teamId', $teamId)->pluck('categoryList');
+        $category = $category ?? [];
+        $categoryList = $defaultCategory->merge($category)->all();
+        return redirect("monthly_report/$teamId")->with('accountingEdit', 'success');
+    }
+    public function validate_player_register(Request $request, $teamId)
+    {
+        $request->validate([
+            'playerName' => 'required',
+            'gender' => 'required',
+            'createdDate' => 'required | date',
+        ], [
+            'playerName.required' => '名前フィールドは必須です。',
+            'gender.required' => '名前フィールドは必須です。',
+            'createdDate.required' => '日付フィールドは必須です。',
+            'createdDate.date' => '日付は有効な日付ではありません。',
+        ]);
+        $genderList = [
+            '1' => "男子",
+            '2' => "女子",
+            '3' => "混合",
+        ];
+        $gender = $genderList[$request->gender];
+        Player::create([
+            'name' => $request->playerName,
+            'gender' => $gender,
+            'createdDate' => $request->createdDate
+        ]);
     }
 }
 

@@ -57,7 +57,7 @@
                         <img src="{{asset('images/dollar-sign.svg')}}" alt="">
                         <div class="">会計登録・編集</div>
                     </a>
-                    <a href="{{route('player_register')}}" class="menu_content_home_item">
+                    <a href="{{route('player_register',[$teamId])}}" class="menu_content_home_item">
                         <img src="{{asset('images/users.svg')}}" alt="">
                         <div class="">選手登録・編集</div>
                     </a>
