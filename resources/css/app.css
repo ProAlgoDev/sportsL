@@ -803,7 +803,7 @@
 }
 
 input#home_menu:checked~.menu_content_home_list {
-    height: 300px;
+    height: 350px;
 }
 
 input#home_menu:checked+label {
@@ -1194,11 +1194,12 @@ input#home_menu:checked+img {
 .accounting_category_register_edit_form input {
     border-radius: 10px;
     background: #eeeeee;
-    background-image: url(/public/images/category1.png);
+    background-image: url(/public/images/category1.png) !important;
     background-repeat: no-repeat;
     background-size: 30px;
     background-position: left 15px top 50%;
     padding-left: 50px;
+    z-index: 10;
 }
 
 .accounting_category_edit_btn {
@@ -1225,12 +1226,13 @@ input#home_menu:checked+img {
     justify-content: center;
 }
 
-.accounting_register_edit_date span {
+
+.accounting_register_edit_category span {
     margin-bottom: 4px;
     display: block;
 }
 
-.accounting_register_edit_category span {
+.accounting_register_edit_date span {
     margin-bottom: 4px;
     display: block;
 }
@@ -1239,14 +1241,15 @@ input#home_menu:checked+img {
     width: 166px;
 }
 
-.accounting_register_edit_category {
-    width: 166px;
-}
-
 .accounting_register_edit_date input {
     background: #eeeeee;
     border-radius: 10px;
 }
+
+.accounting_register_edit_category {
+    width: 166px;
+}
+
 
 .accounting_register_edit_category input {
     background: #eeeeee;
@@ -1300,11 +1303,6 @@ input#home_menu:checked+img {
     transform: translate(-30px, 0px);
 }
 
-[name="io_switch"]:checked+label {
-    background-color: #3FBAEE !important;
-    z-index: 99;
-    position: relative;
-}
 
 .accounting_register_edit_description {
     margin: auto;
@@ -1343,8 +1341,7 @@ input#home_menu:checked+img {
     max-width: 540px;
     margin: auto;
     margin-top: 30px;
-    max-width: 386px;
-    overflow-y: scroll;
+    max-height: 386px;
 }
 
 
@@ -1374,7 +1371,7 @@ input#home_menu:checked+img {
 }
 
 .accounting_register_edit_preview .date {
-    min-width: 96px;
+    min-width: 60px;
 }
 
 .accounting_register_edit_preview .amount {
@@ -1410,6 +1407,12 @@ input#home_menu:checked+img {
     color: #333333;
 }
 
+[name="io_switch"]:checked+label {
+    background-color: #3FBAEE !important;
+    z-index: 99;
+    position: relative;
+}
+
 .input_form span {
     width: 80px;
     display: block;
@@ -1425,9 +1428,7 @@ input#home_menu:checked+img {
     margin-top: 40px;
 }
 
-.player_enter_date {
-    margin-bottom: 30px;
-}
+.player_enter_date {}
 
 .player_style label {
     color: #aaaaaa;
@@ -2057,6 +2058,10 @@ input#left_menu_extend:checked+label {
     margin-left: 10px;
 }
 
+.monthly_report_table {
+    overflow-y: scroll;
+}
+
 .monthly_report_table th {
     background: #3FBAEE;
     color: white;
@@ -2065,6 +2070,7 @@ input#left_menu_extend:checked+label {
 .monthly_report_table tr {
     position: relative;
     min-height: 50px;
+    cursor: pointer;
 }
 
 
@@ -2104,4 +2110,106 @@ input#left_menu_extend:checked+label {
     height: 30px;
 }
 
-/* 192.168.107.215 */
+.accounting_edit_date span {
+    margin-bottom: 4px;
+    display: block;
+}
+
+.accounting_edit_date {
+
+    display: flex;
+    margin: auto;
+    padding: 10px;
+    margin-top: 20px;
+    border-bottom: 1px dotted #2d2d2d;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 300px;
+}
+
+.accounting_edit_date input {
+    background: #eeeeee;
+    border-radius: 10px;
+    max-width: 180px;
+}
+
+
+.accounting_edit_category span {
+    margin-bottom: 4px;
+    display: block;
+}
+
+.accounting_edit_category {
+
+    display: flex;
+    margin: auto;
+    padding: 10px;
+    border-bottom: 1px dotted #2d2d2d;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 300px;
+}
+
+.accounting_edit_category select {
+    background: #eeeeee;
+    border-radius: 10px;
+    max-width: 180px;
+}
+
+.accounting_edit_io {
+    display: flex;
+    justify-content: space-between;
+    max-width: 300px;
+    margin: auto;
+    padding: 10px;
+    border-bottom: 1px dotted #2d2d2d;
+    align-items: center;
+}
+
+.accounting_edit_amount {
+    display: flex;
+    justify-content: space-between;
+    max-width: 300px;
+    margin: auto;
+    padding: 10px;
+    border-bottom: 1px dotted #2d2d2d;
+    align-items: center;
+}
+
+.accounting_edit_amount input {
+    max-width: 180px;
+    border-radius: 10px;
+}
+
+.accounting_edit_serial {
+    display: flex;
+    justify-content: space-between;
+    max-width: 300px;
+    margin: auto;
+    padding: 10px;
+    border-bottom: 1px dotted #2d2d2d;
+    align-items: center;
+}
+
+.accounting_edit_serial input {
+    max-width: 180px;
+    border-radius: 10px;
+}
+
+.accounting_edit_description {
+    display: flex;
+    justify-content: space-between;
+    max-width: 300px;
+    margin: auto;
+    padding: 10px;
+    border-bottom: 1px dotted #2d2d2d;
+    align-items: "self-start";
+}
+
+.player_gender select {
+    background: #eeeeee;
+    border-radius: 10px;
+}
+
+
+/* 192.168.108.185 */

@@ -6,7 +6,7 @@
         <a href="{{route('book_dashboard',[$teamId,'all'])}}"><img src="{{asset('images/back.png')}}" alt=""></a>
     </div>
     <div class="left_menu_logo">
-        会計項目登録・編集
+        会計登録
     </div>
 </div>
 <div class="accounting_category_edit_btn">

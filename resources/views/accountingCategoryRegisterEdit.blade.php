@@ -158,11 +158,11 @@ $(document).ready(function() {
                     _token: '{{csrf_token()}}'
                 },
                 success: function(response) {
-                    // window.location.reload();
+                    window.location.reload();
                     console.log('Category sent successfully', response);       
                 },
                 error: function(error) {
-                    // window.location.reload();
+                    window.location.reload();
                     console.error('Error sending category', error);              
                 }
             });
