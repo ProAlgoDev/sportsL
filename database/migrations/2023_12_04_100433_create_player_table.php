@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('gender');
+            $table->string('teamId');
             $table->date('createdDate')->default(null);
             $table->boolean('status')->default(0);
             $table->boolean('register')->default(0);

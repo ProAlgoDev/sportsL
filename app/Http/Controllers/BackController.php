@@ -38,12 +38,18 @@ class BackController extends Controller
     }
     function registration1()
     {
-        session()->flush();
-        $client = new Google_Client();
-        $client->setAuthConfig(storage_path('app\public\data\credentials.json'));
-        $client->addScope(Google_Service_Gmail::GMAIL_SEND);
-        $authUrl = $client->createAuthUrl();
-        return Redirect::to($authUrl);
+        // session()->flush();
+        // $client = new Google_Client();
+        // $client->setAuthConfig(storage_path('app\public\data\credentials.json'));
+        // $client->addScope(Google_Service_Gmail::GMAIL_SEND);
+        // $authUrl = $client->createAuthUrl();
+        // return Redirect::to($authUrl);
+        $email = Session::get('email');
+        $user = User::where('email', $email)->first();
+        if ($user && $email) {
+            return redirect('send-email');
+        }
+        return view("registration");
     }
     function registration2()
     {
@@ -55,7 +61,7 @@ class BackController extends Controller
 
         return redirect('login');
     }
-    function validate_registration(Request $request)
+    public function validate_registration(Request $request)
     {
 
         $request->validate([
@@ -197,16 +203,16 @@ class BackController extends Controller
 
     public function callback(Request $request)
     {
-        $client = new Google_Client();
-        $client->setAuthConfig(storage_path('app\public\data\credentials.json'));
-        $client->addScope(Google_Service_Gmail::GMAIL_SEND);
+        // $client = new Google_Client();
+        // $client->setAuthConfig(storage_path('app\public\data\credentials.json'));
+        // $client->addScope(Google_Service_Gmail::GMAIL_SEND);
 
-        $code = $request->input('code');
-        $client->authenticate($code);
-        $token = $client->getAccessToken();
+        // $code = $request->input('code');
+        // $client->authenticate($code);
+        // $token = $client->getAccessToken();
 
+        // Session::put('gmail_token', $token);
         $email = Session::get('email');
-        Session::put('gmail_token', $token);
         $user = User::where('email', $email)->first();
         if ($user && $email) {
             return redirect('send-email');
@@ -216,34 +222,37 @@ class BackController extends Controller
 
     public function sendEmail()
     {
-        $token = Session::get('gmail_token');
-        $client = new Google_Client();
+        // $token = Session::get('gmail_token');
+        // $client = new Google_Client();
 
-        $client->setAuthConfig(storage_path('app\public\data\credentials.json'));
-        $client->addScope(Google_Service_Gmail::GMAIL_SEND);
-        $client->setAccessToken($token);
-        $service = new Google_Service_Gmail($client);
+        // $client->setAuthConfig(storage_path('app\public\data\credentials.json'));
+        // $client->addScope(Google_Service_Gmail::GMAIL_SEND);
+        // $client->setAccessToken($token);
+        // $service = new Google_Service_Gmail($client);
         $email = Session::get('email');
         $verifyEmail = User::where('email', $email)->first();
         if ($verifyEmail && $verifyEmail->is_email_verified) {
             return redirect('login');
         }
+        // $imagePath = public_path('images\next_logo.png');
+        // $imageData = file_get_contents($imagePath);
+        // $encodedImage = base64_encode($imageData);
         $verifyToken = Session::get('verifyToken');
-        $imagePath = public_path('images\next_logo.png');
-        $imageData = file_get_contents($imagePath);
-        $encodedImage = base64_encode($imageData);
-        $htmlContent = View::make('email.emailVerificationEmail', ['token' => $verifyToken])->render();
+        // $htmlContent = View::make('email.emailVerificationEmail', ['token' => $verifyToken])->render();
+        Mail::send('email.emailVerificationEmail', ['token' => $verifyToken], function ($message) use ($email) {
+            $message->to($email);
+            $message->subject('Email Verification');
+        });
+        // $message = new Google_Service_Gmail_Message();
+        // $mimeMessage = 'MIME-Version: 1.0' . "\r\n";
+        // $mimeMessage .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+        // $mimeMessage .= 'To: ' . $email . "\r\n";
+        // $mimeMessage .= 'Subject: VerificationEmail' . "\r\n\r\n";
+        // $mimeMessage .= $htmlContent;
+        // $rawMessage = base64_encode($mimeMessage);
 
-        $message = new Google_Service_Gmail_Message();
-        $mimeMessage = 'MIME-Version: 1.0' . "\r\n";
-        $mimeMessage .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
-        $mimeMessage .= 'To: ' . $email . "\r\n";
-        $mimeMessage .= 'Subject: VerificationEmail' . "\r\n\r\n";
-        $mimeMessage .= $htmlContent;
-        $rawMessage = base64_encode($mimeMessage);
-
-        $message->setRaw($rawMessage);
-        $service->users_messages->send("me", $message);
+        // $message->setRaw($rawMessage);
+        // $service->users_messages->send("me", $message);
 
         return Redirect::to('registration3');
     }
@@ -597,10 +606,7 @@ class BackController extends Controller
         ]);
         return redirect("accounting_register/$teamId")->with('accountingRegister', 'success');
     }
-    public function player_register($teamId)
-    {
-        return view('playerRegister', ['title' => '選手登録・編集', 'teamId' => $teamId]);
-    }
+
     public function invite_team()
     {
         return view('inviteTeam', ['title' => 'チームへ招待']);
@@ -678,6 +684,13 @@ class BackController extends Controller
         $category = $category ?? [];
         $categoryList = $defaultCategory->merge($category)->all();
         return redirect("monthly_report/$teamId")->with('accountingEdit', 'success');
+    }
+    public function player_register($teamId)
+    {
+        $register = Player::where('teamId', $teamId)->where('status', 0)->where('register', 0)->get();
+        dump($register);
+        $archive = Player::where('teamId', $teamId)->where('status', 0)->where('register', 1)->get();
+        return view('playerRegister', ['title' => '選手登録・編集', 'teamId' => $teamId, 'register' => $register, 'archive' => $archive]);
     }
     public function validate_player_register(Request $request, $teamId)
     {
