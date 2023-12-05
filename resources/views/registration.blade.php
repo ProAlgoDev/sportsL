@@ -23,7 +23,6 @@
                                 {{$errors->first('name')}}
                             </span>
                         @endif
-                        
                     </div>
                     <div class="form-group mb-4">
                         <img src="{{asset('images/email.png')}}" />
