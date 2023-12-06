@@ -15,7 +15,7 @@ use App\Models\Member;
 use App\Models\Category;
 use App\Models\DefaultCategory;
 use App\Models\Book;
-use App\MOdels\Player;
+use App\Models\Player;
 use Illuminate\Support\Facades\Auth;
 use App\Models\UserVerify;
 use Illuminate\Support\Str;

@@ -1,8 +1,3 @@
-@font-face {
-    font-family: mulish;
-    src: url('/font/Mulish-VariableFont_wght.ttf');
-}
-
 .initial {
     /* max-width: 430px; */
     border: none;
@@ -32,7 +27,6 @@
 }
 
 .login_email span {
-    font-family: mulish;
     font-weight: 800;
     font-size: 17px;
     color: #383838;
@@ -47,7 +41,6 @@
 }
 
 .login_password span {
-    font-family: mulish;
     font-weight: 800;
     font-size: 17px;
     color: #383838;
@@ -103,7 +96,6 @@
     width: 300px;
     height: 55px;
     font-size: 20px;
-    font-family: 'mulish';
     font-weight: 900;
     border-radius: 10px;
 }
@@ -192,7 +184,6 @@
 }
 
 .register_title h1 {
-    font-family: 'mulish';
     font-weight: 900;
     color: #383838;
     font-size: 30px;
