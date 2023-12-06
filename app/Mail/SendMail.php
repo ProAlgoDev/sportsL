@@ -49,8 +49,8 @@ class SendMail extends Mailable
     }
     public function build()
     {
-        return $this->subject('Email From AllPHPTricks.com')
-            ->view('emails.testMail');
+        return $this->subject('Email From sportsapp@team-wallet.com')
+            ->view('email.emailVerificationEmail.blade');
     }
     /**
      * Get the attachments for the message.

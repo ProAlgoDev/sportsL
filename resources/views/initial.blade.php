@@ -6,7 +6,7 @@
         <title>sportsApp</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="{{URL::asset('css/app.css')}}" type="text/css">
-        @vite('resources/css/app.css')
+        {{-- @vite('resources/css/app.css') --}}
     <body>
         <div class="initial">
             <form id="initial" action="{{route('sample.validate_initial')}}" method="get">
