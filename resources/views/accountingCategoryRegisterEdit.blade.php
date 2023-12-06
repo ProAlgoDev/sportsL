@@ -9,6 +9,7 @@
         会計項目登録・編集
     </div>
 </div>
+
 <div class="accounting_category_register_edit_form">
 <form action='{{route("validate_default_category_register",[$teamId])}}' method="POST">
                     @csrf
