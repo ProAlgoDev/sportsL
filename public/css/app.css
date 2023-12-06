@@ -1940,6 +1940,7 @@ input#left_menu_extend:checked+label {
     padding-left: 10px;
     box-shadow: none;
     border: 1px solid gray;
+    background-image: none !important;
 }
 
 .category_edit_div button {
@@ -2200,4 +2201,77 @@ input#left_menu_extend:checked+label {
 .player_gender select {
     background: #eeeeee;
     border-radius: 10px;
+}
+
+.player_register_form .archive_table {
+    display: none;
+}
+
+.player_register_form tr {
+    position: relative;
+}
+
+.player_edit_modal {
+    position: absolute;
+    left: 0;
+    display: flex;
+    background-color: white;
+    height: 46px;
+    border-top: 1px solid #3FBAEE;
+    border-bottom: 1px solid #3FBAEE;
+}
+
+.player_edit_modal_name {
+    width: 80px;
+    border: none;
+}
+
+.player_edit_modal_name:focus {
+    border: none;
+    outline: none;
+}
+
+.player_edit_modal_gender {
+    width: 48px;
+    font-size: 12px;
+    border: none;
+    margin-right: 15px;
+}
+
+.player_edit_modal_gender:focus {
+    border: none;
+    outline: none;
+}
+
+.player_edit_modal_date {
+    width: 130px;
+    border: none;
+    background-image: url(../images/birth.png);
+    background-repeat: no-repeat;
+    background-size: 28px;
+    background-position: right 4px top 50%;
+
+}
+
+.player_edit_modal_date:focus {
+    border: none;
+    outline: none;
+}
+
+.player_edit_modal_btn {
+    background-color: #3FBAEE;
+    border: none;
+    color: white;
+    border-radius: 10px;
+    width: 70px;
+    margin-left: 8px;
+}
+
+.player_edit_modal_danger {
+    display: none;
+    position: absolute;
+    top: 55px;
+    background: white;
+    z-index: 20;
+    width: 100%;
 }

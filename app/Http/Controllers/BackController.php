@@ -688,7 +688,6 @@ class BackController extends Controller
     public function player_register($teamId)
     {
         $register = Player::where('teamId', $teamId)->where('status', 0)->where('register', 0)->get();
-        dump($register);
         $archive = Player::where('teamId', $teamId)->where('status', 0)->where('register', 1)->get();
         return view('playerRegister', ['title' => '選手登録・編集', 'teamId' => $teamId, 'register' => $register, 'archive' => $archive]);
     }
@@ -713,8 +712,51 @@ class BackController extends Controller
         Player::create([
             'name' => $request->playerName,
             'gender' => $gender,
-            'createdDate' => $request->createdDate
+            'createdDate' => $request->createdDate,
+            'teamId' => $teamId,
         ]);
+        return redirect("player_register/$teamId");
+    }
+    public function validate_player_register_edit(Request $request, $teamId)
+    {
+        $editList = $request->input('editList');
+        $archiveList = $request->input('archiveList');
+        $deleteList = $request->input('deleteList');
+        $visibleList = $request->input('visibleList');
+        if ($editList) {
+            foreach ($editList as $item) {
+                $id = $item['id'];
+                $name = $item['name'];
+                $gender = $item['gender'];
+                $date = $item['date'];
+                $player = Player::where('teamId', $teamId)->where('id', $id)->first();
+                $player->name = $name;
+                $player->gender = $gender;
+                $player->createdDate = $date;
+                $player->save();
+            }
+        }
+        if ($archiveList) {
+            foreach ($archiveList as $item) {
+                $player = Player::where('teamId', $teamId)->where('id', $item)->first();
+                $player->register = 1;
+                $player->save();
+            }
+        }
+        if ($visibleList) {
+            foreach ($visibleList as $item) {
+                $player = Player::where('teamId', $teamId)->where('id', $item)->first();
+                $player->register = 0;
+                $player->save();
+            }
+        }
+        if ($deleteList) {
+            foreach ($deleteList as $item) {
+                $player = Player::where('teamId', $teamId)->where('id', $item)->first();
+                $player->status = 1;
+                $player->save();
+            }
+        }
     }
 }
 

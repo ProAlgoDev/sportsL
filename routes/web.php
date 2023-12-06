@@ -72,4 +72,6 @@ Route::controller(BackController::class)->group(function () {
 
     Route::post('validate_player_register/{teamId}', 'validate_player_register')->middleware('is_login_status')->middleware('is_register_book_status')->name('validate_player_register');
 
+    Route::post('validate_player_register_edit/{teamId}', 'validate_player_register_edit')->middleware('is_login_status')->middleware('is_register_book_status')->name('validate_player_register_edit');
+
 });

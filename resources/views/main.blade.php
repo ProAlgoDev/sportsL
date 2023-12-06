@@ -12,6 +12,7 @@
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css" rel="stylesheet">
+        <link rel="icon" href="{{URL::asset('images/icon.png')}}" sizes="32x32" type="image/png">
         {{-- @vite('resources/css/app.css')
         @vite('resources/js/app.js') --}}
     </head>
