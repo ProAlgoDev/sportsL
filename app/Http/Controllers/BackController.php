@@ -20,9 +20,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\UserVerify;
 use Illuminate\Support\Str;
 use Mail;
-use Google_Client;
-use Google_Service_Gmail;
-use Google_Service_Gmail_Message;
+// use Google_Client;
+// use Google_Service_Gmail;
+// use Google_Service_Gmail_Message;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\View;
 
