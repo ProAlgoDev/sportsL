@@ -1101,7 +1101,7 @@ input#home_menu:checked+img {
 }
 
 #calendar {
-    background-image: url(/public/images/birth.png);
+    background-image: url(../images/birth.png);
     background-repeat: no-repeat;
     background-size: 22px;
     background-position: top 50% right 15px;
@@ -1194,7 +1194,7 @@ input#home_menu:checked+img {
 .accounting_category_register_edit_form input {
     border-radius: 10px;
     background: #eeeeee;
-    background-image: url(/public/images/category1.png) !important;
+    background-image: url(../images/category1.png) !important;
     background-repeat: no-repeat;
     background-size: 30px;
     background-position: left 15px top 50%;
@@ -1482,14 +1482,14 @@ input#home_menu:checked+img {
 }
 
 .triangle_icon {
-    background-image: url(/public/images/triangle.png) !important;
+    background-image: url(../images/triangle.png) !important;
     background-repeat: no-repeat !important;
     background-size: 24px !important;
     background-position: right 11px top 8px !important;
 }
 
 .date_icon {
-    background-image: url(/public/images/birth.png) !important;
+    background-image: url(../images/birth.png) !important;
     background-repeat: no-repeat !important;
     background-size: 24px !important;
     background-position: right 11px top 6px !important;
@@ -1524,7 +1524,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .invite_team_form input {
     background: #f0f0f0;
-    background-image: url(/public/images/email1.png);
+    background-image: url(../images/email1.png);
     background-repeat: no-repeat;
 
     font-size: 20px;
@@ -1643,21 +1643,21 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .account_detail_info .birthday .title {
-    background-image: url(/public/images/birth.png);
+    background-image: url(../images/birth.png);
     background-repeat: no-repeat;
     background-size: 26px;
     padding-left: 34px;
 }
 
 .account_detail_info .gender .title {
-    background-image: url(/public/images/gender.png);
+    background-image: url(../images/gender.png);
     background-repeat: no-repeat;
     background-size: 26px;
     padding-left: 34px;
 }
 
 .account_detail_info .email .title {
-    background-image: url(/public/images/email1.png);
+    background-image: url(../images/email1.png);
     background-repeat: no-repeat;
     background-size: 26px;
     padding-left: 34px;
@@ -1667,7 +1667,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .account_detail_info .password .title {
-    background-image: url(/public/images/password.png);
+    background-image: url(../images/password.png);
     background-repeat: no-repeat;
     background-size: 26px;
     padding-left: 34px;
