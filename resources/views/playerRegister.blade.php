@@ -57,83 +57,167 @@
                         <input type="radio" id="archive" name="playerStyle"/>
                         <label for="archive">アーカイブされた選手</label>
                     </div>
-                    <table class="player_edit">
+                    <table class="player_edit register_table">
                         <tr>
                             <th class="name">氏名</th>
                             <th class="gender">性別</th>
                             <th class="date">参加日</th>
                             <th class="status"></th>
                         </tr>
+                        @if($register)
+                            @foreach($register as $item)
+                            <tr data-id={{$item->id}}>
+                                <td class="player_name">{{$item->name}}</td>
+                                <td class="player_gender">{{$item->gender}}</td>
+                                <td class="player_date">{{$item->createdDate}}</td>
+                                <td>
+                                    <a data-type="edit" class="player_edit_btn">
+                                        <img src="{{asset('images/edit-3.svg')}}" alt="">
+                                    </a>
+                                    <a data-type="invisible" class="player_edit_btn">
+                                        <img src="{{asset('images/eye-off.svg')}}" alt="">
+                                    </a>
+                                    <a data-type="delete" class="player_edit_btn">
+                                        <img src="{{asset('images/trash-2.svg')}}" alt="">
+                                    </a>
+                                </td>
+                            </tr>
+                            @endforeach
+                        @endif
+                        
+                    </table>
+
+                    <table class="player_edit archive_table">
                         <tr>
-                            <td>田中一郎</td>
-                            <td>男性</td>
-                            <td>2022/10/10</td>
-                            <td>
-                                <a class="edit">
-                                    <img src="{{asset('images/edit-3.svg')}}" alt="">
-                                </a>
-                                <a class="visible">
-                                    <img src="{{asset('images/eye-off.svg')}}" alt="">
-                                </a>
-                                <a class="delete">
-                                    <img src="{{asset('images/trash-2.svg')}}" alt="">
-                                </a>
-                            </td>
+                            <th class="name">氏名</th>
+                            <th class="gender">性別</th>
+                            <th class="date">参加日</th>
+                            <th class="status"></th>
                         </tr>
-                        <tr>
-                            <td>田中一郎</td>
-                            <td>男性</td>
-                            <td>2022/10/10</td>
-                            <td>
-                                <a class="edit">
-                                    <img src="{{asset('images/edit-3.svg')}}" alt="">
-                                </a>
-                                <a class="visible">
-                                    <img src="{{asset('images/eye-off.svg')}}" alt="">
-                                </a>
-                                <a class="delete">
-                                    <img src="{{asset('images/trash-2.svg')}}" alt="">
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>田中一郎</td>
-                            <td>男性</td>
-                            <td>2022/10/10</td>
-                            <td>
-                                <a class="edit">
-                                    <img src="{{asset('images/edit-3.svg')}}" alt="">
-                                </a>
-                                <a class="visible">
-                                    <img src="{{asset('images/eye-off.svg')}}" alt="">
-                                </a>
-                                <a class="delete">
-                                    <img src="{{asset('images/trash-2.svg')}}" alt="">
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>田中一郎</td>
-                            <td>男性</td>
-                            <td>2022/10/10</td>
-                            <td>
-                                <a class="edit">
-                                    <img src="{{asset('images/edit-3.svg')}}" alt="">
-                                </a>
-                                <a class="visible">
-                                    <img src="{{asset('images/eye-off.svg')}}" alt="">
-                                </a>
-                                <a class="delete">
-                                    <img src="{{asset('images/trash-2.svg')}}" alt="">
-                                </a>
-                            </td>
-                        </tr>
+                        @if($archive)
+                            @foreach($archive as $item)
+                            <tr data-id={{$item->id}}>
+                                <td class="player_name">{{$item->name}}</td>
+                                <td class="player_gender">{{$item->gender}}</td>
+                                <td class="player_date">{{$item->createdDate}}</td>
+                                <td>
+                                    <a data-type="visible" class="player_edit_btn">
+                                        <img src="{{asset('images/eye.svg')}}" alt="">
+                                    </a>
+                                    <a data-type="delete" class="player_edit_btn">
+                                        <img src="{{asset('images/trash-2.svg')}}" alt="">
+                                    </a>
+                                </td>
+                            </tr>
+                            @endforeach
+                        @endif
+                        
                     </table>
                     <div class="category_edit_btn">
-                        
-                        <button class="btn btn-primary register_btn category_register_btn">保存する</button>
+                        <button class="btn btn-primary register_btn category_register_btn" id="player_edit_save">保存する</button>
                     </div>
                 </div>
 </div>
+<script>
+    let editList=[]
+    let archiveList=[]
+    let deleteList=[]
+    let visibleList =[]
+    var currentURL = window.location.href;
+    var teamId = currentURL.substring(currentURL.lastIndexOf('/') + 1);
+    $(document).ready(function(){
+        var archiveTable = $('.archive_table tr:last');
+        var registerTable = $('.register_table tr:last');
+        $('input[name="playerStyle"]').change(function() {
+      var value = $(this).attr('id');
+      if(value == 'register'){
+        $('.register_table').css('display','block');
+        $('.archive_table').css('display','none');
+      }
+      if(value == 'archive'){
+        $('.register_table').css('display','none');
+        $('.archive_table').css('display','block');
+      }
+    });
 
+    $('.player_edit_btn').click(function(){
+        var row = $(this).closest('tr');
+        var id = row.data('id');
+        var status = $(this).data('type');
+        var oldName = row.find('.player_name');
+        var oldGender = row.find('.player_Gender');
+        var oldDate = row.find('.player_date');
+        let edit = {}
+        
+        if (status == 'edit'){
+            var divElement = $('<div class="player_edit_modal"></div>');
+            var btnElement = $('<button class="player_edit_modal_btn">保存</button>');
+            var nameElement = $('<input class="player_edit_modal_name" value="'+oldName.text().trim()+'"/>');
+            var genderElement = $('<select class="player_edit_modal_gender"><option>男子</option><option>女子</option><option>混合</option></select>');
+            var dateElement = $('<input class="player_edit_modal_date date-icon" value="'+oldDate.text().trim()+'" type="date" />');
+            var spanElement = $('<span class="player_edit_modal_danger text-danger" >すべてのフィールドは必須です</span>');
+            divElement.append(nameElement);
+            divElement.append(genderElement);
+            divElement.append(dateElement);
+            divElement.append(btnElement);
+            divElement.append(spanElement);
+            row.append(divElement);
+            btnElement.click(function(){
+                name = nameElement.val();
+                gender = genderElement.val();
+                date = dateElement.val();
+                if(name!='' && gender!='' && date!=''){
+                    edit['id'] = id;
+                    edit['name'] = name;
+                    edit['gender'] = gender;
+                    edit['date'] = date;
+                    editList.push(edit);
+                    oldName.text(name);
+                    oldDate.text(date);
+                    oldGender.text(gender);
+                    divElement.remove();
+                }else{
+                    spanElement.css('display', 'block');
+                    btnElement.css('background','red');
+                }
+            });
+        }
+        if(status=='invisible'){
+            archiveList.push(id);
+            row.remove();
+        }
+        if(status=='visible'){
+            visibleList.push(id);
+            row.remove();
+
+        }
+        if(status == 'delete'){
+            deleteList.push(id);
+            row.remove();
+        }
+    });
+    $('#player_edit_save').click(function(){
+        $.ajax({
+            type: "POST",
+            url: `/validate_player_register_edit/${teamId}`,
+            data:{
+                editList:editList,
+                archiveList:archiveList,
+                deleteList:deleteList,
+                visibleList:visibleList,
+                _token:'{{csrf_token()}}'
+            },
+            success: function(response) {
+                    window.location.reload();
+                    console.log('successfully', response);       
+            },
+            error: function(error) {
+                window.location.reload();
+                console.error('Error', error);              
+            }
+
+        });
+    });
+    });
+    </script>
 @endsection('content')
