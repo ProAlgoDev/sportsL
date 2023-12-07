@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->string('password');
             $table->rememberToken();
             $table->boolean('is_email_verified')->default(0);
+            $table->string('avatar')->default('default_avatar.png');
             $table->timestamps();
         });
 

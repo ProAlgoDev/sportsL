@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'is_verify_email' => \App\Http\Middleware\IsVerifyEmail::class,
         'is_login_status' => \App\Http\Middleware\LoginStatus::class,
         'is_register_book_status' => \App\Http\Middleware\RegisterBookStatus::class,
+        'owner_check' => \App\Http\Middleware\OwnerCheck::class
     ];
 }

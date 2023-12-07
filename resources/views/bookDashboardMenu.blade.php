@@ -18,17 +18,17 @@
                     <img src="{{asset('images/avatar/' . $teamList->teamAvatar)}}" alt="">
                     <span>{{$teamList->teamName}}</span>
                 </div>
-                <div class="">オーナー</div>
+                <div class="">{{$owner}}</div>
             </a>
         @endforeach
-        @if(!$memberIdList)
+        @if($memberIdList)
         @foreach($memberIdList as $memberList)
-            <a href="{{route('book_dashboard',[$memberList->teamId,'all'])}}" class="team_category">
+            <a href="{{route('book_dashboard',[$memberList->team->teamId,'all'])}}" class="team_category">
                 <div class="">
-                    <img src="{{asset('images/avatar/' . $memberList->teamAvatar)}}" alt="">
-                    <span>{{$memberList->teamName}}</span>
+                    <img src="{{asset('images/avatar/' . $memberList->team->teamAvatar)}}" alt="">
+                    <span>{{$memberList->team->teamName}}</span>
                 </div>
-                <div class="">メンバー</div>
+                <div class="">{{$owner}}</div>
             </a>
         @endforeach
         @endif
@@ -39,11 +39,11 @@
             </div>
             <div class="menu_content_home book_menu">
                 <input id="home_menu" type="checkbox" class="left_home_menu" style="display:none;">
-                <label for='home_menu' href="#" class="menu_content_home_title">
+                <label for='home_menu'  class="menu_content_home_title">
                     <img id="home_image" src="{{asset('images/home.svg')}}" alt="">
                     <div class="">ホーム</div>
                 </label>
-
+                @if($owner == '管理者')
                 <div class="menu_content_home_list">
                     <a href="{{route('team_edit',[$teamId])}}" class="menu_content_home_item">
                         <img src="{{asset('images/edit-2.svg')}}" alt="">
@@ -65,7 +65,7 @@
                         <img src="{{asset('images/key.svg')}}" alt="">
                         <div class="">メンバー権限変更</div>
                     </a>
-                    <a href="{{route('invite_team')}}" class="menu_content_home_item">
+                    <a href="{{route('invite_team',[$teamId])}}" class="menu_content_home_item">
                         <img src="{{asset('images/send.svg')}}" alt="">
                         <div class="">チームへ招待</div>
                     </a>
@@ -74,6 +74,7 @@
                         <div class="">オーナー権限引き継ぎ</div>
                     </a>
                 </div>
+                @endif
                 
             </div>
             <a href="{{route('account_setting')}}" class="menu_account_setting book_menu">
