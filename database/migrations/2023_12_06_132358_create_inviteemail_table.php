@@ -12,16 +12,12 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('team', function (Blueprint $table) {
+        Schema::create('inviteemail', function (Blueprint $table) {
             $table->id();
+            $table->string('token');
+            $table->timestamp('expired_at')->nullable();
+            $table->string('email');
             $table->string('teamId');
-            $table->string('teamName');
-            $table->string('sportsType');
-            $table->string('area');
-            $table->string('age');
-            $table->string('sex');
-            $table->string('owner');
-            $table->string('teamAvatar')->default('default_avatar.png');
             $table->timestamps();
         });
     }
@@ -33,6 +29,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('team');
+        Schema::dropIfExists('inviteemail');
     }
 };

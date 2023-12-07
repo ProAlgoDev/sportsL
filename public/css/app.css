@@ -1185,13 +1185,12 @@ input#home_menu:checked+img {
 .accounting_category_register_edit_form input {
     border-radius: 10px;
     background: #eeeeee;
-    background-image: url(../images/category1.png) !important;
-    background-repeat: no-repeat;
-    background-size: 30px;
-    background-position: left 15px top 50%;
     padding-left: 50px;
     z-index: 10;
+    position: relative;
 }
+
+
 
 .accounting_category_edit_btn {
     position: absolute;
@@ -1511,20 +1510,18 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .invite_team_form h4 {
     margin-bottom: 20px;
+    font-size: 18px;
 }
 
 .invite_team_form input {
     background: #f0f0f0;
-    background-image: url(../images/email1.png);
-    background-repeat: no-repeat;
 
-    font-size: 20px;
-    width: 320px;
+    font-size: 16px;
+    width: 300px;
     margin: auto;
     border-radius: 10px;
     padding-left: 58px;
-    background-size: 38px;
-    background-position: left 11px top 5px;
+
 }
 
 .invite_team_form button {
@@ -2274,4 +2271,43 @@ input#left_menu_extend:checked+label {
     background: white;
     z-index: 20;
     width: 100%;
+}
+
+.invite_team_input {
+    position: relative;
+    display: inline-block;
+}
+
+.invite_team_input::after {
+    content: "";
+    position: absolute;
+    background-image: url(../images/email1.png) !important;
+    background-repeat: no-repeat;
+    background-size: 37px;
+    background-position: left 15px top 50%;
+    padding-left: 50px;
+    top: 1px;
+    left: 0;
+    width: 60px;
+    height: 46px;
+}
+
+.account_register_edit_input {
+    position: relative;
+    display: inline-block;
+}
+
+.account_register_edit_input::after {
+    content: "";
+    position: absolute;
+    background-image: url(../images/category1.png) !important;
+    background-repeat: no-repeat;
+    background-size: 28px;
+    background-position: left 15px top 50%;
+    padding-left: 50px;
+    top: 35px;
+    left: 0px;
+    z-index: 10;
+    width: 60px;
+    height: 46px;
 }

@@ -16,6 +16,7 @@ use App\Models\Category;
 use App\Models\DefaultCategory;
 use App\Models\Book;
 use App\Models\Player;
+use App\Models\InviteMail;
 use Illuminate\Support\Facades\Auth;
 use App\Models\UserVerify;
 use Illuminate\Support\Str;
@@ -71,7 +72,7 @@ class BackController extends Controller
         ], [
             'password.confirmed' => 'パスワードの確認が一致しません。',
             'name.required' => '名前フィールドは必須です。',
-            'email.required' => '電子メールフィールドは必須です。',
+            'email.required' => 'メールフィールドは必須です。',
             'password.required' => 'パスワードフィールドは必須です。',
             'email.email' => '正確なemail形式ではありません。',
             'email.unique' => 'このメールアドレスは既に登録されています。',
@@ -90,7 +91,7 @@ class BackController extends Controller
         ], [
             'policy.required' => '利用規約に同意する必要があります。',
             'name.required' => '名前フィールドは必須です。',
-            'email.required' => '電子メールフィールドは必須です。',
+            'email.required' => 'メールフィールドは必須です。',
             'password.required' => 'パスワードフィールドは必須です。',
             'email.unique' => 'このメールアドレスは既に登録されています。',
         ]);
@@ -127,7 +128,7 @@ class BackController extends Controller
             'email' => 'required',
             'password' => 'required'
         ], [
-            'email.required' => '電子メールフィールドは必須です。',
+            'email.required' => 'メールフィールドは必須です。',
             'password.required' => 'パスワードフィールドは必須です。'
         ]);
 
@@ -151,7 +152,8 @@ class BackController extends Controller
         if ($owner) {
             return redirect("book_dashboard/$owner->teamId/all");
         } elseif ($member) {
-            return redirect("book_dashboard/$member->teamId/all");
+            $memberTeamId = $member->team->teamId;
+            return redirect("book_dashboard/$memberTeamId/all");
         }
 
         return view("dashboard", ['name' => $name]);
@@ -265,7 +267,7 @@ class BackController extends Controller
         $request->validate([
             'email' => 'required'
         ], [
-            'email.required' => '電子メールフィールドは必須です。',
+            'email.required' => 'メールフィールドは必須です。',
         ]);
         $email = $request->get('email');
         $confirm = User::where('email', $email)->first();
@@ -545,7 +547,6 @@ class BackController extends Controller
         $dcategoryList = $request->input('deleteCategory');
         if ($categoryList) {
             foreach ($categoryList as $key => $value) {
-                echo "$key ':' $value";
                 $category = Category::where('teamId', $teamId)->where('categoryList', $key)->first();
                 $category->categoryList = $value;
                 $category->save();
@@ -607,9 +608,9 @@ class BackController extends Controller
         return redirect("accounting_register/$teamId")->with('accountingRegister', 'success');
     }
 
-    public function invite_team()
+    public function invite_team($teamId)
     {
-        return view('inviteTeam', ['title' => 'チームへ招待']);
+        return view('inviteTeam', ['title' => 'チームへ招待', 'teamId' => $teamId]);
     }
     public function ownership_transfer()
     {
@@ -757,6 +758,94 @@ class BackController extends Controller
                 $player->save();
             }
         }
+    }
+    public function validate_invite_team(Request $request, $teamId)
+    {
+        $request->validate([
+            'email' => 'required|email'
+        ], [
+            'email.required' => 'メールフィールドは必須です。',
+            'email.email' => '正確なemail形式ではありません。',
+        ]);
+        $email = $request->email;
+        $user = User::where('email', $email)->first();
+        if ($user) {
+            $id = $user->id;
+            $owner = Team::where('teamId', $teamId)->where('owner', $id)->first();
+            $member = Member::where('userId', $id)->first();
+        } else {
+            $owner = '';
+            $member = '';
+        }
+        $from = Team::where('teamId', $teamId)->first();
+        $teamName = $from->teamName;
+        $verifyToken = Str::random(64);
+        if ($owner) {
+            session()->flash('error', 'あなたはこのチームの管理者です。');
+        } elseif ($member) {
+            session()->flash('error', 'あなたはこのチームのメンバーです');
+        } else {
+            Mail::send('email.emailInviteMember', ['token' => $verifyToken, 'teamName' => $teamName], function ($message) use ($email) {
+                $message->to($email);
+                $message->subject('Invite Mail');
+            });
+            InviteMail::create([
+                'email' => $email,
+                'token' => $verifyToken,
+                'expired_at' => now()->addHours(24),
+                'teamId' => $teamId,
+            ]);
+        }
+
+        return redirect()->back();
+
+    }
+    public function validate_invite_mail($token)
+    {
+        $user = InviteMail::where('token', $token)->where('expired_at', '>', now())->first();
+        return view("inviteRegistration", ['user' => $user]);
+    }
+    public function validate_invite_register(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'password' => 'required|min:6|confirmed',
+            'email' => 'unique:users'
+        ], [
+            'password.confirmed' => 'パスワードの確認が一致しません。',
+            'name.required' => '名前フィールドは必須です。',
+            'email.unique' => 'あなたはすでに登録しています',
+        ]);
+        $name = $request->name;
+        $email = $request->email;
+        $password = $request->password;
+        $teamId = $request->teamId;
+        $id = User::latest()->first();
+        if (!$id) {
+            $id_m = 1;
+        } else {
+            $id_m = $id->id + 1;
+        }
+        $user_id = strtoupper($email[0]) . now()->format('d') . now()->format('m') . now()->format('y') . $id_m;
+        User::create([
+            'u_id' => $user_id,
+            'email' => $email,
+            'name' => $name,
+            'password' => Hash::make($password),
+            'is_email_verified' => 1
+        ]);
+        $team = Team::where('teamId', $teamId)->first();
+        $userId = User::where('email', $email)->first()->id;
+        $mteamId = $team->id;
+        Member::create([
+            'userId' => $userId,
+            'approved' => 1,
+            'team_id' => $mteamId
+        ]);
+        $credentials = $request->only('email', 'password');
+
+        Auth::attempt($credentials);
+        return redirect("book_dashboard/$teamId/all");
     }
 }
 

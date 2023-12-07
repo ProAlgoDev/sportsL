@@ -20,6 +20,6 @@ class Team extends Model
     ];
     public function memeber()
     {
-        return $this->hasMany(Member::class);
+        return $this->hasOne(Member::class);
     }
 }

@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->id();
             $table->boolean('approved')->default(0);
             $table->string('userId');
+            $table->foreignId('team_id')->references('id')->on('team');
             $table->timestamps();
         });
     }
