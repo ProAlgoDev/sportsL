@@ -61,7 +61,7 @@
                         <img src="{{asset('images/users.svg')}}" alt="">
                         <div class="">選手登録・編集</div>
                     </a>
-                    <a  class="menu_content_home_item">
+                    <a href="{{route('member_approve',[$teamId])}}" class="menu_content_home_item">
                         <img src="{{asset('images/key.svg')}}" alt="">
                         <div class="">メンバー権限変更</div>
                     </a>

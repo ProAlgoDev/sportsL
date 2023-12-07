@@ -22,7 +22,7 @@
                         <img src="{{asset('images/team2.png')}}" alt="">
                         <div class="dashboard_group_content">新しくチームを作りたい</div>
                     </a>
-                    <a href="#" class="dashboard_group">
+                    <a href="{{route('search_team')}}" class="dashboard_group">
                         <img src="{{asset('images/team2.png')}}" alt="">
                         <div class="dashboard_group_content">既存のチームに入りたい</div>
                     </a>

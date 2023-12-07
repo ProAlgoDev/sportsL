@@ -12,11 +12,15 @@ class Member extends Model
 
     protected $fillable = [
         'approved',
-        'userId',
+        'user_id',
         'team_id'
     ];
     public function team()
     {
         return $this->belongsTo(Team::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

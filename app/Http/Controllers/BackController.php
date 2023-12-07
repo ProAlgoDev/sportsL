@@ -147,13 +147,18 @@ class BackController extends Controller
         $name = Auth::user()->name;
         $userId = Auth::user()->id;
         $owner = Team::where('owner', $userId)->first();
-        $member = Member::where('userId', $userId)->first();
+        $member = Member::where('user_id', $userId)->first();
 
         if ($owner) {
             return redirect("book_dashboard/$owner->teamId/all");
         } elseif ($member) {
             $memberTeamId = $member->team->teamId;
-            return redirect("book_dashboard/$memberTeamId/all");
+            $approve = $member->approved;
+            if ($approve == 1) {
+                return redirect("book_dashboard/$memberTeamId/all");
+            } else {
+                return redirect('account_setting');
+            }
         }
 
         return view("dashboard", ['name' => $name]);
@@ -388,7 +393,7 @@ class BackController extends Controller
         } else {
             $ownerCheck = "会員";
         }
-        $memeberIdList = Member::where('userId', $user)->get();
+        $memeberIdList = Member::where('user_id', $user)->get();
         if (!$book) {
             return view('bookDashboard', ['teamId' => $teamId, 'owner' => $ownerCheck, 'userName' => $userName, 'teamName' => $teamName, 'teamAvatar' => $teamAvatar, 'type' => $type, 'teamIdList' => $teamIdList, 'memberIdList' => $memeberIdList]);
 
@@ -838,7 +843,7 @@ class BackController extends Controller
         $userId = User::where('email', $email)->first()->id;
         $mteamId = $team->id;
         Member::create([
-            'userId' => $userId,
+            'user_id' => $userId,
             'approved' => 1,
             'team_id' => $mteamId
         ]);
@@ -846,6 +851,94 @@ class BackController extends Controller
 
         Auth::attempt($credentials);
         return redirect("book_dashboard/$teamId/all");
+    }
+    public function member_approve($teamId)
+    {
+        $member = Member::where('approved', 0)->whereHas('team', function ($query) use ($teamId) {
+            $query->where('teamId', $teamId);
+        })->get();
+        return view('memberApproveList', ['teamId' => $teamId, 'memberList' => $member]);
+    }
+    public function validate_approve_member(Request $request, $teamId)
+    {
+        $approveList = $request->approveList;
+        foreach ($approveList as $member) {
+            $user = Member::where('user_id', $member)->first();
+            $user->approved = 1;
+            $user->save();
+        }
+    }
+    public function search_team()
+    {
+        $user = Auth::user()->id;
+        $member = Member::where('user_id', $user)->pluck('team_id')->toArray();
+        if (!$member) {
+            $teamList = Team::where('owner', '!=', $user)->get();
+        } else {
+            $teamList = Team::where('id', '!=', $member)->where('owner', '!=', $user)->get();
+        }
+        if (!$teamList) {
+            return redirect('dashboard');
+        }
+        return view('searchTeam', ['teamList' => $teamList]);
+    }
+    public function validate_search_team(Request $request)
+    {
+        $id = $request->search;
+        $user = Auth::user()->id;
+        $member = Member::where('user_id', $user)->pluck('team_id')->toArray();
+        if ($id) {
+            if (!$member) {
+                $teamList = Team::where('teamId', 'LIKE', "%$id%")->where('owner', '!=', $user)->get();
+            } else {
+                $teamList = Team::where('teamId', 'LIKE', "%$id%")->where('id', '!=', $member)->where('owner', '!=', $user)->get();
+            }
+        } else {
+            if (!$member) {
+                $teamList = Team::where('owner', '!=', $user)->get();
+            } else {
+                $teamList = Team::where('id', '!=', $member)->where('owner', '!=', $user)->get();
+            }
+        }
+        return view('searchTeam', ['teamList' => $teamList]);
+    }
+    public function search_team2(Request $request)
+    {
+        $team = Team::where('id', $request->id)->first();
+        $user = Auth::user()->id;
+        $member = Member::where('user_id', $user)->where('team_id', $team->id)->first();
+        if ($member) {
+            session()->flash('teamError', 'ffff');
+            return redirect()->back();
+        }
+        return view('searchTeam2', ['team' => $team]);
+    }
+    public function validate_team_enter(Request $request)
+    {
+        $id = $request->id;
+        $userId = Auth::user()->id;
+        $user_id = User::where('id', $userId)->first();
+        if ($id) {
+            $team = Team::where('id', $id)->first();
+            $member = Member::where('team_id', $team->id)->where('user_id', $user_id->id)->first();
+            if ($member) {
+                session()->flash('error', '');
+                dump($user_id);
+                return view('searchTeam2', ['team' => $team]);
+            } else {
+                Member::create([
+                    'team_id' => $team->id,
+                    'user_id' => $user_id->id,
+                ]);
+                return view('searchTeam3', ['team' => $team]);
+            }
+        }
+        return back();
+
+    }
+    public function unapproved()
+    {
+        return view('unApproved');
     }
 }
 

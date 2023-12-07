@@ -3,7 +3,7 @@
 @include('bookDashboardLogo')
 <div class="header_menu_title">
     <div class="left_menu_back">
-        <a href="{{URL::previous()}}"><img src="{{asset('images/back.png')}}" alt=""></a>
+        <a href="{{route('sample.dashboard')}}"><img src="{{asset('images/back.png')}}" alt=""></a>
     </div>
     <div class="left_menu_logo">
         {{$title}}
@@ -14,7 +14,6 @@
 
 </div>
 <div class="accounting_setting_form">
-
                     <div class="personal_info">
                         <button><img src="{{asset('images/avatar/default_avatar.png')}}" alt=""></button>
                         <div class="personal_info_content">
