@@ -103,6 +103,7 @@ Route::controller(BackController::class)->group(function () {
 
     Route::post('validate_team_enter', 'validate_team_enter')->middleware('is_login_status')->name('validate_team_enter');
 
-    Route::get('unapproved', 'unapproved')->middleware('is_login_status')->name('unapproved');
+    Route::post('validate_account_edit', 'validate_account_edit')->middleware('is_login_status')->middleware('is_register_book_status')->name('validate_account_edit');
+
 
 });

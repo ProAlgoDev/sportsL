@@ -1634,34 +1634,60 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     background-image: url(../images/birth.png);
     background-repeat: no-repeat;
     background-size: 26px;
-    padding-left: 34px;
+    padding-left: 40px;
+    display: flex;
+    flex-direction: column;
+    background-position-y: 7px;
+    border: none !important;
+    padding-top: 0;
+    padding-bottom: 0;
+    align-items: flex-start;
+    position: relative;
 }
 
 .account_detail_info .gender .title {
     background-image: url(../images/gender.png);
     background-repeat: no-repeat;
     background-size: 26px;
-    padding-left: 34px;
+    padding-left: 40px;
+    display: flex;
+    flex-direction: column;
+    background-position-y: 7px;
+    border: none !important;
+    padding-top: 0;
+    padding-bottom: 0;
+    align-items: flex-start;
+    position: relative;
 }
 
 .account_detail_info .email .title {
     background-image: url(../images/email1.png);
     background-repeat: no-repeat;
     background-size: 26px;
-    padding-left: 34px;
+    padding-left: 40px;
     display: flex;
     flex-direction: column;
     background-position-y: 7px;
+    border: none !important;
+    padding-top: 0;
+    padding-bottom: 0;
+    align-items: flex-start;
+    position: relative;
 }
 
 .account_detail_info .password .title {
     background-image: url(../images/password.png);
     background-repeat: no-repeat;
     background-size: 26px;
-    padding-left: 34px;
+    padding-left: 40px;
     display: flex;
     flex-direction: column;
     background-position-y: 7px;
+    border: none !important;
+    padding-top: 0;
+    padding-bottom: 0;
+    align-items: flex-start;
+    position: relative;
 }
 
 .account_detail_info div {
@@ -1670,21 +1696,24 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     padding: 8px 0px;
     border-bottom: 2px dotted #767676;
     min-height: 46px;
+    align-items: center;
+    position: relative;
 }
 
-.account_detail_info .email .title {
-    border: none !important;
-    padding-top: 0;
-    padding-bottom: 0;
+
+
+.account_detail_info .password .edit {
+    border: none;
+    background: none;
+    display: block;
 }
 
-.account_detail_info .password .title {
-    border: none !important;
-    padding-top: 0;
-    padding-bottom: 0;
+.account_detail_info .birthday .edit {
+    border: none;
+    background: none;
 }
 
-.account_detail_info .password button {
+.account_detail_info .gender .edit {
     border: none;
     background: none;
 }
@@ -1693,12 +1722,20 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     width: 30px;
 }
 
-.account_detail_info .email button {
+.account_detail_info .email .edit {
     border: none;
     background: none;
 }
 
 .account_detail_info .email .title img {
+    width: 30px;
+}
+
+.account_detail_info .birthday .title img {
+    width: 30px;
+}
+
+.account_detail_info .gender .title img {
     width: 30px;
 }
 
