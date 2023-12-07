@@ -40,31 +40,42 @@ Route::controller(BackController::class)->group(function () {
     Route::get("new_team_create1", 'new_team_create1')->middleware('is_login_status')->name('new_team_create1');
     Route::post('new_team_create2', 'new_team_create2')->middleware('is_login_status')->name('new_team_create2');
     Route::post('new_team_create3', 'new_team_create3')->middleware('is_login_status')->name('new_team_create3');
-    Route::get("book_dashboard/{teamId}/{type}", 'book_dashboard')->middleware('is_login_status')->middleware('is_register_book_status')->name('book_dashboard');
-    Route::post("validate_book_dashboard", 'validate_book_dashboard')->middleware('is_login_status')->middleware('is_register_book_status')->name('validate_book_dashboard');
+    Route::get("book_dashboard/{teamId}/{type}", 'book_dashboard')->middleware('is_login_status')->middleware('is_register_book_status')->middleware('approve_status')->name('book_dashboard');
+    Route::post("validate_book_dashboard", 'validate_book_dashboard')->middleware('is_login_status')->middleware('is_register_book_status')->middleware('approve_status')->name('validate_book_dashboard');
 
     Route::get('back/{url}/{teamId}', 'back')->name('back');
     Route::post('validate_team_edit/{teamId}', 'validate_team_edit')->middleware('is_login_status')->middleware('is_register_book_status')->middleware('owner_check')->name('validate_team_edit');
 
     Route::get("team_edit/{teamId}", 'team_edit')->middleware('is_login_status')->middleware('is_register_book_status')->middleware('owner_check')->name('team_edit');
+
     Route::get("team_edit_detail/{teamId}", 'team_edit_detail')->middleware('is_login_status')->middleware('is_register_book_status')->middleware('owner_check')->name('team_edit_detail');
+
     Route::get("team_edit_amount/{teamId}", 'team_edit_amount')->middleware('is_login_status')->middleware('is_register_book_status')->middleware('owner_check')->name('team_edit_amount');
+
     Route::get("accounting_category_register/{teamId}", 'accounting_category_register')->middleware('is_login_status')->middleware('is_register_book_status')->middleware('owner_check')->name('accounting_category_register');
+
     Route::get("accounting_register/{teamId}", 'accounting_register')->middleware('is_login_status')->middleware('is_register_book_status')->middleware('owner_check')->name('accounting_register');
+
     Route::get("player_register/{teamId}", 'player_register')->middleware('is_login_status')->middleware('is_register_book_status')->middleware('owner_check')->name('player_register');
+
     Route::get("invite_team/{teamId}", 'invite_team')->middleware('is_login_status')->middleware('is_register_book_status')->name('invite_team');
+
     Route::get("ownership_transfer", 'ownership_transfer')->middleware('is_login_status')->middleware('is_register_book_status')->middleware('owner_check')->name('ownership_transfer');
+
     Route::get("account_setting", 'account_setting')->middleware('is_login_status')->middleware('is_register_book_status')->name('account_setting');
 
     Route::post('validate_initial_amount/{teamId}', 'validate_initial_amount')->middleware('is_login_status')->middleware('is_register_book_status')->middleware('owner_check')->name('validate_initial_amount');
 
     Route::post('validate_default_category_register/{teamId}', 'validate_default_category_register')->middleware('is_login_status')->middleware('is_register_book_status')->middleware('owner_check')->name('validate_default_category_register');
+
     Route::post('validate_category_register/{teamId}', 'validate_category_register')->middleware('is_login_status')->middleware('is_register_book_status')->middleware('owner_check')->name('validate_category_register');
+
     Route::post('validate_category_name_edit/{teamId}', 'validate_category_name_edit')->middleware('is_login_status')->middleware('is_register_book_status')->middleware('owner_check')->name('validate_category_name_edit');
 
     Route::post('validate_accounting_register/{teamId}', 'validate_accounting_register')->middleware('is_login_status')->middleware('is_register_book_status')->middleware('owner_check')->name('validate_accounting_register');
 
     Route::get('monthly_report/{teamId}', 'monthly_report')->middleware('is_login_status')->middleware('is_register_book_status')->middleware('owner_check')->name('monthly_report');
+
     Route::post('monthly_report_search/{teamId}', 'monthly_report_search')->middleware('is_login_status')->middleware('is_register_book_status')->middleware('owner_check')->name('monthly_report_search');
 
     Route::post('accounting_edit/{teamId}', 'accounting_edit')->middleware('is_login_status')->middleware('is_register_book_status')->middleware('owner_check')->name('accounting_edit');
@@ -75,10 +86,23 @@ Route::controller(BackController::class)->group(function () {
     Route::post('validate_player_register_edit/{teamId}', 'validate_player_register_edit')->middleware('is_login_status')->middleware('is_register_book_status')->middleware('owner_check')->name('validate_player_register_edit');
 
     Route::post('validate_invite_team/{teamId}', 'validate_invite_team')->middleware('is_login_status')->middleware('is_register_book_status')->middleware('owner_check')->name('validate_invite_team');
+
     Route::get('validate_invite_mail/{token}', 'validate_invite_mail')->name('validate_invite_mail');
+
     Route::post('validate_invite_register', 'validate_invite_register')->name('validate_invite_register');
+
     Route::get('member_approve/{teamId}', 'member_approve')->middleware('is_login_status')->middleware('is_register_book_status')->middleware('owner_check')->name('member_approve');
 
     Route::post('validate_approve_member/{teamId}', 'validate_approve_member')->middleware('is_login_status')->middleware('is_register_book_status')->middleware('owner_check')->name('validate_approve_member');
+
+    Route::get('search_team', 'search_team')->middleware('is_login_status')->name('search_team');
+
+    Route::post('validate_search_team', 'validate_search_team')->middleware('is_login_status')->name('validate_search_team');
+
+    Route::post('search_team2', 'search_team2')->middleware('is_login_status')->name('search_team2');
+
+    Route::post('validate_team_enter', 'validate_team_enter')->middleware('is_login_status')->name('validate_team_enter');
+
+    Route::get('unapproved', 'unapproved')->middleware('is_login_status')->name('unapproved');
 
 });

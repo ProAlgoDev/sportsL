@@ -2359,3 +2359,109 @@ input#left_menu_extend:checked+label {
 .member_approve_form .approve_check {
     transform: scale(1.5);
 }
+
+.search_team_form {
+    text-align: center;
+}
+
+.search_team_form .search_input {
+    position: relative;
+    margin: auto;
+    max-width: 320px;
+    margin-top: 30px;
+}
+
+.search_team_form .search_input input {
+    max-width: 320px;
+    height: 50px;
+    background-color: #eeeeee;
+    border-radius: 10px;
+    padding-left: 50px;
+}
+
+.search_team_form .search_input::after {
+    content: "";
+    background-image: url(../images/search.png);
+    width: 30px;
+    height: 30px;
+    background-repeat: no-repeat;
+    display: block;
+    position: absolute;
+    background-size: 28px;
+    top: 11px;
+    left: 14px;
+}
+
+.search_team_form .team_list {
+    margin-top: 40px;
+    max-height: 430px;
+    overflow-y: scroll;
+}
+
+.search_team_form .team_list .team {
+    display: flex;
+    gap: 20px;
+    max-width: 400px;
+    margin: auto;
+    text-align: left;
+    align-items: end;
+    padding: 10px;
+    border-bottom: 1px solid #c5c5c5;
+    cursor: pointer;
+    position: relative;
+}
+
+.search_team_form .team_list .team img {
+    width: 50px;
+}
+
+.search_team_form .team_list .team .teamId {
+    position: absolute;
+    right: 10px;
+}
+
+.search_team_form .team_list .team .team_info span {
+    display: block;
+}
+
+.search_team_form {
+    margin-top: 50px;
+}
+
+.team_info_result {
+    max-width: 320px;
+    margin: auto;
+}
+
+.team_info_result .team_id {
+    padding: 10px;
+    display: flex;
+    gap: 20px;
+    text-align: left;
+    align-items: center;
+}
+
+.team_info_result .team_id img {
+    width: 65px;
+}
+
+.team_info_result .team_id span {
+    display: block;
+}
+
+.team_info_result .team_sports {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    border-top: 1px solid #c5c5c5;
+    border-bottom: 1px solid #c5c5c5;
+}
+
+.team_info_result .team_area {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #c5c5c5;
+    margin-bottom: 50px;
+}

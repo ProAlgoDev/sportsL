@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Team;
 use App\Models\Member;
 
-class RegisterBookStatus
+class ApproveStatus
 {
     /**
      * Handle an incoming request.
@@ -19,15 +19,22 @@ class RegisterBookStatus
      */
     public function handle(Request $request, Closure $next)
     {
-        $name = Auth::user()->name;
-        $userId = Auth::user()->id;
-        $owner = Team::where('owner', $userId)->first();
-        $member = Member::where('user_id', $userId)->first();
-        if (!$owner && !$member) {
-            return redirect('dashboard');
+        $user = Auth::user()->id;
+        $teamId = $request->route('teamId');
+        $team = Team::where('teamId', $teamId)->first();
+        if (!$team) {
+            return back();
         }
+        $owner = $team->owner;
 
-
+        $member = Member::where('user_id', $user)->where('team_id', $team->id)->first();
+        if ($member && $owner != $user) {
+            $approve = $member->approved;
+            if ($approve == 0) {
+                return redirect('account_setting');
+            }
+        }
         return $next($request);
+
     }
 }
