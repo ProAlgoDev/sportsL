@@ -77,4 +77,8 @@ Route::controller(BackController::class)->group(function () {
     Route::post('validate_invite_team/{teamId}', 'validate_invite_team')->middleware('is_login_status')->middleware('is_register_book_status')->middleware('owner_check')->name('validate_invite_team');
     Route::get('validate_invite_mail/{token}', 'validate_invite_mail')->name('validate_invite_mail');
     Route::post('validate_invite_register', 'validate_invite_register')->name('validate_invite_register');
+    Route::get('member_approve/{teamId}', 'member_approve')->middleware('is_login_status')->middleware('is_register_book_status')->middleware('owner_check')->name('member_approve');
+
+    Route::post('validate_approve_member/{teamId}', 'validate_approve_member')->middleware('is_login_status')->middleware('is_register_book_status')->middleware('owner_check')->name('validate_approve_member');
+
 });

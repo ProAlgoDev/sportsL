@@ -147,7 +147,7 @@ class BackController extends Controller
         $name = Auth::user()->name;
         $userId = Auth::user()->id;
         $owner = Team::where('owner', $userId)->first();
-        $member = Member::where('userId', $userId)->first();
+        $member = Member::where('user_id', $userId)->first();
 
         if ($owner) {
             return redirect("book_dashboard/$owner->teamId/all");
@@ -388,7 +388,7 @@ class BackController extends Controller
         } else {
             $ownerCheck = "会員";
         }
-        $memeberIdList = Member::where('userId', $user)->get();
+        $memeberIdList = Member::where('user_id', $user)->get();
         if (!$book) {
             return view('bookDashboard', ['teamId' => $teamId, 'owner' => $ownerCheck, 'userName' => $userName, 'teamName' => $teamName, 'teamAvatar' => $teamAvatar, 'type' => $type, 'teamIdList' => $teamIdList, 'memberIdList' => $memeberIdList]);
 
@@ -838,7 +838,7 @@ class BackController extends Controller
         $userId = User::where('email', $email)->first()->id;
         $mteamId = $team->id;
         Member::create([
-            'userId' => $userId,
+            'user_id' => $userId,
             'approved' => 1,
             'team_id' => $mteamId
         ]);
@@ -846,6 +846,22 @@ class BackController extends Controller
 
         Auth::attempt($credentials);
         return redirect("book_dashboard/$teamId/all");
+    }
+    public function member_approve($teamId)
+    {
+        $member = Member::where('approved', 0)->whereHas('team', function ($query) use ($teamId) {
+            $query->where('teamId', $teamId);
+        })->get();
+        return view('memberApproveList', ['teamId' => $teamId, 'memberList' => $member]);
+    }
+    public function validate_approve_member(Request $request, $teamId)
+    {
+        $approveList = $request->approveList;
+        foreach ($approveList as $member) {
+            $user = Member::where('user_id', $member)->first();
+            $user->approved = 1;
+            $user->save();
+        }
     }
 }
 

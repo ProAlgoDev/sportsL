@@ -2311,3 +2311,51 @@ input#left_menu_extend:checked+label {
     width: 60px;
     height: 46px;
 }
+
+.member_approve_form h6 {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+.member_approve_list {
+    text-align: center;
+}
+
+.member_approve_item {
+    display: flex;
+    justify-content: space-between;
+    max-width: 260px;
+    margin: auto;
+    padding: 10px;
+    border-bottom: 1px solid #c2c2c2;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.member_approve_form .title {
+    color: #3FBAEE;
+    font-size: 18px;
+    font-weight: 600;
+    padding-bottom: 2px !important;
+    margin-bottom: 0 !important;
+    border-bottom: 1px solid #3FBAEE;
+}
+
+.member_approve_form button {
+    padding: 10px;
+    background: #3fbaee;
+    border: none;
+    color: white;
+    border-radius: 10px;
+}
+
+.member_approve_form .approve_btn {
+    width: 140px;
+}
+
+.member_approve_form .approve_check {
+    transform: scale(1.5);
+}

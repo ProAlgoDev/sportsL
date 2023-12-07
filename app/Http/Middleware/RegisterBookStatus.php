@@ -22,7 +22,7 @@ class RegisterBookStatus
         $name = Auth::user()->name;
         $userId = Auth::user()->id;
         $owner = Team::where('owner', $userId)->first();
-        $member = Member::where('userId', $userId)->first();
+        $member = Member::where('user_id', $userId)->first();
         if (!$owner && !$member) {
             return redirect('dashboard');
         }
