@@ -8,8 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
-class User extends Authenticatable
-{
+class User extends Authenticatable {
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -22,7 +21,9 @@ class User extends Authenticatable
         'email',
         'password',
         'is_email_verified',
-        'u_id'
+        'u_id',
+        'birth',
+        'gender'
     ];
 
     /**
@@ -43,12 +44,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function userVerify()
-    {
+    public function userVerify() {
         return $this->hasOne(UserVerify::class);
     }
-    public function member()
-    {
+    public function member() {
         return $this->hasOne(Member::class);
     }
 }

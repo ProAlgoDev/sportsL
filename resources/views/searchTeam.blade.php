@@ -8,9 +8,7 @@
         <div class="register_title">
             <h1>チームへの参加（1/3）</h1>
         </div>
-        
         <div class="search_team_form">
-            
                     <div class="form-group mb-4 search_input">
                         <form action="validate_search_team" method="POST">
                             @csrf
@@ -29,7 +27,7 @@
                         あなたはすでにチーム参加申請を送信しています。
                 </span>
             @endif
-                        @if($teamList)
+                        @if(count($teamList) > 0)
                         @foreach($teamList as $team)
                             <form action="{{route('search_team2')}}" method="POST" class="team">
                                 @csrf
@@ -42,9 +40,10 @@
                                 <div class="teamId">
                                     #{{$team->teamId}}
                                 </div>
-                                
                             </form>
                         @endforeach
+                        @else
+                         <div class="">チームがありません</div>
                         @endif
                     </div>
                 <div class="register_back">

@@ -142,6 +142,8 @@
                                 // Set up a callback function to handle the file read
                                 img.onload = function() {
                                     if (img.width > 300 || img.height > 300) {
+                                         var existingFileAlert = $('#file_alert');
+                                    if(existingFileAlert.length === 0){
                                         var spanElement = document.createElement('span');
                                         spanElement.textContent = '画像のサイズは 300x300 ピクセル以下である必要があります。';
                                         spanElement.style.color='red';
@@ -150,7 +152,7 @@
                                         fileInput.insertAdjacentElement('afterend',spanElement);
 
                                         fileInput.value = '';
-                                        
+                                    }
                                     } else{
                                         var fileAlert = document.getElementById('file_alert');
                                         if(fileAlert){

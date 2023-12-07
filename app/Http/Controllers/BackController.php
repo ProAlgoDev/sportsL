@@ -27,43 +27,31 @@ use Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\View;
 
-class BackController extends Controller
-{
-    function index()
-    {
+class BackController extends Controller {
+    function index() {
         return view('initial');
     }
-    function login()
-    {
+    function login() {
         return view('login');
     }
-    function registration1()
-    {
+    function registration1() {
         // session()->flush();
         // $client = new Google_Client();
         // $client->setAuthConfig(storage_path('app\public\data\credentials.json'));
         // $client->addScope(Google_Service_Gmail::GMAIL_SEND);
         // $authUrl = $client->createAuthUrl();
         // return Redirect::to($authUrl);
-        $email = Session::get('email');
-        $user = User::where('email', $email)->first();
-        if ($user && $email) {
-            return redirect('send-email');
-        }
         return view("registration");
     }
-    function registration2()
-    {
+    function registration2() {
         $flashedData = session()->getOldInput();
         return view("registration2");
     }
-    function validate_initial()
-    {
+    function validate_initial() {
 
         return redirect('login');
     }
-    public function validate_registration(Request $request)
-    {
+    public function validate_registration(Request $request) {
 
         $request->validate([
             'name' => 'required',
@@ -80,8 +68,7 @@ class BackController extends Controller
         $request->flash();
         return redirect('registration2');
     }
-    function validate_registration2(Request $request)
-    {
+    function validate_registration2(Request $request) {
 
         $request->validate([
             'policy' => 'required|accepted',
@@ -110,20 +97,16 @@ class BackController extends Controller
 
 
     }
-    function registration3()
-    {
+    function registration3() {
         return view("registration3");
     }
-    public function validate_back()
-    {
+    public function validate_back() {
         return redirect('login');
     }
-    public function back(Request $request, $url, $teamId)
-    {
-        return redirect($url . '/' . $teamId);
+    public function back(Request $request, $url, $teamId) {
+        return redirect($url.'/'.$teamId);
     }
-    function validate_login(Request $request)
-    {
+    function validate_login(Request $request) {
         $request->validate([
             'email' => 'required',
             'password' => 'required'
@@ -134,27 +117,26 @@ class BackController extends Controller
 
         $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials)) {
+        if(Auth::attempt($credentials)) {
             return redirect('dashboard');
         }
         session()->flash('error', 'ログインの詳細が検証されていません');
         return redirect("login");
     }
 
-    function dashboard()
-    {
+    function dashboard() {
 
         $name = Auth::user()->name;
         $userId = Auth::user()->id;
         $owner = Team::where('owner', $userId)->first();
         $member = Member::where('user_id', $userId)->first();
 
-        if ($owner) {
+        if($owner) {
             return redirect("book_dashboard/$owner->teamId/all");
-        } elseif ($member) {
+        } elseif($member) {
             $memberTeamId = $member->team->teamId;
             $approve = $member->approved;
-            if ($approve == 1) {
+            if($approve == 1) {
                 return redirect("book_dashboard/$memberTeamId/all");
             } else {
                 return redirect('account_setting');
@@ -164,16 +146,15 @@ class BackController extends Controller
         return view("dashboard", ['name' => $name]);
 
     }
-    public function create(array $data)
-    {
+    public function create(array $data) {
         $id = User::latest()->first();
-        if (!$id) {
+        if(!$id) {
             $id_m = 1;
         } else {
             $id_m = $id->id + 1;
         }
         $email = $data['email'];
-        $user_id = strtoupper($email[0]) . now()->format('d') . now()->format('m') . now()->format('y') . $id_m;
+        $user_id = strtoupper($email[0]).now()->format('d').now()->format('m').now()->format('y').$id_m;
         return
             User::create([
                 'name' => $data['name'],
@@ -182,14 +163,13 @@ class BackController extends Controller
                 'u_id' => $user_id
             ]);
     }
-    public function verifyAccount($token)
-    {
+    public function verifyAccount($token) {
         $verifyUser = UserVerify::where('token', $token)->where('expires_at', '>', now())->first();
         $message = "Sorry your email cannot be identified.";
-        if (!is_null($verifyUser)) {
+        if(!is_null($verifyUser)) {
 
             $user = $verifyUser->user;
-            if (!$user->is_email_verified) {
+            if(!$user->is_email_verified) {
                 $verifyUser->user->is_email_verified = 1;
                 $verifyUser->user->save();
                 $message = "Your email is now verified";
@@ -201,15 +181,13 @@ class BackController extends Controller
         return redirect('dashboard');
 
     }
-    function logout()
-    {
+    function logout() {
         Session::flush();
         Auth::logout();
         return redirect('login');
     }
 
-    public function callback(Request $request)
-    {
+    public function callback(Request $request) {
         // $client = new Google_Client();
         // $client->setAuthConfig(storage_path('app\public\data\credentials.json'));
         // $client->addScope(Google_Service_Gmail::GMAIL_SEND);
@@ -221,14 +199,13 @@ class BackController extends Controller
         // Session::put('gmail_token', $token);
         $email = Session::get('email');
         $user = User::where('email', $email)->first();
-        if ($user && $email) {
+        if($user && $email) {
             return redirect('send-email');
         }
         return view("registration");
     }
 
-    public function sendEmail()
-    {
+    public function sendEmail() {
         // $token = Session::get('gmail_token');
         // $client = new Google_Client();
 
@@ -238,7 +215,7 @@ class BackController extends Controller
         // $service = new Google_Service_Gmail($client);
         $email = Session::get('email');
         $verifyEmail = User::where('email', $email)->first();
-        if ($verifyEmail && $verifyEmail->is_email_verified) {
+        if($verifyEmail && $verifyEmail->is_email_verified) {
             return redirect('login');
         }
         // $imagePath = public_path('images\next_logo.png');
@@ -263,12 +240,10 @@ class BackController extends Controller
 
         return Redirect::to('registration3');
     }
-    public function resendEmail()
-    {
+    public function resendEmail() {
         return view('verificationEmailResend');
     }
-    public function validate_resend_email(Request $request)
-    {
+    public function validate_resend_email(Request $request) {
         $request->validate([
             'email' => 'required'
         ], [
@@ -276,12 +251,12 @@ class BackController extends Controller
         ]);
         $email = $request->get('email');
         $confirm = User::where('email', $email)->first();
-        if ($confirm) {
+        if($confirm) {
             $token = Str::random(64);
             Session::put('email', $email);
             Session::put('verifyToken', $token);
             $userVerify = $confirm->userVerify;
-            if ($userVerify) {
+            if($userVerify) {
                 $userVerify->expires_at = now()->addMinutes(20);
                 $userVerify->token = $token;
                 $userVerify->save();
@@ -292,8 +267,7 @@ class BackController extends Controller
         return redirect('resend-email');
     }
 
-    public function new_team_create1()
-    {
+    public function new_team_create1() {
 
         $sportsList = TeamSportsList::all();
         $areaList = TeamAreaList::all();
@@ -302,8 +276,7 @@ class BackController extends Controller
 
     }
 
-    public function new_team_create2(Request $request)
-    {
+    public function new_team_create2(Request $request) {
 
         $request->validate(
             [
@@ -338,18 +311,17 @@ class BackController extends Controller
         $sex = $sexList[$request->sex];
 
         $team = Team::latest()->first();
-        if ($team == null) {
+        if($team == null) {
             $teamId = 1;
         } else {
             $teamId = $team->id + 1;
         }
-        $teamId .= $request->sports_list . $request->area_list . $request->age . $request->sex;
+        $teamId .= $request->sports_list.$request->area_list.$request->age.$request->sex;
 
         return view('newTeamCreate2', ['teamName' => $request->teamName, 'sportsType' => $sports, 'area' => $area, 'age' => $age, 'sex' => $sex, 'teamId' => $teamId]);
 
     }
-    public function new_team_create3(Request $request)
-    {
+    public function new_team_create3(Request $request) {
 
         $owner = Auth::user()->id;
         Team::create([
@@ -363,7 +335,7 @@ class BackController extends Controller
         ]);
         $defaultCategory = DefaultCategory::where('teamId', $request->teamId)->first();
         $teamId = $request->teamId;
-        if (!$defaultCategory) {
+        if(!$defaultCategory) {
             $defaultCategory = DefaultCategory::where('teamId', 'default')->get();
             $defaultCategory->map(function ($item) use ($teamId) {
                 DefaultCategory::create([
@@ -376,8 +348,7 @@ class BackController extends Controller
         return view('newTeamCreate3', ['name' => $name]);
 
     }
-    public function book_dashboard($teamId, $type)
-    {
+    public function book_dashboard($teamId, $type) {
         $book = Book::where('teamId', $teamId)->first();
         $books = Book::where('teamId', $teamId)->get();
         $user = Auth::user()->id;
@@ -388,27 +359,25 @@ class BackController extends Controller
         $teamName = Team::where('teamId', $teamId)->value('teamName');
         $owner = Team::where('teamId', $teamId)->where('owner', $user)->first();
         $ownerCheck = False;
-        if ($owner) {
+        if($owner) {
             $ownerCheck = '管理者';
         } else {
             $ownerCheck = "会員";
         }
         $memeberIdList = Member::where('user_id', $user)->get();
-        if (!$book) {
+        if(!$book) {
             return view('bookDashboard', ['teamId' => $teamId, 'owner' => $ownerCheck, 'userName' => $userName, 'teamName' => $teamName, 'teamAvatar' => $teamAvatar, 'type' => $type, 'teamIdList' => $teamIdList, 'memberIdList' => $memeberIdList]);
 
-        } elseif ($book) {
+        } elseif($book) {
             return view('bookDashboard', ['teamId' => $teamId, 'owner' => $ownerCheck, 'userName' => $userName, 'teamName' => $teamName, 'type' => $type, 'teamAvatar' => $teamAvatar, 'book' => $book, 'teamIdList' => $teamIdList, 'memberIdList' => $memeberIdList]);
         }
     }
 
-    public function validate_book_dashboard(Request $request)
-    {
+    public function validate_book_dashboard(Request $request) {
 
         return redirect("book_dashboard/$request->teamId/$request->date_switch");
     }
-    public function validate_team_edit(Request $request, $teamId)
-    {
+    public function validate_team_edit(Request $request, $teamId) {
         $request->validate([
             'teamName' => 'required',
             'sportsList' => 'required',
@@ -424,8 +393,8 @@ class BackController extends Controller
             'sex' => '性別フィールドは必須です。'
         ]);
         $team = Team::where('owner', Auth::user()->id)->first();
-        if ($request->image) {
-            $imageName = now()->format('YmdHis') . '.' . $request->image->extension();
+        if($request->image) {
+            $imageName = now()->format('YmdHis').'.'.$request->image->extension();
             $request->image->move(public_path('images/avatar'), $imageName);
             $team->teamAvatar = $imageName;
         }
@@ -445,7 +414,7 @@ class BackController extends Controller
         $sports = TeamSportsList::where('sportsId', $request->sportsList)->first()->sportsType;
         $area = TeamAreaList::where('areaId', $request->areaList)->first()->areaName;
         $teamId = substr($team->teamId, -7, 1);
-        $teamId .= $request->sportsList . $request->areaList . $request->age . $request->sex;
+        $teamId .= $request->sportsList.$request->areaList.$request->age.$request->sex;
         $team->teamId = $teamId;
         $team->teamName = $request->teamName;
         $team->sportsType = $sports;
@@ -455,30 +424,26 @@ class BackController extends Controller
         $team->save();
         return redirect("team_edit_detail/$teamId")->with('teamEditSuccess', 'Image uploaded successfully');
     }
-    public function team_edit($teamId)
-    {
+    public function team_edit($teamId) {
         $teamInfo = Team::where('teamId', $teamId)->first();
         $teamInitialAmount = InitialAmount::where('teamId', $teamId)->first();
-        if ($teamInitialAmount) {
+        if($teamInitialAmount) {
             $createDate = Carbon::parse($teamInitialAmount->createDate)->format('Y-m');
         } else {
             $createDate = '';
         }
         return view('teamEdit', ['title' => 'チーム情報編集', 'teamInfo' => $teamInfo, 'initialAmount' => $teamInitialAmount, 'amount' => $createDate]);
     }
-    public function team_edit_detail($teamId)
-    {
+    public function team_edit_detail($teamId) {
         $teamInfo = Team::where('teamId', $teamId)->first();
         $sportsList = TeamSportsList::all();
         $areaList = TeamAreaList::all();
         return view("teamInfoEdit", ['title' => 'チーム情報編集', 'teamInfo' => $teamInfo, 'sportsList' => $sportsList, 'areaList' => $areaList]);
     }
-    public function team_edit_amount($teamId)
-    {
+    public function team_edit_amount($teamId) {
         return view("teamInitialAmountEdit", ['title' => '会計項目登録・編集', 'teamId' => $teamId]);
     }
-    public function validate_initial_amount(Request $request)
-    {
+    public function validate_initial_amount(Request $request) {
         $request->validate([
             'initialAmount' => 'required | numeric',
             'createDate' => 'required | date'
@@ -489,7 +454,7 @@ class BackController extends Controller
         ]);
         $teamId = Team::where('owner', Auth::user()->id)->first();
         $initial = InitialAmount::where('teamId', $teamId->teamId)->first();
-        if (!$initial) {
+        if(!$initial) {
             InitialAmount::create([
                 'owner' => Auth::user()->id,
                 'teamId' => $teamId->teamId,
@@ -508,8 +473,7 @@ class BackController extends Controller
         }
         return redirect("team_edit_amount/$teamId->teamId")->with('initalEditSuccess', 'successfully');
     }
-    public function accounting_category_register($teamId)
-    {
+    public function accounting_category_register($teamId) {
 
         $defaultCategoryList = DefaultCategory::where('teamId', $teamId)->get();
 
@@ -518,8 +482,7 @@ class BackController extends Controller
         return view('accountingCategoryRegisterEdit', ['defaultList' => $defaultCategoryList, 'categoryList' => $categoryList, 'teamId' => $teamId]);
 
     }
-    public function validate_default_category_register(Request $request, $teamId)
-    {
+    public function validate_default_category_register(Request $request, $teamId) {
         $request->validate(
             [
                 'categoryName' => 'required'
@@ -530,7 +493,7 @@ class BackController extends Controller
         );
         $requestValue = $request->categoryName;
         $categories = Category::where('teamId', $teamId)->where('categoryList', $requestValue)->first();
-        if (!$categories) {
+        if(!$categories) {
             Category::create([
                 'teamId' => $teamId,
                 'categoryList' => $requestValue,
@@ -540,37 +503,34 @@ class BackController extends Controller
         }
         return redirect("accounting_category_register/$teamId")->with('success', '');
     }
-    public function monthly_report($teamId)
-    {
+    public function monthly_report($teamId) {
         $book = Book::where('teamId', $teamId)->get();
         return view('monthlyReport', ['teamId' => $teamId, 'book' => $book]);
     }
-    public function validate_category_name_edit(Request $request, $teamId)
-    {
+    public function validate_category_name_edit(Request $request, $teamId) {
         //todo change category name from book model
         $categoryList = $request->input('categoryList');
         $dcategoryList = $request->input('deleteCategory');
-        if ($categoryList) {
-            foreach ($categoryList as $key => $value) {
+        if($categoryList) {
+            foreach($categoryList as $key => $value) {
                 $category = Category::where('teamId', $teamId)->where('categoryList', $key)->first();
                 $category->categoryList = $value;
                 $category->save();
             }
         }
-        if ($dcategoryList) {
-            foreach ($dcategoryList as $item) {
+        if($dcategoryList) {
+            foreach($dcategoryList as $item) {
                 $dcategory = Category::where('teamId', $teamId)->where('categoryList', $item)->first();
                 $dcategory->delete();
             }
         }
     }
-    public function accounting_register($teamId)
-    {
+    public function accounting_register($teamId) {
         $defaultCategory = DefaultCategory::where('teamId', $teamId)->pluck('defaultCategory');
         $category = Category::where('teamId', $teamId)->pluck('categoryList');
         $category = $category ?? [];
         $serial = Book::latest()->first();
-        if ($serial) {
+        if($serial) {
             $serialNumber = $serial->id + 1;
         } else {
             $serialNumber = 1;
@@ -578,8 +538,7 @@ class BackController extends Controller
         $categoryList = $defaultCategory->merge($category)->all();
         return view('accountingRegisterEdit', ['teamId' => $teamId, 'categoryList' => $categoryList, 'serial' => $serialNumber]);
     }
-    public function validate_accounting_register(Request $request, $teamId)
-    {
+    public function validate_accounting_register(Request $request, $teamId) {
         $request->validate([
             'inputDate' => 'required | date',
             'categoryList' => 'required',
@@ -613,35 +572,34 @@ class BackController extends Controller
         return redirect("accounting_register/$teamId")->with('accountingRegister', 'success');
     }
 
-    public function invite_team($teamId)
-    {
+    public function invite_team($teamId) {
         return view('inviteTeam', ['title' => 'チームへ招待', 'teamId' => $teamId]);
     }
-    public function ownership_transfer()
-    {
+    public function ownership_transfer() {
         return view('ownerShipTransfer', ['title' => 'オーナー権限引き継ぎ']);
     }
-    public function account_setting()
-    {
-        return view('accountSetting', ['title' => 'アカウント設定']);
+    public function account_setting() {
+        $userId = Auth::user()->id;
+        $user = User::where('id', $userId)->first();
+        $teamList = Team::where('owner', $userId)->get();
+        $memberList = Member::where('user_id', $userId)->get();
+        return view('accountSetting', ['title' => 'アカウント設定', 'user' => $user, 'teamList' => $teamList, 'memberList' => $memberList]);
     }
-    public function monthly_report_search(Request $request, $teamId)
-    {
+    public function monthly_report_search(Request $request, $teamId) {
         $yearRequest = $request->year;
         $monthRequest = $request->month;
-        if ($yearRequest && $monthRequest) {
+        if($yearRequest && $monthRequest) {
             $book = Book::where('teamId', $teamId)->whereYear('changeDate', $request->year)->whereMonth('changeDate', $monthRequest)->get();
-        } elseif (!$yearRequest && !$monthRequest) {
+        } elseif(!$yearRequest && !$monthRequest) {
             $book = Book::where('teamId', $teamId)->get();
-        } elseif ($yearRequest) {
+        } elseif($yearRequest) {
             $book = Book::where('teamId', $teamId)->whereYear('changeDate', $yearRequest)->get();
-        } elseif ($monthRequest) {
+        } elseif($monthRequest) {
             $book = Book::where('teamId', $teamId)->whereMonth('changeDate', $monthRequest)->get();
         }
         return view('monthlyReport', ['teamId' => $teamId, 'book' => $book]);
     }
-    public function accounting_edit(Request $request, $teamId)
-    {
+    public function accounting_edit(Request $request, $teamId) {
         $defaultCategory = DefaultCategory::where('teamId', $teamId)->pluck('defaultCategory');
         $category = Category::where('teamId', $teamId)->pluck('categoryList');
         $category = $category ?? [];
@@ -651,8 +609,7 @@ class BackController extends Controller
         $book = Book::where('id', $request->id)->first();
         return view('accountingEdit', ['teamId' => $teamId, 'id' => $request->id, 'book' => $book, 'categoryList' => $categoryList,]);
     }
-    public function validate_accounting_edit(Request $request, $teamId)
-    {
+    public function validate_accounting_edit(Request $request, $teamId) {
         $request->validate([
             'inputDate' => 'required | date',
             'categoryList' => 'required',
@@ -691,14 +648,12 @@ class BackController extends Controller
         $categoryList = $defaultCategory->merge($category)->all();
         return redirect("monthly_report/$teamId")->with('accountingEdit', 'success');
     }
-    public function player_register($teamId)
-    {
+    public function player_register($teamId) {
         $register = Player::where('teamId', $teamId)->where('status', 0)->where('register', 0)->get();
         $archive = Player::where('teamId', $teamId)->where('status', 0)->where('register', 1)->get();
         return view('playerRegister', ['title' => '選手登録・編集', 'teamId' => $teamId, 'register' => $register, 'archive' => $archive]);
     }
-    public function validate_player_register(Request $request, $teamId)
-    {
+    public function validate_player_register(Request $request, $teamId) {
         $request->validate([
             'playerName' => 'required',
             'gender' => 'required',
@@ -723,14 +678,13 @@ class BackController extends Controller
         ]);
         return redirect("player_register/$teamId");
     }
-    public function validate_player_register_edit(Request $request, $teamId)
-    {
+    public function validate_player_register_edit(Request $request, $teamId) {
         $editList = $request->input('editList');
         $archiveList = $request->input('archiveList');
         $deleteList = $request->input('deleteList');
         $visibleList = $request->input('visibleList');
-        if ($editList) {
-            foreach ($editList as $item) {
+        if($editList) {
+            foreach($editList as $item) {
                 $id = $item['id'];
                 $name = $item['name'];
                 $gender = $item['gender'];
@@ -742,30 +696,29 @@ class BackController extends Controller
                 $player->save();
             }
         }
-        if ($archiveList) {
-            foreach ($archiveList as $item) {
+        if($archiveList) {
+            foreach($archiveList as $item) {
                 $player = Player::where('teamId', $teamId)->where('id', $item)->first();
                 $player->register = 1;
                 $player->save();
             }
         }
-        if ($visibleList) {
-            foreach ($visibleList as $item) {
+        if($visibleList) {
+            foreach($visibleList as $item) {
                 $player = Player::where('teamId', $teamId)->where('id', $item)->first();
                 $player->register = 0;
                 $player->save();
             }
         }
-        if ($deleteList) {
-            foreach ($deleteList as $item) {
+        if($deleteList) {
+            foreach($deleteList as $item) {
                 $player = Player::where('teamId', $teamId)->where('id', $item)->first();
                 $player->status = 1;
                 $player->save();
             }
         }
     }
-    public function validate_invite_team(Request $request, $teamId)
-    {
+    public function validate_invite_team(Request $request, $teamId) {
         $request->validate([
             'email' => 'required|email'
         ], [
@@ -774,7 +727,7 @@ class BackController extends Controller
         ]);
         $email = $request->email;
         $user = User::where('email', $email)->first();
-        if ($user) {
+        if($user) {
             $id = $user->id;
             $owner = Team::where('teamId', $teamId)->where('owner', $id)->first();
             $member = Member::where('userId', $id)->first();
@@ -785,9 +738,9 @@ class BackController extends Controller
         $from = Team::where('teamId', $teamId)->first();
         $teamName = $from->teamName;
         $verifyToken = Str::random(64);
-        if ($owner) {
+        if($owner) {
             session()->flash('error', 'あなたはこのチームの管理者です。');
-        } elseif ($member) {
+        } elseif($member) {
             session()->flash('error', 'あなたはこのチームのメンバーです');
         } else {
             Mail::send('email.emailInviteMember', ['token' => $verifyToken, 'teamName' => $teamName], function ($message) use ($email) {
@@ -805,13 +758,11 @@ class BackController extends Controller
         return redirect()->back();
 
     }
-    public function validate_invite_mail($token)
-    {
+    public function validate_invite_mail($token) {
         $user = InviteMail::where('token', $token)->where('expired_at', '>', now())->first();
         return view("inviteRegistration", ['user' => $user]);
     }
-    public function validate_invite_register(Request $request)
-    {
+    public function validate_invite_register(Request $request) {
         $request->validate([
             'name' => 'required',
             'password' => 'required|min:6|confirmed',
@@ -826,12 +777,12 @@ class BackController extends Controller
         $password = $request->password;
         $teamId = $request->teamId;
         $id = User::latest()->first();
-        if (!$id) {
+        if(!$id) {
             $id_m = 1;
         } else {
             $id_m = $id->id + 1;
         }
-        $user_id = strtoupper($email[0]) . now()->format('d') . now()->format('m') . now()->format('y') . $id_m;
+        $user_id = strtoupper($email[0]).now()->format('d').now()->format('m').now()->format('y').$id_m;
         User::create([
             'u_id' => $user_id,
             'email' => $email,
@@ -852,49 +803,45 @@ class BackController extends Controller
         Auth::attempt($credentials);
         return redirect("book_dashboard/$teamId/all");
     }
-    public function member_approve($teamId)
-    {
+    public function member_approve($teamId) {
         $member = Member::where('approved', 0)->whereHas('team', function ($query) use ($teamId) {
             $query->where('teamId', $teamId);
         })->get();
         return view('memberApproveList', ['teamId' => $teamId, 'memberList' => $member]);
     }
-    public function validate_approve_member(Request $request, $teamId)
-    {
+    public function validate_approve_member(Request $request, $teamId) {
         $approveList = $request->approveList;
-        foreach ($approveList as $member) {
+        foreach($approveList as $member) {
             $user = Member::where('user_id', $member)->first();
             $user->approved = 1;
             $user->save();
         }
     }
-    public function search_team()
-    {
+    public function search_team() {
         $user = Auth::user()->id;
         $member = Member::where('user_id', $user)->pluck('team_id')->toArray();
-        if (!$member) {
+        if(!$member) {
             $teamList = Team::where('owner', '!=', $user)->get();
         } else {
             $teamList = Team::where('id', '!=', $member)->where('owner', '!=', $user)->get();
         }
-        if (!$teamList) {
+        if(!$teamList) {
             return redirect('dashboard');
         }
         return view('searchTeam', ['teamList' => $teamList]);
     }
-    public function validate_search_team(Request $request)
-    {
+    public function validate_search_team(Request $request) {
         $id = $request->search;
         $user = Auth::user()->id;
         $member = Member::where('user_id', $user)->pluck('team_id')->toArray();
-        if ($id) {
-            if (!$member) {
+        if($id) {
+            if(!$member) {
                 $teamList = Team::where('teamId', 'LIKE', "%$id%")->where('owner', '!=', $user)->get();
             } else {
                 $teamList = Team::where('teamId', 'LIKE', "%$id%")->where('id', '!=', $member)->where('owner', '!=', $user)->get();
             }
         } else {
-            if (!$member) {
+            if(!$member) {
                 $teamList = Team::where('owner', '!=', $user)->get();
             } else {
                 $teamList = Team::where('id', '!=', $member)->where('owner', '!=', $user)->get();
@@ -902,26 +849,24 @@ class BackController extends Controller
         }
         return view('searchTeam', ['teamList' => $teamList]);
     }
-    public function search_team2(Request $request)
-    {
+    public function search_team2(Request $request) {
         $team = Team::where('id', $request->id)->first();
         $user = Auth::user()->id;
         $member = Member::where('user_id', $user)->where('team_id', $team->id)->first();
-        if ($member) {
+        if($member) {
             session()->flash('teamError', 'ffff');
             return redirect()->back();
         }
         return view('searchTeam2', ['team' => $team]);
     }
-    public function validate_team_enter(Request $request)
-    {
+    public function validate_team_enter(Request $request) {
         $id = $request->id;
         $userId = Auth::user()->id;
         $user_id = User::where('id', $userId)->first();
-        if ($id) {
+        if($id) {
             $team = Team::where('id', $id)->first();
             $member = Member::where('team_id', $team->id)->where('user_id', $user_id->id)->first();
-            if ($member) {
+            if($member) {
                 session()->flash('error', '');
                 dump($user_id);
                 return view('searchTeam2', ['team' => $team]);
@@ -936,9 +881,42 @@ class BackController extends Controller
         return back();
 
     }
-    public function unapproved()
-    {
-        return view('unApproved');
+    public function validate_account_edit(Request $request) {
+        $request->validate([
+            'email' => 'required|email',
+        ], [
+            'email.required' => 'メールフィールドは必須です。',
+            'password.required' => 'パスワードフィールドは必須です。',
+            'email.email' => '正確なemail形式ではありません。',
+            'password.min' => 'パスワードは 6 文字以上である必要があります。'
+        ]);
+        $id = Auth::user()->id;
+        $avatar = $request->avatar;
+        $birth = $request->birth;
+        $gender = $request->genders;
+        $email = $request->email;
+        $password = $request->password;
+        $user = User::where('id', $id)->first();
+        if($avatar) {
+            $user->avatar = $avatar;
+        }
+        if($birth) {
+            $user->birth = $birth;
+        }
+        if($gender) {
+            $user->gender = $gender;
+        }
+        if($email) {
+            $u_id = $user->u_id;
+            $new = strtoupper($email[0]);
+            $user->u_id = $new.substr($u_id, 1);
+            $user->email = $email;
+        }
+        if($password) {
+            $user->password = Hash::make($password);
+        }
+        $user->save();
+        return redirect()->back();
     }
 }
 
