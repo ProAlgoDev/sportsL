@@ -12,6 +12,7 @@ use App\Models\TeamSportsList;
 use App\Models\Team;
 use App\Models\InitialAmount;
 use App\Models\Member;
+use App\Models\Master;
 use App\Models\Category;
 use App\Models\DefaultCategory;
 use App\Models\Book;
@@ -575,8 +576,11 @@ class BackController extends Controller {
     public function invite_team($teamId) {
         return view('inviteTeam', ['title' => 'チームへ招待', 'teamId' => $teamId]);
     }
-    public function ownership_transfer() {
-        return view('ownerShipTransfer', ['title' => 'オーナー権限引き継ぎ']);
+    public function ownership_transfer($teamId) {
+        $team_id = Team::where('teamId', $teamId)->first();
+        $memberList = Member::where('team_id', $team_id->id)->where('approved', 1)->get();
+
+        return view('ownerShipTransfer', ['title' => 'オーナー権限引き継ぎ', 'memberList' => $memberList, 'teamId' => $teamId]);
     }
     public function account_setting() {
         $userId = Auth::user()->id;
@@ -811,6 +815,7 @@ class BackController extends Controller {
     }
     public function validate_approve_member(Request $request, $teamId) {
         $approveList = $request->approveList;
+
         foreach($approveList as $member) {
             $user = Member::where('user_id', $member)->first();
             $user->approved = 1;
@@ -868,8 +873,7 @@ class BackController extends Controller {
             $member = Member::where('team_id', $team->id)->where('user_id', $user_id->id)->first();
             if($member) {
                 session()->flash('error', '');
-                dump($user_id);
-                return view('searchTeam2', ['team' => $team]);
+                return view('searchTeam3', ['team' => $team]);
             } else {
                 Member::create([
                     'team_id' => $team->id,
@@ -897,7 +901,14 @@ class BackController extends Controller {
         $email = $request->email;
         $password = $request->password;
         $user = User::where('id', $id)->first();
+        if($request->image) {
+            $imageName = now()->format('YmdHis').'.'.$request->image->extension();
+            $request->image->move(public_path('images/avatar'), $imageName);
+            $user->avatar = $imageName;
+        }
         if($avatar) {
+            $imageName = now()->format('YmdHis').'.'.$avatar->extension();
+            $avatar->move(public_path('images/avatar'), $imageName);
             $user->avatar = $avatar;
         }
         if($birth) {
@@ -917,6 +928,79 @@ class BackController extends Controller {
         }
         $user->save();
         return redirect()->back();
+    }
+    public function account_remove() {
+        $userId = Auth::user()->id;
+        $team = Team::where('owner', $userId)->pluck('id')->toArray();
+
+        $teamId = Team::where('owner', $userId)->pluck('teamId')->toArray();
+        $member = Member::where('team_id', $team)->get();
+        $book = Book::where('teamId', $teamId)->get();
+        $amount = InitialAmount::where('teamId', $teamId)->get();
+        if($member->isNotEmpty() || $book->isNotEmpty() || $amount->isNotEmpty()) {
+            session()->flash('error', 'f');
+            return redirect('account_setting');
+        }
+        $memberId = Member::where('user_id', $userId)->get();
+        if($memberId->isNotEmpty()) {
+            foreach($memberId as $iMember) {
+                $iMember->delete();
+            }
+        }
+        $id = Team::where('owner', $userId)->get();
+        if($id->isNotEmpty()) {
+            foreach($id as $iOwner) {
+                $iOwner->delete();
+            }
+        }
+        $user = User::where('id', $userId)->first();
+        $userVerify = UserVerify::where('user_id', $userId)->get();
+        if($userVerify->isNotEmpty()) {
+            foreach($userVerify as $iVerify) {
+                $iVerify->delete();
+            }
+        }
+        $user->delete();
+        return redirect('login');
+    }
+    public function validate_ownership_transfer(Request $request, $teamId) {
+        $team = Team::where('teamId', $teamId)->first();
+        $oldOwner = $team->owner;
+        $token = Str::random(64);
+        Master::create([
+            'token' => $token,
+            'oldUser' => $oldOwner,
+            'newUser' => $request->ownerSelect,
+            'expired_at' => now()->addHours(72)
+        ]);
+        $user = Member::where('user_id', $request->ownerSelect)->first();
+        $email = $user->user->email;
+        Mail::send('email.emailOwnerTransfer', ['token' => $token, 'teamName' => $team->teamName], function ($message) use ($email) {
+            $message->to($email);
+            $message->subject('Owner Transfer Mail');
+        });
+        return view('ownerShipTransferReport', ['title' => 'オーナー権限引き継ぎ', 'user' => $user]);
+    }
+    public function verify_owner_transfer($token) {
+        $user = Master::where('token', $token)->where('expired_at', '>', now())->first();
+        if(!$user) {
+            return redirect('login');
+        }
+        $oldOwnerUser = User::where('id', $user->oldUser)->first();
+        $team = Team::where('owner', $user->oldUser)->first();
+        if(!$team) {
+            return redirect('sample.dashboard');
+        }
+        $team->owner = $user->newUser;
+        Member::create([
+            'approved' => 1,
+            'user_id' => $oldOwnerUser->id,
+            'team_id' => $team->id
+        ]);
+        $team->save();
+        $oldMember = Member::where('user_id', $user->newUser)->where('team_id', $team->id)->first();
+        $oldMember->delete();
+        return redirect('sample.dashboard');
     }
 }
 

@@ -60,7 +60,7 @@ Route::controller(BackController::class)->group(function () {
 
     Route::get("invite_team/{teamId}", 'invite_team')->middleware('is_login_status')->middleware('is_register_book_status')->name('invite_team');
 
-    Route::get("ownership_transfer", 'ownership_transfer')->middleware('is_login_status')->middleware('is_register_book_status')->middleware('owner_check')->name('ownership_transfer');
+    Route::get("ownership_transfer/{teamId}", 'ownership_transfer')->middleware('is_login_status')->middleware('is_register_book_status')->middleware('owner_check')->name('ownership_transfer');
 
     Route::get("account_setting", 'account_setting')->middleware('is_login_status')->middleware('is_register_book_status')->name('account_setting');
 
@@ -104,6 +104,11 @@ Route::controller(BackController::class)->group(function () {
     Route::post('validate_team_enter', 'validate_team_enter')->middleware('is_login_status')->name('validate_team_enter');
 
     Route::post('validate_account_edit', 'validate_account_edit')->middleware('is_login_status')->middleware('is_register_book_status')->name('validate_account_edit');
+    Route::get('account_remove', 'account_remove')->middleware('is_login_status')->middleware('is_register_book_status')->name('account_remove');
+
+    Route::post('validate_ownership_transfer/{teamId}', 'validate_ownership_transfer')->middleware('is_login_status')->middleware('is_register_book_status')->middleware('owner_check')->name('validate_ownership_transfer');
+
+    Route::get('verify_owner_transfer/{token}', 'verify_owner_transfer')->middleware('is_login_status')->middleware('is_register_book_status')->name('verify_owner_transfer');
 
 
 });

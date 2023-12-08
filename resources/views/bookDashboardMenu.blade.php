@@ -69,7 +69,7 @@
                         <img src="{{asset('images/send.svg')}}" alt="">
                         <div class="">チームへ招待</div>
                     </a>
-                    <a href="{{route('ownership_transfer')}}" class="menu_content_home_item">
+                    <a href="{{route('ownership_transfer',[$teamId])}}" class="menu_content_home_item">
                         <img src="{{asset('images/repeat.svg')}}" alt="">
                         <div class="">オーナー権限引き継ぎ</div>
                     </a>

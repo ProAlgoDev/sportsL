@@ -2502,3 +2502,88 @@ input#left_menu_extend:checked+label {
     border-bottom: 1px solid #c5c5c5;
     margin-bottom: 50px;
 }
+
+.team_enter_sent {
+    margin-top: 60px;
+    text-align: center;
+}
+
+.team_enter_form span {
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.team_enter_form a {
+    line-height: 2.5;
+}
+
+.owner_edit_form .user_name {
+    width: 116px;
+}
+
+.owner_edit_form .user_id {
+    width: 80px;
+}
+
+.owner_edit_form .user_style {
+    width: 60px;
+}
+
+.ownerlist div {
+    margin-top: 20px;
+
+}
+
+.ownerlist .category_register_btn {
+    line-height: 2.3;
+    font-size: 18px;
+    text-align: center;
+}
+
+.owner_transfer_form {
+    position: relative;
+}
+
+.owner_transfer_confirm {
+    background: #555555;
+    color: white;
+    text-align: center;
+    max-width: 300px;
+    position: absolute;
+    left: 42px;
+    display: none;
+}
+
+.owner_transfer_confirm h6 {
+    display: block;
+    padding-top: 19px;
+}
+
+.owner_transfer_confirm p {
+    display: block;
+    padding: 10px;
+}
+
+.owner_transfer_confirm span {
+    display: block;
+}
+
+.owner_transfer_confirm div {
+    display: flex;
+    justify-content: center;
+    gap: 45px;
+    padding-bottom: 17px;
+    padding-top: 10px;
+}
+
+.owner_report_form {
+    text-align: center;
+    max-width: 330px;
+    margin: auto;
+    margin-top: 40px;
+}
+
+.owner_report_form a {
+    line-height: 2.3;
+}
