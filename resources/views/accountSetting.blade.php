@@ -184,7 +184,7 @@
             class:'form-control date_icon'
         });
     }else if(parent.data('name') =='gender'){
-        var inputElement = $('<select class="form-control"><option>男子</option><option>女子</option><option>混合</option></select>');
+        var inputElement = $('<select class="form-control"><option>男</option><option>女</option><option>混合</option></select>');
     }
     else{
         var inputElement = $('<input>',{

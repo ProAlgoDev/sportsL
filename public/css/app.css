@@ -572,7 +572,7 @@
 } */
 
 .book_date_switch label {
-    width: 90px;
+    width: 76px;
     background-color: #aaaaaa;
     text-align: center;
 }
@@ -600,7 +600,7 @@
 .book_date_switch .date_active {
     background-color: #008DB9;
     border-radius: 30px;
-    width: 90px;
+    width: 76px;
     padding-top: 3px;
     height: 26px;
     z-index: 2;
@@ -2740,6 +2740,7 @@ input#left_menu_extend:checked+label {
 
 .item_table_content {
     margin: 10px 18px;
+    overflow-x: scroll;
 }
 
 .item_table_content table {
@@ -2749,8 +2750,44 @@ input#left_menu_extend:checked+label {
 .item_table_content td {
     border: 1px solid #b9b9b9;
     text-align: center;
+    min-width: 40px;
 }
 
 .item_table_content .title {
     background: #cfe2f3;
+}
+
+#yearpicker {
+    display: block;
+}
+
+.yearpicker {
+    right: 18px;
+    width: 90px;
+    position: absolute;
+    top: 10px;
+}
+
+.yearpicker input {
+    height: 28px;
+    background-size: 22px !important;
+    background-position: right 11px top 2px !important;
+}
+
+#monthpicker {
+    display: block;
+}
+
+.monthpicker {
+    right: 18px;
+    width: 100px;
+    position: absolute;
+    top: 10px;
+}
+
+.monthpicker input {
+    height: 28px;
+    background-size: 22px !important;
+    background-position: right 6px top 2px !important;
+    padding-left: 5px;
 }

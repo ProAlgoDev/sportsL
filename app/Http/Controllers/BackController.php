@@ -325,14 +325,15 @@ class BackController extends Controller
         $sports = TeamSportsList::where('sportsId', $request->sports_list)->first()->sportsType;
         $area = TeamAreaList::where('areaId', $request->area_list)->first()->areaName;
         $ageList = [
-            '1' => "12歳以下",
-            '2' => "13-18",
-            '3' => "大学",
-            '4' => "社会人",
+            '1' => "社会人",
+            '2' => "大学",
+            '3' => "13-18",
+            '4' => "0-12",
+            '5' => "その他",
         ];
         $sexList = [
-            '1' => "男子",
-            '2' => "女子",
+            '1' => "男",
+            '2' => "女",
             '3' => "混合",
         ];
         $age = $ageList[$request->age];
@@ -379,6 +380,7 @@ class BackController extends Controller
     }
     public function book_dashboard($teamId, $type)
     {
+        $selectDate = session('selectDate');
         $book = Book::where('teamId', $teamId)->first();
         $user = Auth::user()->id;
         $userName = Auth::user()->name;
@@ -396,49 +398,105 @@ class BackController extends Controller
             $ownerCheck = "会員";
         }
         $currentDate = Carbon::now();
+        if ($book) {
+            $totalInputAmount = Book::where('teamId', $teamId)->where('ioType', 0)->sum('amount');
+            $totalOutputAmount = Book::where('teamId', $teamId)->where('ioType', 1)->sum('amount');
+        }
         $fiveYearsAgo = $currentDate->subYears(5);
         if ($type == 'all') {
             $inputData = [];
             $iTableData = [];
             $oTableData = [];
             $books = Book::where('teamId', $teamId)->where("changeDate", ">=", $fiveYearsAgo)->get();
-            $initialAmount = InitialAmount::where('teamId', $teamId)->value('amount');
-            for ($i = 0; $i < 6; $i++) {
-                $date = Carbon::now()->subYears($i);
-                $inputData[$date->year] = Book::where('teamId', $teamId)->whereYear('changeDate', $date->year)->get();
-                $iBooksGrouped = Book::where('teamId', $teamId)->whereYear('changeDate', $date->year)->where('ioType', 0)->get()->groupBy('item');
-                $oBooksGrouped = Book::where('teamId', $teamId)->whereYear('changeDate', $date->year)->where('ioType', 1)->get()->groupBy('item');
-                $iItemSums = [];
-                $oItemSums = [];
-                foreach ($iBooksGrouped as $itemName => $books) {
-                    $iItemSums[$itemName] = $books->sum('amount');
+            if ($books) {
+                $initialAmount = InitialAmount::where('teamId', $teamId)->value('amount');
+                for ($i = 0; $i < 6; $i++) {
+                    $date = Carbon::now()->subYears($i);
+                    $inputData[$date->year] = Book::where('teamId', $teamId)->whereYear('changeDate', $date->year)->get();
+                    $iBooksGrouped = Book::where('teamId', $teamId)->whereYear('changeDate', $date->year)->where('ioType', 0)->get()->groupBy('item');
+                    $oBooksGrouped = Book::where('teamId', $teamId)->whereYear('changeDate', $date->year)->where('ioType', 1)->get()->groupBy('item');
+                    $iItemSums = [];
+                    $oItemSums = [];
+                    foreach ($iBooksGrouped as $itemName => $books) {
+                        $iItemSums[$itemName] = $books->sum('amount');
+                    }
+                    foreach ($oBooksGrouped as $itemName => $books) {
+                        $oItemSums[$itemName] = $books->sum('amount');
+                    }
+                    $iTableData[$date->year] = $iItemSums;
+                    $oTableData[$date->year] = $oItemSums;
                 }
-                foreach ($oBooksGrouped as $itemName => $books) {
-                    $oItemSums[$itemName] = $books->sum('amount');
-                }
-                $iTableData[$date->year] = $iItemSums;
-                $oTableData[$date->year] = $oItemSums;
             }
         }
         if ($type == 'year') {
 
+            $selectDate = $selectDate == null ? now()->format('Y') : $selectDate;
+            $inputData = [];
+            $iTableData = [];
+            $oTableData = [];
+            $books = Book::where('teamId', $teamId)->whereYear("changeDate", $selectDate)->get();
+            if ($books) {
+                $initialAmount = InitialAmount::where('teamId', $teamId)->value('amount');
+                for ($i = 1; $i < 13; $i++) {
+                    $inputData[$i] = Book::where('teamId', $teamId)->whereYear('changeDate', $selectDate)->whereMonth('changeDate', $i)->get();
+                    $iBooksGrouped = Book::where('teamId', $teamId)->whereYear('changeDate', $selectDate)->whereMonth('changeDate', $i)->where('ioType', 0)->get()->groupBy('item');
+                    $oBooksGrouped = Book::where('teamId', $teamId)->whereYear('changeDate', $selectDate)->whereMonth('changeDate', $i)->where('ioType', 1)->get()->groupBy('item');
+                    $iItemSums = [];
+                    $oItemSums = [];
+                    foreach ($iBooksGrouped as $itemName => $books) {
+                        $iItemSums[$itemName] = $books->sum('amount');
+                    }
+                    foreach ($oBooksGrouped as $itemName => $books) {
+                        $oItemSums[$itemName] = $books->sum('amount');
+                    }
+                    $iTableData[$i] = $iItemSums;
+                    $oTableData[$i] = $oItemSums;
+                }
+            }
         }
         if ($type == 'month') {
 
+            $selectDate = $selectDate == null ? now()->format('Y-m') : $selectDate;
+            list($year, $month) = explode('-', $selectDate);
+            $inputData = [];
+            $iTableData = [];
+            $oTableData = [];
+            $startDate = Carbon::create($year, $month, 1);
+            $endDate = $startDate->copy()->lastOfMonth();
+            $books = Book::where('teamId', $teamId)->whereYear("changeDate", $selectDate)->get();
+            if ($books) {
+                $initialAmount = InitialAmount::where('teamId', $teamId)->value('amount');
+                for ($i = $startDate->day; $i <= $endDate->day; $i++) {
+                    $date = Carbon::create($year, $month, $i);
+                    $inputData[$i] = Book::where('teamId', $teamId)->where('changeDate', $date)->get();
+                    $iBooksGrouped = Book::where('teamId', $teamId)->where('changeDate', $date)->where('ioType', 0)->get()->groupBy('item');
+                    $oBooksGrouped = Book::where('teamId', $teamId)->where('changeDate', $date)->where('ioType', 1)->get()->groupBy('item');
+                    $iItemSums = [];
+                    $oItemSums = [];
+                    foreach ($iBooksGrouped as $itemName => $books) {
+                        $iItemSums[$itemName] = $books->sum('amount');
+                    }
+                    foreach ($oBooksGrouped as $itemName => $books) {
+                        $oItemSums[$itemName] = $books->sum('amount');
+                    }
+                    $iTableData[$i] = $iItemSums;
+                    $oTableData[$i] = $oItemSums;
+                }
+            }
         }
         $memeberIdList = Member::where('user_id', $user)->get();
-        if (!$book) {
-            return view('bookDashboard', ['teamId' => $teamId, 'owner' => $ownerCheck, 'userName' => $userName, 'teamName' => $teamName, 'teamAvatar' => $teamAvatar, 'type' => $type, 'teamIdList' => $teamIdList, 'memberIdList' => $memeberIdList,]);
+        if (!$books) {
+            return view('bookDashboard', ['teamId' => $teamId, 'owner' => $ownerCheck, 'userName' => $userName, 'teamName' => $teamName, 'teamAvatar' => $teamAvatar, 'type' => $type, 'teamIdList' => $teamIdList, 'memberIdList' => $memeberIdList, 'inputData' => '', 'initialAmount' => '', 'iTable' => '', 'oTable' => '', 'selectDate' => $selectDate]);
 
-        } elseif ($book) {
-            return view('bookDashboard', ['teamId' => $teamId, 'owner' => $ownerCheck, 'userName' => $userName, 'teamName' => $teamName, 'type' => $type, 'teamAvatar' => $teamAvatar, 'book' => $books, 'teamIdList' => $teamIdList, 'memberIdList' => $memeberIdList, 'inputData' => $inputData, 'initialAmount' => $initialAmount, 'iTable' => $iTableData, 'oTable' => $oTableData]);
+        } elseif ($books) {
+            return view('bookDashboard', ['teamId' => $teamId, 'owner' => $ownerCheck, 'userName' => $userName, 'teamName' => $teamName, 'type' => $type, 'teamAvatar' => $teamAvatar, 'book' => $books, 'teamIdList' => $teamIdList, 'memberIdList' => $memeberIdList, 'inputData' => $inputData, 'initialAmount' => $initialAmount, 'iTable' => $iTableData, 'oTable' => $oTableData, 'selectDate' => $selectDate, 'totalInput' => $totalInputAmount, 'totalOutput' => $totalOutputAmount]);
         }
     }
 
     public function validate_book_dashboard(Request $request)
     {
 
-        return redirect("book_dashboard/$request->teamId/$request->date_switch");
+        return redirect("book_dashboard/$request->teamId/$request->date_switch")->with('selectDate', $request->selectDate);
     }
     public function validate_team_edit(Request $request, $teamId)
     {
@@ -463,14 +521,15 @@ class BackController extends Controller
             $team->teamAvatar = $imageName;
         }
         $ageList = [
-            '1' => "12歳以下",
-            '2' => "13-18",
-            '3' => "大学",
-            '4' => "社会人",
+            '1' => "社会人",
+            '2' => "大学",
+            '3' => "13-18",
+            '4' => "0-12",
+            '5' => "その他",
         ];
         $sexList = [
-            '1' => "男子",
-            '2' => "女子",
+            '1' => "男",
+            '2' => "女",
             '3' => "混合",
         ];
         $age = $ageList[$request->age];
