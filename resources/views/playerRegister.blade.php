@@ -26,8 +26,8 @@
                     <div class="player_gender input_form">
                             <span class="">性別</span>
                             <select name="gender" id="gender" class="form-control triangle_icon">
-                            <option value="1">男子</option>
-                            <option value="2">女子</option>
+                            <option value="1">男</option>
+                            <option value="2">女</option>
                             <option value="3">混合</option>
                         </select>
                     </div>

@@ -20,37 +20,56 @@
                                 Request::is("book_dashboard/$teamId/month") ? 'checked' : '' }} />月次</label>
                         
                         <input name='teamId' value="{{$teamId}}" hidden />
-                </form>
+                        <input type="text" name='selectDate' hidden/>
+                    </form>
+                    @if(Request::is("book_dashboard/$teamId/year"))
+                    <div class="yearpicker">
+                        <input  id="yearpicker"  name="selectDate" placeholder="" value="{{$selectDate}}" class="form-control  date_icon date-own" />
+                    </div>
+                    @endif
+                    @if(Request::is("book_dashboard/$teamId/month"))
+                    <div class="monthpicker">
+                        <input  id="monthpicker"  name="selectDate" placeholder="" value="{{$selectDate}}" class="form-control  date_icon date-own" />
+                    </div>
+                    @endif
                <span class="notification">{{Request::is("book_dashboard/$teamId/all") ? '※総合計過去5年分' : '' }}</span> 
         </div>
         @if(isset($book))
         <div class="all_report">
                 @if(Request::is("book_dashboard/$teamId/all"))
                     <div class="sum_item">
-                            <div class="input"><span>総収入</span><span class="total_input">円</span></div>
-                            <div class="out"><span>総支出</span><span class="total_output">円</span></div>
-                            <div class="sum"><span>総合計</span><span class="total_sum">円</span></div>
+                            <div class="input"><span>総収入</span><span >{{$totalInput+$initialAmount = $initialAmount !=null ? $initialAmount:0}}</span></div>
+                            <div class="out"><span>総支出</span><span >{{$totalOutput}}</span></div>
+                            <div class="sum"><span>総合計</span><span >{{$totalInput+$totalOutput+$initialAmount}}</span></div>
                     </div>  
                 @endif
-                {{-- <div class="year">
-                        <div class="input"><span>年度収入</span><span>34534534円</span></div>
-                        <div class="out"><span>年度支出</span><span>3453453円</span></div>
-                        <div class="sum"><span>年度総計</span><span>345345円</span></div>
-                </div>
-                <div class="sum_item">
-                        <div class="input"><span>総収入</span><span>345345345円</span></div>
-                        <div class="out"><span>総支出</span><span>354345円</span></div>
-                        <div class="sum"><span>総合計</span><span>345345円</span></div>
-                </div> --}}
+                @if(Request::is("book_dashboard/$teamId/year"))
+                    <div class="sum_item">
+                            <div class="input"><span>年度収入</span><span class="total_input"></span></div>
+                            <div class="out"><span>年度支出</span><span class="total_output"></span></div>
+                            <div class="sum"><span>年度総計</span><span class="total_sum"></span></div>
+                    </div> 
+                    <div class="sum_item">
+                            <div class="input"><span>総収入</span><span >{{$totalInput+$initialAmount = $initialAmount !=null ? $initialAmount:0}}</span></div>
+                            <div class="out"><span>総支出</span><span >{{$totalOutput}}</span></div>
+                            <div class="sum"><span>総合計</span><span >{{$totalInput+$totalOutput+$initialAmount}}</span></div>
+                    </div> 
+                @endif
+                @if(Request::is("book_dashboard/$teamId/month"))
+                    <div class="sum_item">
+                            <div class="input"><span>総収入</span><span class="total_input"></span></div>
+                            <div class="out"><span>総支出</span><span class="total_output"></span></div>
+                            <div class="sum"><span>総合計</span><span class="total_sum"></span></div>
+                    </div> 
+                @endif
         </div>
+        @if(!Request::is("book_dashboard/$teamId/month"))
         <div class="chart_sum_title">
                 {{Request::is("book_dashboard/$teamId/all") ? '年度次推移' : '' }}
                 {{Request::is("book_dashboard/$teamId/year") ? '年度次推移' : '' }}
-                {{Request::is("book_dashboard/$teamId/month") ? '月次推移' : '' }}
         </div>
         <div id="chart"></div>
-        {{-- @elseif(isset($initialAmount))
-        <div id="chart"></div> --}}
+        @endif
         <div class="item_chart_title">
                 <span>項目別支出割合</span>
                 <div class="content">
@@ -67,7 +86,6 @@
                 
             </table>
         </div>
-        {{-- <input  id="monthpicker"  name="month" placeholder="" class="form-control  date_icon date-own" /> --}}
         @else 
         @include('noBookRegister')
         @endif
@@ -141,6 +159,9 @@
 //input Amount
 var data = @json($inputData);
 var initialAmount = @json($initialAmount);
+if(initialAmount == null){
+    initialAmount = 0;
+}
 let inputData ={};
 let totalInput = 0;
 let totalOut = 0;
@@ -225,7 +246,7 @@ outCategoryNameListTemp.forEach(item => {
     }
 });
 let totalSum = 0;
-totalInput +=parseFloat(initialAmount);
+// totalInput +=parseFloat(initialAmount);
 totalSum = totalInput + totalOut;
 for( var index in inputData){
     let tmp = {};
@@ -234,7 +255,6 @@ for( var index in inputData){
     tmp['output'] = outData[index];
     dataSources.push(tmp);
 }
-
 $('.total_input').text(totalInput+"円");
 $('.total_output').text(totalOut+"円");
 $('.total_sum').text(totalSum+"円");
@@ -490,14 +510,27 @@ function getTableCategory(data){
          format: "yyyy",
          viewMode: "years", 
          minViewMode: "years",
-         autoclose:true //to close picker once year is selected
+         autoclose:true,
      });
      
      $("#monthpicker").datepicker({
          format: "yyyy-mm",
          viewMode: "months", 
          minViewMode: "months",
-         autoclose:true //to close picker once year is selected
+         autoclose:true 
+         
+     });
+     $('#yearpicker').on('change',function(){
+        $('[name="selectDate"]').val($(this).val());
+        console.log($('[name="selectDate"]').val())
+        $('#dateForm').submit();
+     });
+     $('#monthpicker').on('change',function(){
+        $('[name="selectDate"]').val($(this).val());
+        console.log($('[name="selectDate"]').val())
+
+        $('#dateForm').submit();
+
      });
 </script>
 

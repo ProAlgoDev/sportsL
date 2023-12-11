@@ -56,10 +56,11 @@
                      <div class="form-group mb-4  m_selectlist">
                         <span>カテゴリを選んでください</span>
                         <select name="age" id="age" class="form-control">
-                            <option value="1">12歳以下</option>
-                            <option value="2">13-18</option>
-                            <option value="3">大学</option>
-                            <option value="4">社会人</option>
+                            <option value="1">社会人</option>
+                            <option value="2">大学</option>
+                            <option value="3">13-18</option>
+                            <option value="4">0-12</option>
+                            <option value="5">その他</option>
                         </select>
                         @if($errors->has('age'))
                             <span class="span text-danger">
@@ -70,8 +71,8 @@
                     <div class="form-group mb-4  m_selectlist">
                         <span>性別を選んでください</span>
                         <select name="sex" id="sex" class="form-control">
-                            <option value="1">男子</option>
-                            <option value="2">女子</option>
+                            <option value="1">男</option>
+                            <option value="2">女</option>
                             <option value="3">混合</option>
                         </select>
                          @if($errors->has('sex'))

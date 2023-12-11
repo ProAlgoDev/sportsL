@@ -61,10 +61,11 @@
                      <div class="form-group mb-4  m_selectlist team_edit_info_detail">
                         <span class="team_edit_info_detail_title">カテゴリ</span>
                         <select name="age" id="teamEditDetailTeamAge" class="form-control">
-                            <option value="1" {{ $teamInfo->age == "12歳以下" ? 'selected' : '' }}>12歳以下</option>
-                            <option value="2" {{ $teamInfo->age == "13-18" ? 'selected' : '' }}>13-18</option>
-                            <option value="3" {{ $teamInfo->age == "大学" ? 'selected' : '' }}>大学</option>
-                            <option value="4" {{ $teamInfo->age == "社会人" ? 'selected' : '' }}>社会人</option>
+                            <option value="1" {{ $teamInfo->age == "社会人" ? 'selected' : '' }}>社会人</option>
+                            <option value="2" {{ $teamInfo->age == "大学" ? 'selected' : '' }}>大学</option>
+                            <option value="3" {{ $teamInfo->age == "13-18" ? 'selected' : '' }}>13-18</option>
+                            <option value="4" {{ $teamInfo->age == "0-12" ? 'selected' : '' }}>0-12</option>
+                            <option value="5" {{ $teamInfo->age == "その他" ? 'selected' : '' }}>その他</option>
                         </select>
                         @if($errors->has('age'))
                             <span class="span text-danger">
@@ -75,8 +76,8 @@
                     <div class="form-group mb-4  m_selectlist team_edit_info_detail">
                         <span class="team_edit_info_detail_title">性別</span>
                         <select name="sex" id="teamEditDetailTeamSex" class="form-control">
-                            <option value="1" {{ $teamInfo->sex == "男子" ? 'selected' : '' }}>男子</option>
-                            <option value="2" {{ $teamInfo->sex == "女子" ? 'selected' : '' }}>女子</option>
+                            <option value="1" {{ $teamInfo->sex == "男" ? 'selected' : '' }}>男</option>
+                            <option value="2" {{ $teamInfo->sex == "女" ? 'selected' : '' }}>女</option>
                             <option value="3" {{ $teamInfo->sex == "混合" ? 'selected' : '' }}>混合</option>
                         </select>
                          @if($errors->has('sex'))
