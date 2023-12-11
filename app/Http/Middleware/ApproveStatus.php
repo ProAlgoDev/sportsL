@@ -8,8 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Team;
 use App\Models\Member;
 
-class ApproveStatus
-{
+class ApproveStatus {
     /**
      * Handle an incoming request.
      *
@@ -17,20 +16,19 @@ class ApproveStatus
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next)
-    {
+    public function handle(Request $request, Closure $next) {
         $user = Auth::user()->id;
-        $teamId = $request->route('teamId');
+        $teamId = $request->teamId;
         $team = Team::where('teamId', $teamId)->first();
-        if (!$team) {
+        if(!$team) {
             return back();
         }
         $owner = $team->owner;
 
         $member = Member::where('user_id', $user)->where('team_id', $team->id)->first();
-        if ($member && $owner != $user) {
+        if($member && $owner != $user) {
             $approve = $member->approved;
-            if ($approve == 0) {
+            if($approve == 0) {
                 return redirect('account_setting');
             }
         }

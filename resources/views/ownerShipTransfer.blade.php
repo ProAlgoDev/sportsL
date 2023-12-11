@@ -10,43 +10,49 @@
 <br />
 <br />
 引き継がれる方としっかりコミュニケーションをとり、実行してください。</p>
-<form action="{{route('new_team_create2')}}" method="POST">
+<form action="{{route('validate_ownership_transfer',[$teamId])}}" class="owner_transfer_form" method="POST">
+    <div class="owner_transfer_confirm">
+        <h6>引き継ぎ依頼</h6>
+        <p>権限の引き継ぎ依頼を行いますが、間違いないですか？</p>
+        <div class="">
+            <span class="cancel">キャンセル</span>
+            <span class="agree">依頼する</span>
+        </div>
+    </div>
     <h4>メンバー一覧</h4>
                     @csrf
                     <div class="ownerlist">
-                         <label for="1">
-                            <img src="{{asset('images/avatar/default_avatar.png')}}" alt="">
-                            <span class="user_name">田中一郎</span>
-                            <span class="user_id">メンバー</span>
-                            <span class="user_style">メンバー</span>
-                            <input id="1" type="radio" name="ownerSelect"/>
-                        </label>
-                                
-                        <label for="2">
-                            <img src="{{asset('images/avatar/default_avatar.png')}}" alt="">
-                            <span class="user_name">田中一郎</span>
-                            <span class="user_id">メンバー</span>
-                            <span class="user_style">メンバー</span>
-                            <input id="2" type="radio" name="ownerSelect"/>
-                        </label>
-                        <label for="3">
-                            <img src="{{asset('images/avatar/default_avatar.png')}}" alt="">
-                            <span class="user_name">田中一郎</span>
-                            <span class="user_id">メンバー</span>
-                            <span class="user_style">メンバー</span>
-                            <input id="3" type="radio" name="ownerSelect"/>
-                        </label>
-                        <label for="4">
-                            <img src="{{asset('images/avatar/default_avatar.png')}}" alt="">
-                            <span class="user_name">田中一郎</span>
-                            <span class="user_id">メンバー</span>
-                            <span class="user_style">メンバー</span>
-                            <input id="4" type="radio" name="ownerSelect"/>
-                        </label>
+                        @if(count($memberList) > 0)
+                        @foreach($memberList as $member)
+                            <label for = {{$member->id}}>
+                                <img src="{{asset("images/avatar/{$member->user->avatar}")}}" alt="">
+                                <span class="user_name">{{$member->user->name}}</span>
+                                <span class="user_id">{{$member->user->u_id}}</span>
+                                <span class="user_style">メンバー</span>
+                                <input id={{$member->id}} value={{$member->user_id}} type="radio" name="ownerSelect"/>
+                            </label>
+                        @endforeach
+                        @else
+                        <div class="text-center mt-5">メンバーがいない</div>
+                        @endif
+                         
                     <div class="d-grid mx-auto">
-                        <button class="btn btn-primary register_btn category_register_btn" type="submit">変更する</button>
+                        <span class="btn btn-primary register_btn category_register_btn result_btn" type="submit">変更する</span>
                     </div>
                 </form>
 </div>
+<script>
+    $('.result_btn').click(function(){
+        $('.owner_transfer_confirm').css('display', 'block');
+    });
+    $('.cancel').click(function(){
+        $('.owner_transfer_confirm').css('display', 'none');
+    });
+    $('.agree').click(function(){
+        $('.owner_transfer_form').submit();
+        $('.owner_transfer_confirm').css('display', 'none');
 
+    });
+    
+</script>
 @endsection('content')

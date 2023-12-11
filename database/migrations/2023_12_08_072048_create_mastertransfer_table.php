@@ -11,15 +11,12 @@ return new class extends Migration {
      * @return void
      */
     public function up() {
-        Schema::create('book', function (Blueprint $table) {
+        Schema::create('mastertransfer', function (Blueprint $table) {
             $table->id();
-            $table->date('changeDate');
-            $table->string('item');
-            $table->boolean('ioType');
-            $table->decimal('amount', 40, 2);
-            $table->string('teamId');
-            $table->string('description');
-            $table->string('serialNumber');
+            $table->timestamp('expired_at')->nullable();
+            $table->string('token');
+            $table->string('oldUser');
+            $table->string('newUser');
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ return new class extends Migration {
      * @return void
      */
     public function down() {
-        Schema::dropIfExists('book');
+        Schema::dropIfExists('mastertransfer');
     }
 };

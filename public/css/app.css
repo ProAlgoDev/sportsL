@@ -231,20 +231,30 @@
 }
 
 .register_btn {
-    width: 280px;
-    height: 55px;
-    margin: auto;
-    margin-top: 15px;
-    background-color: #3FBAEE;
-    border: none;
-    font-size: 18px;
-    font-weight: 900;
-    letter-spacing: 2px;
-    border-radius: 10px;
+    width: 280px !important;
+    height: 55px !important;
+    margin: auto !important;
+    margin-top: 15px !important;
+    background-color: #3FBAEE !important;
+    border: none !important;
+    font-size: 18px !important;
+    font-weight: 900 !important;
+    letter-spacing: 2px !important;
+    border-radius: 10px !important;
 }
 
 .register_btn:hover {
-    background-color: #00affa;
+    background-color: #00affa !important;
+}
+
+.team_info_edit_btn a:hover {
+    background-color: #00affa !important;
+    color: white !important;
+}
+
+.initial_amount_btn a:hover {
+    background-color: #00affa !important;
+    color: white !important;
 }
 
 .register_back a {
@@ -540,6 +550,14 @@
     padding-left: 25px;
     position: relative;
     box-shadow: 0px 2px 3px #c3c3c3;
+}
+
+.book_date_switch .notification {
+    color: #595959;
+    font-size: 13px;
+    position: absolute;
+    right: 10px;
+    top: 14px;
 }
 
 /* .book_date_switch::before {
@@ -1332,6 +1350,7 @@ input#home_menu:checked+img {
     margin: auto;
     margin-top: 30px;
     max-height: 386px;
+    padding: 0 10px;
 }
 
 
@@ -2030,8 +2049,8 @@ input#left_menu_extend:checked+label {
 }
 
 .select_template {
-    background: #eeeeee;
-    border-radius: 10px;
+    background-color: #eeeeee !important;
+    border-radius: 10px !important;
 }
 
 .accounting_report_modal {
@@ -2501,4 +2520,224 @@ input#left_menu_extend:checked+label {
     justify-content: space-between;
     border-bottom: 1px solid #c5c5c5;
     margin-bottom: 50px;
+}
+
+.team_enter_sent {
+    margin-top: 60px;
+    text-align: center;
+}
+
+.team_enter_form span {
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.team_enter_form a {
+    line-height: 2.5;
+}
+
+.owner_edit_form .user_name {
+    width: 116px;
+}
+
+.owner_edit_form .user_id {
+    width: 80px;
+}
+
+.owner_edit_form .user_style {
+    width: 60px;
+}
+
+.ownerlist div {
+    margin-top: 20px;
+
+}
+
+.ownerlist .category_register_btn {
+    line-height: 2.3;
+    font-size: 18px;
+    text-align: center;
+}
+
+.owner_transfer_form {
+    position: relative;
+}
+
+.owner_transfer_confirm {
+    background: #555555;
+    color: white;
+    text-align: center;
+    max-width: 300px;
+    position: absolute;
+    left: 42px;
+    display: none;
+}
+
+.owner_transfer_confirm h6 {
+    display: block;
+    padding-top: 19px;
+}
+
+.owner_transfer_confirm p {
+    display: block;
+    padding: 10px;
+}
+
+.owner_transfer_confirm span {
+    display: block;
+}
+
+.owner_transfer_confirm div {
+    display: flex;
+    justify-content: center;
+    gap: 45px;
+    padding-bottom: 17px;
+    padding-top: 10px;
+}
+
+.owner_report_form {
+    text-align: center;
+    max-width: 330px;
+    margin: auto;
+    margin-top: 40px;
+}
+
+.owner_report_form a {
+    line-height: 2.3;
+}
+
+.password_reset_form {
+    color: #333333;
+    text-align: center;
+    max-width: 320px;
+    margin: auto;
+}
+
+.password_reset_form h4 {
+    margin-top: 60px;
+    font-size: 20px;
+    margin-bottom: 20px;
+    margin-top: 80px;
+}
+
+.password_reset_form .invite_team_input::after {
+    background-size: 28px;
+    top: 17px;
+
+}
+
+.password_reset_form input {
+    width: 300px;
+    padding-left: 50px;
+    border-radius: 10px;
+    background: #eeeeee;
+    height: 50px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.password_reset_form button {
+    width: 280px;
+}
+
+.password_reset_form .register_back a {
+    width: 280px;
+}
+
+#ctx {
+    margin: auto;
+}
+
+.all_report .year {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 18px;
+    border-bottom: 2px dotted #b4b4b4;
+    padding-bottom: 8px;
+}
+
+.all_report .year span {
+    display: block;
+    text-align: center;
+    padding: 2px 0;
+}
+
+.all_report .sum_item {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 18px;
+    border-bottom: 2px dotted #b4b4b4;
+    padding-bottom: 8px;
+}
+
+.all_report .sum_item span {
+    display: block;
+    text-align: center;
+    padding: 2px 0;
+}
+
+.chart_sum_title {
+    margin: 1px 18px;
+    font-weight: 900;
+    font-size: 18px;
+    border-bottom: 8px solid #008DB9;
+}
+
+#chart {
+    margin: 10px 18px;
+}
+
+#item_chart {
+    margin: 10px 18px;
+}
+
+.item_chart_title {
+    margin: 1px 18px;
+    border-bottom: 8px solid #008DB9;
+}
+
+.item_chart_title input {
+    transform: scale(1.2);
+}
+
+.item_chart_title span {
+    font-weight: 900;
+    font-size: 18px;
+}
+
+.item_chart_title .content {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.item_chart_title .content p {
+    display: inline-block;
+}
+
+#item_chart_in {
+    display: none;
+    opacity: 0;
+    transition: opacity 1s;
+    margin: 10px 18px;
+}
+
+#item_chart_out {
+    display: none;
+    opacity: 0;
+    transition: opacity 1s;
+    margin: 10px 18px;
+}
+
+.item_table_title {
+    margin: 1px 18px;
+}
+
+.item_table_title span {
+    font-weight: 900;
+    font-size: 18px;
+}
+
+.item_table_content {
+    margin: 10px 18px;
 }

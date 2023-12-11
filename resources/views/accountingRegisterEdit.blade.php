@@ -95,6 +95,11 @@
                                     {{$errors->first('description')}}
                                 </span>
                             @endif
+                            @if(session('player'))
+                                <span style="width:100%;" class="span text-danger">
+                                    {{session('player')}}
+                                </span>
+                            @endif
                     </div>
                     <div class="d-grid mx-auto">
                         <button class="btn btn-primary register_btn category_register_btn" type="submit">登録する</button>

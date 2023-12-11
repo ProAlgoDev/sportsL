@@ -106,7 +106,12 @@
             </div>
             <p class="security">チームオーナー（マスター権限）のアカウントは削除することができません。
                 権限を譲渡してからアカウントを削除してください。</p>
-                <a class="account_delete_btn">アカウントを削除する</a>
+                 @if(session('error'))
+                            <span class="span text-danger text-center d-block">
+                               アカウントを削除する前に、権限を譲渡してください。
+                            </span>
+                        @endif
+                <a href="{{route('account_remove')}}" class="account_delete_btn">アカウントを削除する</a>
 </div>
 <script>
    var avatar = document.getElementById('avatar_edit');

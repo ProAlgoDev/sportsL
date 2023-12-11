@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class InitialAmount extends Model {
-    public $table = 'initialamount';
-    protected $fillable = [
-        'amount',
-        'teamId',
-        'createDate'
-    ];
+class PasswordReset extends Model {
     use HasFactory;
+    public $table = 'passwordreset';
+    protected $fillable = [
+        'token',
+        'user_id',
+        'expired_at'
+    ];
 }
