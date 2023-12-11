@@ -56,7 +56,7 @@
             <a href="{{route('registration1')}}">アカウントを作成する（メール）</a>
         </div>
         <div class="login_social">
-            <a href="#"><img src="{{asset('images/twitter(blue).png')}}" alt="" /></a>
+            <a href="#"><img src="{{asset('images/twitter.png')}}" alt="" /></a>
             <a href="#"><img src="{{asset('images/google2.png')}}" alt="" /></a>
         </div>
     </div>
