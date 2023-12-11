@@ -412,7 +412,14 @@ function createTable(data){
 var currentURL = window.location.href;
 var type = currentURL.substring(currentURL.lastIndexOf('/') + 1);
 var colspan = Object.keys(data).length;
-var dataType = type == "month" ? "月": '年';
+var dataType ='';
+if(type == 'all'){
+    dataType = '年';
+}else if(type == 'year'){
+    dataType = '月';
+}else if(type=='month'){
+    dataType = '日';
+}
 var table = $('.item_table_content table');
 let categoryList = getTableCategory(data);
 var titleTr = ``;
