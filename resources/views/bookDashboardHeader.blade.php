@@ -34,7 +34,7 @@
                     @endif
                <span class="notification">{{Request::is("book_dashboard/$teamId/all") ? '※総合計過去5年分' : '' }}</span> 
         </div>
-        @if(isset($book))
+        @if(count($book)>0)
         <div class="all_report">
                 @if(Request::is("book_dashboard/$teamId/all"))
                     <div class="sum_item">
