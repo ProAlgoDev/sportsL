@@ -18,7 +18,7 @@
                     <img src="{{asset('images/avatar/' . $teamList->teamAvatar)}}" alt="">
                     <span>{{$teamList->teamName}}</span>
                 </div>
-                <div class="">{{$owner}}</div>
+                <div class="">管理者</div>
             </a>
         @endforeach
         @if($memberIdList)

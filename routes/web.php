@@ -110,5 +110,9 @@ Route::controller(BackController::class)->group(function () {
 
     Route::get('verify_owner_transfer/{token}', 'verify_owner_transfer')->middleware('is_login_status')->middleware('is_register_book_status')->name('verify_owner_transfer');
 
+    Route::get('password_reset', 'password_reset')->name('password_reset');
+    Route::post('validate_password_reset', 'validate_password_reset')->name('validate_password_reset');
+    Route::get('verify_password_reset/{token}', 'verify_password_reset')->name('verify_password_reset');
+    Route::post('post_reset_password', 'post_reset_password')->name('post_reset_password');
 
 });

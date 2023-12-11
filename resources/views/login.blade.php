@@ -14,6 +14,12 @@
         @if(session('showModal'))
         <div class='success_verify'>成功メールの確認</div>
         @endif
+        @if(session('error'))
+        <span class="text-danger">{{session('error')}}</span>
+        @endif
+        @if(session('resetPassword'))
+        <div class='success_verify'>{{session('resetPassword')}}</div>
+        @endif
         <form action="{{route('sample.validate_login')}}" class="login_form" method="POST">
                 @csrf
                 <div class="login_email">
@@ -40,7 +46,7 @@
                     @endif
                 </div>
                 <div class="login_forgot">
-                    <a href="#">ID・PASSWORDを忘れた方はこちら</a>
+                    <a href="{{route('password_reset')}}">ID・PASSWORDを忘れた方はこちら</a>
                 </div>
                 <div class="login_btn">
                     <button type='submit' class="btn btn-primary">ログイン</button>

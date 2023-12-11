@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Book extends Model
-{
+class Book extends Model {
     public $table = 'book';
     protected $fillable = [
         'changeDate',
@@ -15,7 +14,8 @@ class Book extends Model
         'teamId',
         'description',
         'serialNumber',
-        'amount'
+        'amount',
+
 
     ];
     use HasFactory;
