@@ -835,9 +835,9 @@ class BackController extends Controller
         $teamName = $from->teamName;
         $verifyToken = Str::random(64);
         if ($owner) {
-            session()->flash('error', 'あなたはこのチームの管理者です。');
+            session()->flash('errors', 'あなたはこのチームの管理者です。');
         } elseif ($member) {
-            session()->flash('error', 'あなたはこのチームのメンバーです');
+            session()->flash('errors', 'あなたはこのチームのメンバーです');
         } else {
             Mail::send('email.emailInviteMember', ['token' => $verifyToken, 'teamName' => $teamName], function ($message) use ($email) {
                 $message->to($email);
@@ -972,7 +972,7 @@ class BackController extends Controller
             $team = Team::where('id', $id)->first();
             $member = Member::where('team_id', $team->id)->where('user_id', $user_id->id)->first();
             if ($member) {
-                session()->flash('error', '');
+                session()->flash('errors', '');
                 return view('searchTeam3', ['team' => $team]);
             } else {
                 Member::create([
@@ -1040,7 +1040,7 @@ class BackController extends Controller
         $book = Book::where('teamId', $teamId)->get();
         $amount = InitialAmount::where('teamId', $teamId)->get();
         if ($member->isNotEmpty() || $book->isNotEmpty() || $amount->isNotEmpty()) {
-            session()->flash('error', 'f');
+            session()->flash('errors', 'f');
             return redirect('account_setting');
         }
         $memberId = Member::where('user_id', $userId)->get();

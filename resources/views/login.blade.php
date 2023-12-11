@@ -14,12 +14,12 @@
         @if(session('showModal'))
         <div class='success_verify'>成功メールの確認</div>
         @endif
-        @if(session('error'))
-        <span class="text-danger">{{session('error')}}</span>
+        @if(session('errors'))
+        <span class="text-danger">{{session('errors')}}</span>
         @endif
-        @if(session('resetPassword'))
+        {{-- @if(session('resetPassword'))
         <div class='success_verify'>{{session('resetPassword')}}</div>
-        @endif
+        @endif --}}
         <form action="{{route('sample.validate_login')}}" class="login_form" method="POST">
                 @csrf
                 <div class="login_email">
