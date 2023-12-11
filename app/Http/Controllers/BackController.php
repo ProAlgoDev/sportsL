@@ -401,6 +401,9 @@ class BackController extends Controller
         if ($book) {
             $totalInputAmount = Book::where('teamId', $teamId)->where('ioType', 0)->sum('amount');
             $totalOutputAmount = Book::where('teamId', $teamId)->where('ioType', 1)->sum('amount');
+        } else {
+            $totalInputAmount = 0;
+            $totalOutputAmount = 0;
         }
         $fiveYearsAgo = $currentDate->subYears(5);
         if ($type == 'all') {
@@ -486,7 +489,7 @@ class BackController extends Controller
         }
         $memeberIdList = Member::where('user_id', $user)->get();
         if (!$books) {
-            return view('bookDashboard', ['teamId' => $teamId, 'owner' => $ownerCheck, 'userName' => $userName, 'teamName' => $teamName, 'teamAvatar' => $teamAvatar, 'type' => $type, 'teamIdList' => $teamIdList, 'memberIdList' => $memeberIdList, 'inputData' => '', 'initialAmount' => '', 'iTable' => '', 'oTable' => '', 'selectDate' => $selectDate]);
+            return view('bookDashboard', ['teamId' => $teamId, 'owner' => $ownerCheck, 'userName' => $userName, 'teamName' => $teamName, 'teamAvatar' => $teamAvatar, 'type' => $type, 'teamIdList' => $teamIdList, 'memberIdList' => $memeberIdList, 'inputData' => '', 'initialAmount' => '', 'iTable' => '', 'oTable' => '', 'selectDate' => $selectDate, 'totalInput' => $totalInputAmount, 'totalOutput' => $totalOutputAmount]);
 
         } elseif ($books) {
             return view('bookDashboard', ['teamId' => $teamId, 'owner' => $ownerCheck, 'userName' => $userName, 'teamName' => $teamName, 'type' => $type, 'teamAvatar' => $teamAvatar, 'book' => $books, 'teamIdList' => $teamIdList, 'memberIdList' => $memeberIdList, 'inputData' => $inputData, 'initialAmount' => $initialAmount, 'iTable' => $iTableData, 'oTable' => $oTableData, 'selectDate' => $selectDate, 'totalInput' => $totalInputAmount, 'totalOutput' => $totalOutputAmount]);
