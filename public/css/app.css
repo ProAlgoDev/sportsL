@@ -2741,3 +2741,16 @@ input#left_menu_extend:checked+label {
 .item_table_content {
     margin: 10px 18px;
 }
+
+.item_table_content table {
+    width: 100%;
+}
+
+.item_table_content td {
+    border: 1px solid #b9b9b9;
+    text-align: center;
+}
+
+.item_table_content .title {
+    background: #cfe2f3;
+}

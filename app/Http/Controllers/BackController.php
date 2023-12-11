@@ -399,19 +399,26 @@ class BackController extends Controller
         $fiveYearsAgo = $currentDate->subYears(5);
         if ($type == 'all') {
             $inputData = [];
-            $oututData = [];
+            $iTableData = [];
+            $oTableData = [];
             $books = Book::where('teamId', $teamId)->where("changeDate", ">=", $fiveYearsAgo)->get();
             $initialAmount = InitialAmount::where('teamId', $teamId)->value('amount');
             for ($i = 0; $i < 6; $i++) {
                 $date = Carbon::now()->subYears($i);
-                $booksGrouped = Book::where('teamId', $teamId)->whereYear('changeDate', $date->year)->get()->groupBy('item');
-                $itemSums = [];
-                foreach ($booksGrouped as $itemName => $books) {
-                    $itemSums[$itemName] = $books->sum('amount');
+                $inputData[$date->year] = Book::where('teamId', $teamId)->whereYear('changeDate', $date->year)->get();
+                $iBooksGrouped = Book::where('teamId', $teamId)->whereYear('changeDate', $date->year)->where('ioType', 0)->get()->groupBy('item');
+                $oBooksGrouped = Book::where('teamId', $teamId)->whereYear('changeDate', $date->year)->where('ioType', 1)->get()->groupBy('item');
+                $iItemSums = [];
+                $oItemSums = [];
+                foreach ($iBooksGrouped as $itemName => $books) {
+                    $iItemSums[$itemName] = $books->sum('amount');
                 }
-                $inputData[$date->year] = $itemSums;
+                foreach ($oBooksGrouped as $itemName => $books) {
+                    $oItemSums[$itemName] = $books->sum('amount');
+                }
+                $iTableData[$date->year] = $iItemSums;
+                $oTableData[$date->year] = $oItemSums;
             }
-            dump($inputData)
         }
         if ($type == 'year') {
 
@@ -424,7 +431,7 @@ class BackController extends Controller
             return view('bookDashboard', ['teamId' => $teamId, 'owner' => $ownerCheck, 'userName' => $userName, 'teamName' => $teamName, 'teamAvatar' => $teamAvatar, 'type' => $type, 'teamIdList' => $teamIdList, 'memberIdList' => $memeberIdList,]);
 
         } elseif ($book) {
-            return view('bookDashboard', ['teamId' => $teamId, 'owner' => $ownerCheck, 'userName' => $userName, 'teamName' => $teamName, 'type' => $type, 'teamAvatar' => $teamAvatar, 'book' => $books, 'teamIdList' => $teamIdList, 'memberIdList' => $memeberIdList, 'inputData' => $inputData, 'initialAmount' => $initialAmount]);
+            return view('bookDashboard', ['teamId' => $teamId, 'owner' => $ownerCheck, 'userName' => $userName, 'teamName' => $teamName, 'type' => $type, 'teamAvatar' => $teamAvatar, 'book' => $books, 'teamIdList' => $teamIdList, 'memberIdList' => $memeberIdList, 'inputData' => $inputData, 'initialAmount' => $initialAmount, 'iTable' => $iTableData, 'oTable' => $oTableData]);
         }
     }
 

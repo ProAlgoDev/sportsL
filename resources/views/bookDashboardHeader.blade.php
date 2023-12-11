@@ -32,7 +32,7 @@
                             <div class="sum"><span>総合計</span><span class="total_sum">円</span></div>
                     </div>  
                 @endif
-                <div class="year">
+                {{-- <div class="year">
                         <div class="input"><span>年度収入</span><span>34534534円</span></div>
                         <div class="out"><span>年度支出</span><span>3453453円</span></div>
                         <div class="sum"><span>年度総計</span><span>345345円</span></div>
@@ -41,7 +41,7 @@
                         <div class="input"><span>総収入</span><span>345345345円</span></div>
                         <div class="out"><span>総支出</span><span>354345円</span></div>
                         <div class="sum"><span>総合計</span><span>345345円</span></div>
-                </div>
+                </div> --}}
         </div>
         <div class="chart_sum_title">
                 {{Request::is("book_dashboard/$teamId/all") ? '年度次推移' : '' }}
@@ -64,21 +64,10 @@
         </div>
         <div class="item_table_content">
             <table>
-                <tr class="year_title">
-                    <td class="title" rowspan="2">
-                        支出項目
-                    </td>
-                    <td class="title title_coll">
-                        {{Request::is("book_dashboard/$teamId/all") ? '年' : '' }}
-                        {{Request::is("book_dashboard/$teamId/year") ? '年' : '' }}
-                        {{Request::is("book_dashboard/$teamId/month") ? '月' : '' }}
-                    </td>
-                    <td class="">
-                    </td>
-                </tr>
+                
             </table>
         </div>
-        <input  id="monthpicker"  name="month" placeholder="" class="form-control  date_icon date-own" />
+        {{-- <input  id="monthpicker"  name="month" placeholder="" class="form-control  date_icon date-own" /> --}}
         @else 
         @include('noBookRegister')
         @endif
@@ -288,47 +277,8 @@ $('#chart').dxChart({
     });
 
 
-    var initialIo = $('[name = "item_io"]').attr('id');
-    if(initialIo == 'item_input'){
-        $('#item_chart_in').css('display', 'block');
-        $('#item_chart_out').css('display', 'none');
-        setTimeout(() => {
-        $('#item_chart_in').css('opacity', '1');
-        $('#item_chart_out').css('opacity', '0');
-    }, 1.5);
+    
 
-    }
-    if(initialIo == 'item_out'){
-        $('#item_chart_out').css('display', 'block');
-        $('#item_chart_in').css('display', 'none');
-        setTimeout(() => {
-        $('#item_chart_out').css('opacity', '1');
-        $('#item_chart_in').css('opacity', '0');
-    }, 1.5);
-
-    }
-    console.log($('[name = "item_io"]').attr('id'));
-    $('[name = "item_io"]').on('change',function(){
-        console.log($(this).attr("id"));
-        if($(this).attr("id") == 'item_input'){
-        $('#item_chart_in').css('display', 'block');
-        $('#item_chart_out').css('display', 'none');
-        setTimeout(() => {
-        $('#item_chart_in').css('opacity', '1');
-        $('#item_chart_out').css('opacity', '0');
-    }, 1.5);
-        
-    }
-    if($(this).attr("id") == 'item_out'){
-        $('#item_chart_out').css('display', 'block');
-        $('#item_chart_in').css('display', 'none');
-        setTimeout(() => {
-        $('#item_chart_out').css('opacity', '1');
-        $('#item_chart_in').css('opacity', '0');
-    }, 1.5);
-
-    }
-    });
         $('#item_chart_in').dxChart({
             dataSource : inputCategoryDataSources,
             palette: '',
@@ -387,12 +337,155 @@ $('#chart').dxChart({
         });
 
 
-console.log(inputCategoryDataSources);
+var iTableData = @json($iTable);
+var oTableData = @json($oTable);
 
-    $('.title_coll').attr('rowspan',Object.keys(data).length);
-    var tBody = $('.item_table_content table tbody');
-    var tr = $('<tr><td></td>')
-    console.log($('.item_table_content table tbody'))
+var initialIo = $('[name = "item_io"]').attr('id');
+    if(initialIo == 'item_input'){
+        $('#item_chart_in').css('display', 'block');
+        $('#item_chart_out').css('display', 'none');
+        createTable(iTableData);
+
+        setTimeout(() => {
+        $('#item_chart_in').css('opacity', '1');
+        $('#item_chart_out').css('opacity', '0');
+    }, 1.5);
+
+    }
+    if(initialIo == 'item_out'){
+        $('#item_chart_out').css('display', 'block');
+        $('#item_chart_in').css('display', 'none');
+        createTable(oTableData);
+
+        setTimeout(() => {
+        $('#item_chart_out').css('opacity', '1');
+        $('#item_chart_in').css('opacity', '0');
+    }, 1.5);
+
+    }
+    $('[name = "item_io"]').on('change',function(){
+        if($(this).attr("id") == 'item_input'){
+        $('#item_chart_in').css('display', 'block');
+        $('#item_chart_out').css('display', 'none');
+        createTable(iTableData);
+
+        setTimeout(() => {
+        $('#item_chart_in').css('opacity', '1');
+        $('#item_chart_out').css('opacity', '0');
+    }, 1.5);
+        
+    }
+    if($(this).attr("id") == 'item_out'){
+        $('#item_chart_out').css('display', 'block');
+        $('#item_chart_in').css('display', 'none');
+        createTable(oTableData);
+
+        setTimeout(() => {
+        $('#item_chart_out').css('opacity', '1');
+        $('#item_chart_in').css('opacity', '0');
+    }, 1.5);
+
+    }
+    });
+function createTable(data){
+    
+var currentURL = window.location.href;
+var type = currentURL.substring(currentURL.lastIndexOf('/') + 1);
+var colspan = Object.keys(data).length;
+var dataType = type == "month" ? "月": '年';
+var table = $('.item_table_content table');
+let categoryList = getTableCategory(data);
+var titleTr = ``;
+var contentTr = ``;
+var cateAmount = {};
+var totalCol = ``;
+Object.entries(data).map(([key,value])=>{
+    cateAmount[key] = 0;
+});
+
+for (let item of categoryList){
+    var td = ``;
+    var rowTotal = 0;
+    Object.entries(data).map(([key,value])=>{
+        if(Array.isArray(value) && Object.keys(value).length == 0){
+           td +=`<td>0</td>`;
+        }
+        else{
+            if(value[item] !== undefined){
+                td += `<td>${value[item]}</td>`;
+                rowTotal +=parseFloat(value[item]);
+                cateAmount[key] +=parseFloat(value[item]);
+            }else{
+                td += `<td>0</td>`;
+            }
+        }
+    });
+    td +=`<td>${rowTotal}</td>`;
+    contentTr += `
+    <tr>
+        <td class="title">${item}</td>
+        ${td}
+    </tr>`;
+}
+Object.entries(cateAmount).map(([key, value]) =>{
+    totalCol +=`<td>${value}</td>`;
+});
+contentTr +=`<tr><td></td>${totalCol}<td></td></tr>`;
+
+Object.entries(data).map(([key,value])=>{
+    titleTr += `<td class='title'>${key}</td>`
+})
+titleTr +="<td class='row_sum'></td>";
+var newTable = `
+        <tr class="year_title">
+            <td class="title" rowspan="2">
+                支出項目
+            </td>
+            <td class="title title_coll" colspan=${colspan}>
+                ${dataType}
+            </td>
+            <td class="">
+            </td>
+        </tr>
+        <tr>${titleTr}</tr>
+        ${contentTr}
+       
+`;
+   table.html(newTable);
+}
+
+
+function getValuesByName(data, name) {
+
+  for (const year in data) {
+    const yearData = data[year];
+
+    if (Array.isArray(yearData) && yearData.length === 0) {
+      return 0; 
+    }
+
+    if (yearData[name] !== undefined) {
+      return (yearData[name]);
+    }
+  }
+
+}
+
+function getTableCategory(data){
+
+    category = [];
+    Object.entries(data).map(([key, value])=>{
+        Object.entries(value).map(([innerKey, innerValue])=>{
+            if(category.indexOf(innerKey) === -1){
+                category.push(innerKey);
+            }
+        })
+    });
+    return category
+}
+
+
+    
      $("#yearpicker").datepicker({
          format: "yyyy",
          viewMode: "years", 
