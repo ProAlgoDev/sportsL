@@ -1146,6 +1146,10 @@ class BackController extends Controller
     }
     public function validate_ownership_transfer(Request $request, $teamId)
     {
+        $request->validate([
+            'ownerSelect' => 'required'
+        ]);
+        dump($request->ownerSelect);
         $team = Team::where('teamId', $teamId)->first();
         $oldOwner = $team->owner;
         $token = Str::random(64);
