@@ -1,5 +1,4 @@
 <div class="date_from_to">
-
     <h4>{{$selectDate}}</h4>
 </div>
 <div class="book_summer">
