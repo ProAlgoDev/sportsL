@@ -1214,7 +1214,11 @@ input#home_menu:checked+img {
     position: absolute;
     top: 60px;
     right: 15px;
-    font-size: 14px;
+    font-size: 16px;
+}
+
+.accounting_category_edit_btn a {
+    color: #333333;
 }
 
 .accounting_category_edit_btn button {
