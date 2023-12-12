@@ -1932,7 +1932,7 @@ input#left_menu_extend:checked+label {
     display: none;
     position: absolute;
     width: 300px;
-    z-index: 10;
+    z-index: 12;
 }
 
 .default_category_list h4 {
@@ -2350,7 +2350,9 @@ input#left_menu_extend:checked+label {
 
 .account_register_edit_input {
     position: relative;
-    display: inline-block;
+    /* display: inline-block; */
+    max-width: 280px;
+    margin: auto;
 }
 
 .account_register_edit_input::after {
