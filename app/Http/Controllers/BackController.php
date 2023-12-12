@@ -363,13 +363,14 @@ class BackController extends Controller
             'sex' => $request->sex,
             'owner' => $owner
         ]);
-        $defaultCategory = DefaultCategory::where('teamId', $request->teamId)->first();
+        $team_id = Team::where('teamId', $request->teamId)->first()->id;
+        $defaultCategory = DefaultCategory::where('teamId', $team_id)->first();
         $teamId = $request->teamId;
         if (!$defaultCategory) {
             $defaultCategory = DefaultCategory::where('teamId', 'default')->get();
-            $defaultCategory->map(function ($item) use ($teamId) {
+            $defaultCategory->map(function ($item) use ($team_id) {
                 DefaultCategory::create([
-                    'teamId' => $teamId,
+                    'teamId' => $team_id,
                     'defaultCategory' => $item->defaultCategory
                 ]);
             });
@@ -381,7 +382,8 @@ class BackController extends Controller
     public function book_dashboard($teamId, $type)
     {
         $selectDate = session('selectDate');
-        $book = Book::where('teamId', $teamId)->first();
+        $team_id = Team::where('teamId', $teamId)->first()->id;
+        $book = Book::where('teamId', $team_id)->first();
         $user = Auth::user()->id;
         $userName = Auth::user()->name;
 
@@ -390,7 +392,7 @@ class BackController extends Controller
         $team = Team::where('teamId', $teamId)->first();
         $teamName = $team->teamName;
         $owner = Team::where('teamId', $teamId)->where('owner', $user)->first();
-        $initialAmount = InitialAmount::where('teamId', $teamId)->first();
+        $initialAmount = InitialAmount::where('teamId', $team_id)->first();
         $ownerCheck = False;
         if ($owner) {
             $ownerCheck = '管理者';
@@ -399,8 +401,8 @@ class BackController extends Controller
         }
         $currentDate = Carbon::now();
         if ($book) {
-            $totalInputAmount = Book::where('teamId', $teamId)->where('ioType', 0)->sum('amount');
-            $totalOutputAmount = Book::where('teamId', $teamId)->where('ioType', 1)->sum('amount');
+            $totalInputAmount = Book::where('teamId', $team_id)->where('ioType', 0)->sum('amount');
+            $totalOutputAmount = Book::where('teamId', $team_id)->where('ioType', 1)->sum('amount');
         } else {
             $totalInputAmount = 0;
             $totalOutputAmount = 0;
@@ -412,12 +414,12 @@ class BackController extends Controller
             $oTableData = [];
             $books = Book::where('teamId', $teamId)->where("changeDate", ">=", $fiveYearsAgo)->get();
             if ($books) {
-                $initialAmount = InitialAmount::where('teamId', $teamId)->value('amount');
+                $initialAmount = InitialAmount::where('teamId', $team_id)->value('amount');
                 for ($i = 0; $i < 6; $i++) {
                     $date = Carbon::now()->subYears($i);
-                    $inputData[$date->year] = Book::where('teamId', $teamId)->whereYear('changeDate', $date->year)->get();
-                    $iBooksGrouped = Book::where('teamId', $teamId)->whereYear('changeDate', $date->year)->where('ioType', 0)->get()->groupBy('item');
-                    $oBooksGrouped = Book::where('teamId', $teamId)->whereYear('changeDate', $date->year)->where('ioType', 1)->get()->groupBy('item');
+                    $inputData[$date->year] = Book::where('teamId', $team_id)->whereYear('changeDate', $date->year)->get();
+                    $iBooksGrouped = Book::where('teamId', $team_id)->whereYear('changeDate', $date->year)->where('ioType', 0)->get()->groupBy('item');
+                    $oBooksGrouped = Book::where('teamId', $team_id)->whereYear('changeDate', $date->year)->where('ioType', 1)->get()->groupBy('item');
                     $iItemSums = [];
                     $oItemSums = [];
                     foreach ($iBooksGrouped as $itemName => $books) {
@@ -437,13 +439,13 @@ class BackController extends Controller
             $inputData = [];
             $iTableData = [];
             $oTableData = [];
-            $books = Book::where('teamId', $teamId)->whereYear("changeDate", $selectDate)->get();
+            $books = Book::where('teamId', $team_id)->whereYear("changeDate", $selectDate)->get();
             if ($books) {
-                $initialAmount = InitialAmount::where('teamId', $teamId)->value('amount');
+                $initialAmount = InitialAmount::where('teamId', $team_id)->value('amount');
                 for ($i = 1; $i < 13; $i++) {
-                    $inputData[$i] = Book::where('teamId', $teamId)->whereYear('changeDate', $selectDate)->whereMonth('changeDate', $i)->get();
-                    $iBooksGrouped = Book::where('teamId', $teamId)->whereYear('changeDate', $selectDate)->whereMonth('changeDate', $i)->where('ioType', 0)->get()->groupBy('item');
-                    $oBooksGrouped = Book::where('teamId', $teamId)->whereYear('changeDate', $selectDate)->whereMonth('changeDate', $i)->where('ioType', 1)->get()->groupBy('item');
+                    $inputData[$i] = Book::where('teamId', $team_id)->whereYear('changeDate', $selectDate)->whereMonth('changeDate', $i)->get();
+                    $iBooksGrouped = Book::where('teamId', $team_id)->whereYear('changeDate', $selectDate)->whereMonth('changeDate', $i)->where('ioType', 0)->get()->groupBy('item');
+                    $oBooksGrouped = Book::where('teamId', $team_id)->whereYear('changeDate', $selectDate)->whereMonth('changeDate', $i)->where('ioType', 1)->get()->groupBy('item');
                     $iItemSums = [];
                     $oItemSums = [];
                     foreach ($iBooksGrouped as $itemName => $books) {
@@ -466,14 +468,14 @@ class BackController extends Controller
             $oTableData = [];
             $startDate = Carbon::create($year, $month, 1);
             $endDate = $startDate->copy()->lastOfMonth();
-            $books = Book::where('teamId', $teamId)->whereYear("changeDate", $selectDate)->get();
+            $books = Book::where('teamId', $team_id)->whereYear("changeDate", $selectDate)->get();
             if ($books) {
-                $initialAmount = InitialAmount::where('teamId', $teamId)->value('amount');
+                $initialAmount = InitialAmount::where('teamId', $team_id)->value('amount');
                 for ($i = $startDate->day; $i <= $endDate->day; $i++) {
                     $date = Carbon::create($year, $month, $i);
-                    $inputData[$i] = Book::where('teamId', $teamId)->where('changeDate', $date)->get();
-                    $iBooksGrouped = Book::where('teamId', $teamId)->where('changeDate', $date)->where('ioType', 0)->get()->groupBy('item');
-                    $oBooksGrouped = Book::where('teamId', $teamId)->where('changeDate', $date)->where('ioType', 1)->get()->groupBy('item');
+                    $inputData[$i] = Book::where('teamId', $team_id)->where('changeDate', $date)->get();
+                    $iBooksGrouped = Book::where('teamId', $team_id)->where('changeDate', $date)->where('ioType', 0)->get()->groupBy('item');
+                    $oBooksGrouped = Book::where('teamId', $team_id)->where('changeDate', $date)->where('ioType', 1)->get()->groupBy('item');
                     $iItemSums = [];
                     $oItemSums = [];
                     foreach ($iBooksGrouped as $itemName => $books) {
@@ -553,7 +555,7 @@ class BackController extends Controller
     public function team_edit($teamId)
     {
         $teamInfo = Team::where('teamId', $teamId)->first();
-        $teamInitialAmount = InitialAmount::where('teamId', $teamId)->first();
+        $teamInitialAmount = InitialAmount::where('teamId', $teamInfo->id)->first();
         if ($teamInitialAmount) {
             $createDate = Carbon::parse($teamInitialAmount->createDate)->format('Y-m');
         } else {
@@ -584,17 +586,17 @@ class BackController extends Controller
         ]);
         $teamId = $request->teamId;
         $team = Team::where('teamId', $teamId)->first();
-        $initial = InitialAmount::where('teamId', $teamId)->first();
+        $initial = InitialAmount::where('teamId', $team->id)->first();
         if (!$initial) {
             InitialAmount::create([
-                'teamId' => $teamId,
+                'teamId' => $team->id,
                 'amount' => $request->initialAmount,
                 'createDate' => $request->createDate
             ]);
         } else {
 
             $initial->update([
-                'teamId' => $teamId,
+                'teamId' => $team->id,
                 'amount' => $request->initialAmount,
                 'createDate' => $request->createDate
 
@@ -604,10 +606,10 @@ class BackController extends Controller
     }
     public function accounting_category_register($teamId)
     {
+        $team_id = Team::where('teamId', $teamId)->first()->id;
+        $defaultCategoryList = DefaultCategory::where('teamId', $team_id)->get();
 
-        $defaultCategoryList = DefaultCategory::where('teamId', $teamId)->get();
-
-        $categoryList = Category::where('teamId', $teamId)->get();
+        $categoryList = Category::where('teamId', $team_id)->get();
 
         return view('accountingCategoryRegisterEdit', ['defaultList' => $defaultCategoryList, 'categoryList' => $categoryList, 'teamId' => $teamId]);
 
@@ -623,10 +625,11 @@ class BackController extends Controller
             ]
         );
         $requestValue = $request->categoryName;
-        $categories = Category::where('teamId', $teamId)->where('categoryList', $requestValue)->first();
+        $team_id = Team::where('teamId', $teamId)->first()->id;
+        $categories = Category::where('teamId', $team_id)->where('categoryList', $requestValue)->first();
         if (!$categories) {
             Category::create([
-                'teamId' => $teamId,
+                'teamId' => $team_id,
                 'categoryList' => $requestValue,
             ]);
         } else {
@@ -636,7 +639,9 @@ class BackController extends Controller
     }
     public function monthly_report($teamId)
     {
-        $book = Book::where('teamId', $teamId)->get();
+        $team_id = Team::where('teamId', $teamId)->first()->id;
+
+        $book = Book::where('teamId', $team_id)->get();
         return view('monthlyReport', ['teamId' => $teamId, 'book' => $book]);
     }
     public function validate_category_name_edit(Request $request, $teamId)
@@ -644,24 +649,27 @@ class BackController extends Controller
         //todo change category name from book model
         $categoryList = $request->input('categoryList');
         $dcategoryList = $request->input('deleteCategory');
+        $team_id = Team::where('teamId', $teamId)->first()->id;
+
         if ($categoryList) {
             foreach ($categoryList as $key => $value) {
-                $category = Category::where('teamId', $teamId)->where('categoryList', $key)->first();
+                $category = Category::where('teamId', $team_id)->where('categoryList', $key)->first();
                 $category->categoryList = $value;
                 $category->save();
             }
         }
         if ($dcategoryList) {
             foreach ($dcategoryList as $item) {
-                $dcategory = Category::where('teamId', $teamId)->where('categoryList', $item)->first();
+                $dcategory = Category::where('teamId', $team_id)->where('categoryList', $item)->first();
                 $dcategory->delete();
             }
         }
     }
     public function accounting_register($teamId)
     {
-        $defaultCategory = DefaultCategory::where('teamId', $teamId)->pluck('defaultCategory');
-        $category = Category::where('teamId', $teamId)->pluck('categoryList');
+        $team_id = Team::where('teamId', $teamId)->first()->id;
+        $defaultCategory = DefaultCategory::where('teamId', $team_id)->pluck('defaultCategory');
+        $category = Category::where('teamId', $team_id)->pluck('categoryList');
         $category = $category ?? [];
         $serial = Book::latest()->first();
         if ($serial) {
@@ -695,8 +703,9 @@ class BackController extends Controller
         $amount = $request->amount;
         $serial = $request->serial;
         $description = $request->description;
+        $team_id = Team::where('teamId', $teamId)->first()->id;
         if ($category == '月謝' || $category == '保険') {
-            $player = Player::where('teamId', $teamId)->where('status', 0)->get();
+            $player = Player::where('teamId', $team_id)->where('status', 0)->get();
 
             if ($player->isEmpty()) {
                 session()->flash('player', 'まず選手を登録してください。');
@@ -706,7 +715,7 @@ class BackController extends Controller
             $amount = $amount * $playerCount;
         }
         Book::create([
-            'teamId' => $teamId,
+            'teamId' => $team_id,
             'changeDate' => $inputDate,
             'item' => $category,
             'ioType' => $io,
@@ -740,21 +749,24 @@ class BackController extends Controller
     {
         $yearRequest = $request->year;
         $monthRequest = $request->month;
+        $team_id = Team::where('teamId', $teamId)->first()->id;
         if ($yearRequest && $monthRequest) {
-            $book = Book::where('teamId', $teamId)->whereYear('changeDate', $request->year)->whereMonth('changeDate', $monthRequest)->get();
+            $book = Book::where('teamId', $team_id)->whereYear('changeDate', $request->year)->whereMonth('changeDate', $monthRequest)->get();
         } elseif (!$yearRequest && !$monthRequest) {
-            $book = Book::where('teamId', $teamId)->get();
+            $book = Book::where('teamId', $team_id)->get();
         } elseif ($yearRequest) {
-            $book = Book::where('teamId', $teamId)->whereYear('changeDate', $yearRequest)->get();
+            $book = Book::where('teamId', $team_id)->whereYear('changeDate', $yearRequest)->get();
         } elseif ($monthRequest) {
-            $book = Book::where('teamId', $teamId)->whereMonth('changeDate', $monthRequest)->get();
+            $book = Book::where('teamId', $team_id)->whereMonth('changeDate', $monthRequest)->get();
         }
         return view('monthlyReport', ['teamId' => $teamId, 'book' => $book]);
     }
     public function accounting_edit(Request $request, $teamId)
     {
-        $defaultCategory = DefaultCategory::where('teamId', $teamId)->pluck('defaultCategory');
-        $category = Category::where('teamId', $teamId)->pluck('categoryList');
+        $team_id = Team::where('teamId', $teamId)->first()->id;
+
+        $defaultCategory = DefaultCategory::where('teamId', $team_id)->pluck('defaultCategory');
+        $category = Category::where('teamId', $team_id)->pluck('categoryList');
         $category = $category ?? [];
         $categoryList = $defaultCategory->merge($category)->all();
 
@@ -786,9 +798,10 @@ class BackController extends Controller
         $amount = $request->amount;
         $serial = $request->serial;
         $description = $request->description;
-        $book = Book::where('teamId', $teamId)->where('id', $request->itemId)->first();
+        $team_id = Team::where('teamId', $teamId)->first()->id;
+        $book = Book::where('teamId', $team_id)->where('id', $request->itemId)->first();
         $book->update([
-            'teamId' => $teamId,
+            'teamId' => $team_id,
             'changeDate' => $inputDate,
             'item' => $category,
             'ioType' => $io,
@@ -796,16 +809,18 @@ class BackController extends Controller
             'serialNumber' => $serial,
             'description' => $description
         ]);
-        $defaultCategory = DefaultCategory::where('teamId', $teamId)->pluck('defaultCategory');
-        $category = Category::where('teamId', $teamId)->pluck('categoryList');
+        $defaultCategory = DefaultCategory::where('teamId', $team_id)->pluck('defaultCategory');
+        $category = Category::where('teamId', $team_id)->pluck('categoryList');
         $category = $category ?? [];
         $categoryList = $defaultCategory->merge($category)->all();
         return redirect("monthly_report/$teamId")->with('accountingEdit', 'success');
     }
     public function player_register($teamId)
     {
-        $register = Player::where('teamId', $teamId)->where('status', 0)->where('register', 0)->get();
-        $archive = Player::where('teamId', $teamId)->where('status', 0)->where('register', 1)->get();
+        $team_id = Team::where('teamId', $teamId)->first()->id;
+
+        $register = Player::where('teamId', $team_id)->where('status', 0)->where('register', 0)->get();
+        $archive = Player::where('teamId', $team_id)->where('status', 0)->where('register', 1)->get();
         return view('playerRegister', ['title' => '選手登録・編集', 'teamId' => $teamId, 'register' => $register, 'archive' => $archive]);
     }
     public function validate_player_register(Request $request, $teamId)
@@ -825,12 +840,13 @@ class BackController extends Controller
             '2' => "女",
             '3' => "混合",
         ];
+        $team_id = Team::where('teamId', $teamId)->first()->id;
         $gender = $genderList[$request->gender];
         Player::create([
             'name' => $request->playerName,
             'gender' => $gender,
             'createdDate' => $request->createdDate,
-            'teamId' => $teamId,
+            'teamId' => $team_id,
         ]);
         return redirect("player_register/$teamId");
     }
@@ -840,13 +856,14 @@ class BackController extends Controller
         $archiveList = $request->input('archiveList');
         $deleteList = $request->input('deleteList');
         $visibleList = $request->input('visibleList');
+        $team_id = Team::where('teamId', $teamId)->first()->id;
         if ($editList) {
             foreach ($editList as $item) {
                 $id = $item['id'];
                 $name = $item['name'];
                 $gender = $item['gender'];
                 $date = $item['date'];
-                $player = Player::where('teamId', $teamId)->where('id', $id)->first();
+                $player = Player::where('teamId', $team_id)->where('id', $id)->first();
                 $player->name = $name;
                 $player->gender = $gender;
                 $player->createdDate = $date;
@@ -855,21 +872,21 @@ class BackController extends Controller
         }
         if ($archiveList) {
             foreach ($archiveList as $item) {
-                $player = Player::where('teamId', $teamId)->where('id', $item)->first();
+                $player = Player::where('teamId', $team_id)->where('id', $item)->first();
                 $player->register = 1;
                 $player->save();
             }
         }
         if ($visibleList) {
             foreach ($visibleList as $item) {
-                $player = Player::where('teamId', $teamId)->where('id', $item)->first();
+                $player = Player::where('teamId', $team_id)->where('id', $item)->first();
                 $player->register = 0;
                 $player->save();
             }
         }
         if ($deleteList) {
             foreach ($deleteList as $item) {
-                $player = Player::where('teamId', $teamId)->where('id', $item)->first();
+                $player = Player::where('teamId', $team_id)->where('id', $item)->first();
                 $player->status = 1;
                 $player->save();
             }
@@ -1097,9 +1114,10 @@ class BackController extends Controller
         $userId = Auth::user()->id;
         $team = Team::where('owner', $userId)->pluck('id')->toArray();
 
-        $teamId = Team::where('owner', $userId)->pluck('teamId')->toArray();
+        $teamId = Team::where('owner', $userId)->pluck('id')->toArray();
         $member = Member::where('team_id', $team)->get();
         $book = Book::where('teamId', $teamId)->get();
+
         $amount = InitialAmount::where('teamId', $teamId)->get();
         if ($member->isNotEmpty() || $book->isNotEmpty() || $amount->isNotEmpty()) {
             session()->flash('errors', 'f');
@@ -1155,7 +1173,7 @@ class BackController extends Controller
         $oldOwnerUser = User::where('id', $user->oldUser)->first();
         $team = Team::where('owner', $user->oldUser)->first();
         if (!$team) {
-            return redirect('sample.dashboard');
+            return redirect('dashboard');
         }
         $team->owner = $user->newUser;
         Member::create([
@@ -1167,7 +1185,7 @@ class BackController extends Controller
         $oldMember = Member::where('user_id', $user->newUser)->where('team_id', $team->id)->first();
         $oldMember->delete();
         $user->delete();
-        return redirect('sample.dashboard');
+        return redirect('dashboard');
     }
     public function password_reset()
     {
