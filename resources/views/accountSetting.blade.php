@@ -13,7 +13,7 @@
     <button class="change_save">変更する</button>
 </div>
 <div class="accounting_setting_form">
-        <form class="account_edit_post" action="validate_account_edit" method="POST">
+        <form class="account_edit_post" action="{{route('validate_account_edit')}}" method="POST">
             @csrf
             <div class="personal_info">
                 <span id="avatar_edit" onclick="openFileDialog()" class="avatar_edit"><img id="select_avatar" src="{{asset("images/avatar/$user->avatar")}}" alt=""></span>
@@ -74,7 +74,7 @@
                             <span class="span text-danger text-center d-block">
                                 {{$errors->first('email')}}
                             </span>
-                        @endif
+                @endif
                 <div class="email"  data-name="email">
                     <div class="title">
                         <span  class="email ">メールアドレス</span>
@@ -88,7 +88,7 @@
                             <span class="span text-danger text-center d-block">
                                 {{$errors->first('password')}}
                             </span>
-                        @endif
+                @endif
                 <div class="password"  data-name="password">
                     <div class="title">
                         <span>パスワード</span>

@@ -1112,15 +1112,14 @@ class BackController extends Controller
     public function account_remove()
     {
         $userId = Auth::user()->id;
-        $team = Team::where('owner', $userId)->pluck('id')->toArray();
 
         $teamId = Team::where('owner', $userId)->pluck('id')->toArray();
-        $member = Member::where('team_id', $team)->get();
+        $member = Member::where('team_id', $teamId)->get();
         $book = Book::where('teamId', $teamId)->get();
 
         $amount = InitialAmount::where('teamId', $teamId)->get();
         if ($member->isNotEmpty() || $book->isNotEmpty() || $amount->isNotEmpty()) {
-            session()->flash('errors', 'f');
+            session()->flash('error', 'f');
             return redirect('account_setting');
         }
         $memberId = Member::where('user_id', $userId)->get();
