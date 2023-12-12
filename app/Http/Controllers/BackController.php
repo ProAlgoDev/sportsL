@@ -412,7 +412,7 @@ class BackController extends Controller
             $inputData = [];
             $iTableData = [];
             $oTableData = [];
-            $books = Book::where('teamId', $teamId)->where("changeDate", ">=", $fiveYearsAgo)->get();
+            $books = Book::where('teamId', $team_id)->where("changeDate", ">=", $fiveYearsAgo)->get();
             if ($books) {
                 $initialAmount = InitialAmount::where('teamId', $team_id)->value('amount');
                 for ($i = 0; $i < 6; $i++) {
@@ -1074,6 +1074,9 @@ class BackController extends Controller
             'email.email' => '正確なemail形式ではありません。',
             'password.min' => 'パスワードは 6 文字以上である必要があります。'
         ]);
+        // $request->validate([
+        //     'avatar' => 'required|image|mimes:jpeg,png,jpg,gif', // Example validation rules
+        // ]);
         $id = Auth::user()->id;
         $avatar = $request->avatar;
         $birth = $request->birth;
@@ -1081,15 +1084,11 @@ class BackController extends Controller
         $email = $request->email;
         $password = $request->password;
         $user = User::where('id', $id)->first();
-        if ($request->image) {
-            $imageName = now()->format('YmdHis') . '.' . $request->image->extension();
-            $request->image->move(public_path('images/avatar'), $imageName);
-            $user->avatar = $imageName;
-        }
+
         if ($avatar) {
             $imageName = now()->format('YmdHis') . '.' . $avatar->extension();
             $avatar->move(public_path('images/avatar'), $imageName);
-            $user->avatar = $avatar;
+            $user->avatar = $imageName;
         }
         if ($birth) {
             $user->birth = $birth;
