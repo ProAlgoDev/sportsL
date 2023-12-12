@@ -38,7 +38,7 @@
                    @endif
                     <div class="player_enter_date input_form">
                             <span class="">参加日</span>
-                            <input type="date" name="createdDate" placeholder="01-01-2023" class="form-control date_icon" />
+                            <input type="date" name="createdDate"  placeholder="01-01-2023" class="form-control date_icon" />
                         </div>
                         @if($errors->has('createdDate'))
                             <span class="span text-danger text-center d-block">
