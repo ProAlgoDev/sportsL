@@ -13,7 +13,7 @@
     <button class="change_save">変更する</button>
 </div>
 <div class="accounting_setting_form">
-        <form class="account_edit_post" action="{{route('validate_account_edit')}}" method="POST">
+        <form class="account_edit_post" action="{{route('validate_account_edit')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="personal_info">
                 <span id="avatar_edit" onclick="openFileDialog()" class="avatar_edit"><img id="select_avatar" src="{{asset("images/avatar/$user->avatar")}}" alt=""></span>
