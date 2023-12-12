@@ -153,7 +153,7 @@
             var divElement = $('<div class="player_edit_modal"></div>');
             var btnElement = $('<button class="player_edit_modal_btn">保存</button>');
             var nameElement = $('<input class="player_edit_modal_name" value="'+oldName.text().trim()+'"/>');
-            var genderElement = $('<select class="player_edit_modal_gender"><option>男子</option><option>女子</option><option>混合</option></select>');
+            var genderElement = $('<select class="player_edit_modal_gender"><option>男</option><option>女</option><option>混合</option></select>');
             var dateElement = $('<input class="player_edit_modal_date date-icon" value="'+oldDate.text().trim()+'" type="date" />');
             var spanElement = $('<span class="player_edit_modal_danger text-danger" >すべてのフィールドは必須です</span>');
             divElement.append(nameElement);

@@ -821,8 +821,8 @@ class BackController extends Controller
             'createdDate.date' => '日付は有効な日付ではありません。',
         ]);
         $genderList = [
-            '1' => "男子",
-            '2' => "女子",
+            '1' => "男",
+            '2' => "女",
             '3' => "混合",
         ];
         $gender = $genderList[$request->gender];
