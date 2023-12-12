@@ -1,6 +1,6 @@
 <div class="date_from_to">
 
-    <h4>YYYY/MM~YYYY/MM</h4>
+    <h4>{{$selectDate}}</h4>
 </div>
 <div class="book_summer">
     <span class="book_summer_bar"></span>
