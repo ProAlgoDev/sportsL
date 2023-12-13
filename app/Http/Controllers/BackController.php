@@ -905,7 +905,7 @@ class BackController extends Controller
         if ($user) {
             $id = $user->id;
             $owner = Team::where('teamId', $teamId)->where('owner', $id)->first();
-            $member = Member::where('userId', $id)->first();
+            $member = Member::where('user_id', $id)->first();
         } else {
             $owner = '';
             $member = '';
@@ -914,9 +914,9 @@ class BackController extends Controller
         $teamName = $from->teamName;
         $verifyToken = Str::random(64);
         if ($owner) {
-            session()->flash('errors', 'あなたはこのチームの管理者です。');
+            session()->flash('error', 'あなたはこのチームの管理者です。');
         } elseif ($member) {
-            session()->flash('errors', 'あなたはこのチームのメンバーです');
+            session()->flash('error', 'あなたはこのチームのメンバーです');
         } else {
             Mail::send('email.emailInviteMember', ['token' => $verifyToken, 'teamName' => $teamName], function ($message) use ($email) {
                 $message->to($email);
