@@ -77,6 +77,22 @@
                 @endif
                 
             </div>
+            <a href="https://team-wallet.com/static/corp" class="menu_account_setting book_menu" target="_blank">
+                <img class="menu_icon" src="{{asset('images/company.png')}}" alt="">
+                <div class="">会社概要</div>
+            </a>
+            <a href="https://team-wallet.com/static/privacy" class="menu_account_setting book_menu" target="_blank">
+                <img class="menu_icon" src="{{asset('images/policy.png')}}" alt="">
+                <div class="">プライバシーポリシー</div>
+            </a>
+            <a href="https://team-wallet.com/static/inquiry" class="menu_account_setting book_menu" target="_blank">
+                <img class="menu_icon" src="{{asset('images/inquiry.png')}}" alt="">
+                <div class="">お問い合わせ</div>
+            </a>
+            <a href="https://team-wallet.com/static/help" class="menu_account_setting book_menu" target="_blank">
+                <img class="menu_icon" src="{{asset('images/help.png')}}" alt="">
+                <div class="">ヘルプ</div>
+            </a>
             <a href="{{route('account_setting')}}" class="menu_account_setting book_menu">
                 <img src="{{asset('images/setting.svg')}}" alt="">
                 <div class="">アカウント設定</div>
