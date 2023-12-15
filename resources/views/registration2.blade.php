@@ -41,7 +41,7 @@
                         @endif
                     </div>
                     <div class="form-group mb-4">
-                        <div class="policy"><input type="checkbox" name="policy" id='policy' /><span>利用規約に同意する</span></div>
+                        <div class="policy"><input type="checkbox" name="policy" id='policy' /><a href="https://team-wallet.com/static/terms" target="_blank">利用規約に同意する</a></div>
                         @if($errors->has('policy'))
                             <span class="text-danger">{{$errors->first('policy')}}</span>
                         @endif

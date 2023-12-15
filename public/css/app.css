@@ -312,9 +312,10 @@
     margin-right: 10px;
 }
 
-.policy span {
+.policy a {
     display: inline-block;
-    color: #2790BD;
+    color: #2790BD !important;
+    text-decoration: none;
 }
 
 .register3_form a {
@@ -714,7 +715,7 @@
 .book_dashboard_menu_container {
     position: absolute;
     width: 353px;
-    height: 736px;
+    height: 844px;
     transition: all .6s;
     transform: translate(-353px, 0px);
     z-index: 8;
@@ -1219,6 +1220,7 @@ input#home_menu:checked+img {
 
 .accounting_category_edit_btn a {
     color: #333333;
+    text-decoration: none;
 }
 
 .accounting_category_edit_btn button {
@@ -2796,4 +2798,12 @@ input#left_menu_extend:checked+label {
     background-size: 22px !important;
     background-position: right 6px top 2px !important;
     padding-left: 5px;
+}
+
+.menu_content_list .menu_icon {
+    width: 23px;
+    height: auto;
+    object-fit: contain;
+    opacity: .9;
+
 }
