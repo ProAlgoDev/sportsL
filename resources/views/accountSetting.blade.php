@@ -114,6 +114,12 @@
                 <a href="{{route('account_remove')}}" class="account_delete_btn">アカウントを削除する</a>
 </div>
 <script>
+    $('#fileInput').imageUploadResizer({
+        max_width: 150, 
+        max_height: 150, 
+        quality: 0.8, 
+        do_not_resize: ['gif', 'svg'], 
+    });
    var avatar = document.getElementById('avatar_edit');
    var fileInput = document.getElementById('fileInput');
    function openFileDialog(){ 
@@ -127,28 +133,12 @@
             fileImage.remove();
         }
         fileInput.addEventListener('change',function(){
+             
             if (fileInput.files && fileInput.files[0]) {
                 var img = new Image();
                 img.onload = function() {
-                    if (img.width > 300 || img.height > 300) {
-                        var existingFileAlert = $('#file_alert');
-                        if(existingFileAlert.length === 0){
-                            var spanElement = document.createElement('span');
-                            spanElement.textContent = '画像のサイズは 300x300 ピクセル以下である必要があります。';
-                            spanElement.style.color='red';
-                            spanElement.style.display='block';
-                            spanElement.style.margin='20px';
-                            spanElement.setAttribute('id','file_alert');
-                            fileInput.insertAdjacentElement('afterend',spanElement);
-    
-                            fileInput.value = '';
-                        }
-                        
-                    } else{
-                        var fileAlert = document.getElementById('file_alert');
-                        if(fileAlert){
-                            fileAlert.remove();
-                        }
+                    
+                      
                         var reader = new FileReader();
                         reader.onload = function(e){
                             var blob = new Blob([fileInput.files[0]], { type: fileInput.files[0].type });
@@ -156,7 +146,7 @@
                             document.getElementById('select_avatar').src = blobUrl;
                         }
                         reader.readAsArrayBuffer(fileInput.files[0]);
-                    }
+                    
                 };
                 img.src = URL.createObjectURL(fileInput.files[0]);
                 img.setAttribute('id','file_image');

@@ -1,6 +1,31 @@
 @extends('main')
 @section('content')
 @include('bookDashboardLogo')
+
+<div id="team_edit_modal" style="display:none;" class="team_edit_modal">
+    <div class="team_edit_modal_content">
+            <h4>変更しますか？</h4>
+            <p>チーム情報を変更した場合、チームに参加されているメンバーの画面も変更されます。<br/>
+                ご注意ください。</p>
+                <div class="team_edit_modal_btn">
+                    <button onclick="cancelClick()">キャンセル</button>
+                    <button onclick="agreeClick()">変更する</button>
+                </div>
+        </div>
+</div>
+@if(session('teamEditSuccess'))
+    <div id="team_edit_success_modal" class="team_edit_success_modal">
+        <div class="team_edit_success_modal_content">
+            <h4>変更しました</h4>
+            <p>チーム情報が変更されました。<br />
+                チームに参加されている画面も変更されています。<br />
+                必要に応じてアナウンスをお願いします。</p>
+            <div class="team_edit_success_modal_btn">
+                <button onclick="cancelClick()">閉じる</button>
+            </div>
+        </div>
+    </div>
+@endif
 <div class="header_menu_title">
     <div class="left_menu_back">
         <a href="{{route('back',['team_edit',"$teamInfo->teamId"])}}"><img src="{{asset('images/back.png')}}" alt=""></a>
@@ -20,7 +45,7 @@
                         
                         <div>
                             <img onclick="openFileDialog()" id="select_avatar" src="{{asset('images/avatar/'.$teamInfo->teamAvatar)}}" alt="">
-                            <input id="fileInput" type="file" name="image" style="display:none;"/>
+                            <input id="fileInput" type="file" name="image" style="display:none;" accept=".png, .jpg, .jpeg"/>
                         </div>
                     </div>
                     <div class="form-group mb-4 team_edit_info_detail">
@@ -92,27 +117,15 @@
                         <div id="team_edit_btn" onclick="openModal()" class="team_edit_btn">変更する</div>
                     </div>
                 </form>
-                <div id="team_edit_modal" style="display:none;" class="team_edit_modal">
-                    <h4>変更しますか？</h4>
-                    <p>チーム情報を変更した場合、チームに参加されているメンバーの画面も変更されます。<br/>
-                        ご注意ください。</p>
-                    <div class="team_edit_modal_btn">
-                        <button onclick="cancelClick()">キャンセル</button>
-                        <button onclick="agreeClick()">変更する</button>
-                    </div>
-                </div>
-                @if(session('teamEditSuccess'))
-                <div id="team_edit_success_modal" class="team_edit_success_modal">
-                    <h4>変更しました</h4>
-                    <p>チーム情報が変更されました。<br />
-チームに参加されている画面も変更されています。<br />
-必要に応じてアナウンスをお願いします。</p>
-                    <div class="team_edit_success_modal_btn">
-                        <button onclick="cancelClick()">閉じる</button>
-                    </div>
-                </div>
-                @endif
+                
+                
                 <script>
+                      $('#fileInput').imageUploadResizer({
+                            max_width: 150, 
+                            max_height: 150, 
+                            quality: 0.8, 
+                            do_not_resize: ['gif', 'svg'], 
+                        });
                     function openModal(){
                         document.getElementById("team_edit_modal").style.display= 'block';
                     }
@@ -122,43 +135,35 @@
                         var modalSuccess = document.getElementById("team_edit_success_modal");
                         modalSuccess.style.display = 'none';
                     }
+                    $('#team_edit_modal').click(function(){
+                        $(this).css('display', 'none');
+                    } );
+                    $('#team_edit_success_modal').click(function(){
+                        $(this).css('display', 'none');
+                    } );
                     function agreeClick(){
                         var post = document.getElementById('team_edit_info_post');
                         post.click();
                         var modal = document.getElementById("team_edit_modal");
                         modal.style.display = 'none';
                     }
-                    function openFileDialog() {
-                        var fileInput = document.getElementById('fileInput');
 
+                    function openFileDialog() {
+                        
+                        var fileInput = document.getElementById('fileInput');
                         // Trigger a click event on the hidden file input
                         fileInput.click();
 
                         // Listen for the change event on the file input
                         fileInput.addEventListener('change', function() {
                             // Check if a file was selected
+
+                            
                             if (fileInput.files && fileInput.files[0]) {
                                 var img = new Image();
 
                                 // Set up a callback function to handle the file read
                                 img.onload = function() {
-                                    if (img.width > 300 || img.height > 300) {
-                                         var existingFileAlert = $('#file_alert');
-                                    if(existingFileAlert.length === 0){
-                                        var spanElement = document.createElement('span');
-                                        spanElement.textContent = '画像のサイズは 300x300 ピクセル以下である必要があります。';
-                                        spanElement.style.color='red';
-                                        spanElement.style.display='block';
-                                        spanElement.setAttribute('id','file_alert');
-                                        fileInput.insertAdjacentElement('afterend',spanElement);
-
-                                        fileInput.value = '';
-                                    }
-                                    } else{
-                                        var fileAlert = document.getElementById('file_alert');
-                                        if(fileAlert){
-                                            fileAlert.remove();
-                                        }
                                         var reader = new FileReader();
                                         reader.onload = function(e){
                                             var blob = new Blob([fileInput.files[0]], { type: fileInput.files[0].type });
@@ -166,7 +171,6 @@
                                             document.getElementById('select_avatar').src = blobUrl;
                                         }
                                         reader.readAsArrayBuffer(fileInput.files[0]);
-                                    }
                                 };
                                 img.src = URL.createObjectURL(fileInput.files[0]);
                                 // Read the selected file

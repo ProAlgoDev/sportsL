@@ -9,6 +9,16 @@
         {{$title}}
     </div>
 </div>
+<div class="team_edit_modal" id="team_edit_modal">
+    <div class="team_edit_modal_content">
+        <h4>引き継ぎ依頼</h4>
+        <p>権限の引き継ぎ依頼を行いますが、間違いないですか？</p>
+        <div class="team_edit_modal_btn">
+            <span class="cancel">キャンセル</span>
+            <span class="agree">依頼する</span>
+        </div>
+    </div>
+</div>
 <div class="owner_edit_form">
 <h3>オーナー権限引き継ぎ</h3>
 <p>オーナー権限の引き継ぎ可能です。
@@ -18,14 +28,7 @@
 <br />
 引き継がれる方としっかりコミュニケーションをとり、実行してください。</p>
 <form action="{{route('validate_ownership_transfer',[$teamId])}}" class="owner_transfer_form" method="POST">
-    <div class="owner_transfer_confirm">
-        <h6>引き継ぎ依頼</h6>
-        <p>権限の引き継ぎ依頼を行いますが、間違いないですか？</p>
-        <div class="">
-            <span class="cancel">キャンセル</span>
-            <span class="agree">依頼する</span>
-        </div>
-    </div>
+    
     <h4>メンバー一覧</h4>
                     @csrf
                     <div class="ownerlist">
@@ -50,14 +53,14 @@
 </div>
 <script>
     $('.result_btn').click(function(){
-        $('.owner_transfer_confirm').css('display', 'block');
+        $('.team_edit_modal').css('display', 'block');
     });
     $('.cancel').click(function(){
-        $('.owner_transfer_confirm').css('display', 'none');
+        $('.team_edit_modal').css('display', 'none');
     });
     $('.agree').click(function(){
         $('.owner_transfer_form').submit();
-        $('.owner_transfer_confirm').css('display', 'none');
+        $('.team_edit_modal').css('display', 'none');
 
     });
     
