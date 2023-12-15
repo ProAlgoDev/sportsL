@@ -19,11 +19,11 @@
                 </div>
                 <div class="dashboard_btn">
                     <a href="{{route('new_team_create1')}}" class="dashboard_group">
-                        {{-- <img src="{{asset('images/team2.png')}}" alt=""> --}}
+                        <img src="{{asset('images/team2.png')}}" alt="">
                         <div class="dashboard_group_content">新しくチームを作りたい</div>
                     </a>
                     <a href="{{route('search_team')}}" class="dashboard_group">
-                        {{-- <img src="{{asset('images/base_team.png')}}" alt=""> --}}
+                        <img src="{{asset('images/base_team.png')}}" alt="">
                         <div class="dashboard_group_content">既存のチームに入りたい</div>
                     </a>
                 </div>
