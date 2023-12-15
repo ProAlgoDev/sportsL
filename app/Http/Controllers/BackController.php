@@ -28,6 +28,7 @@ use Mail;
 // use Google_Service_Gmail_Message;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\View;
+use Image;
 
 class BackController extends Controller
 {

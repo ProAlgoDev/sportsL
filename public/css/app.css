@@ -1,3 +1,8 @@
+.root {
+    height: 100vh;
+    position: relative;
+}
+
 .initial {
     /* max-width: 430px; */
     border: none;
@@ -18,6 +23,7 @@
 
 .login_container {
     background-color: #F1F7FE;
+    height: 100%;
 }
 
 .login_content {
@@ -852,7 +858,7 @@ input#home_menu:checked+img {
     font-weight: 500;
     padding: 8px 0 8px 25px;
     text-decoration: none;
-    border-top: 1px solid #d9d9d9;
+    /* border-top: 1px solid #d9d9d9; */
     border-bottom: 1px solid #d9d9d9;
 }
 
@@ -1853,20 +1859,29 @@ input#left_menu_extend:checked+label {
 
 .team_edit_modal {
 
-    display: block;
+    display: none;
     position: absolute;
-    top: 29%;
-    transform: translate(16%, 0px);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #00000070;
+    z-index: 12;
+
+}
+
+.team_edit_modal_content {
     width: 326px;
     background: #555555;
     color: white;
-    height: 165px;
+    margin: auto;
+    margin-top: 14%;
 }
 
 .team_edit_modal h4 {
     font-size: 18px;
     text-align: center;
-    margin-top: 20px;
+    padding-top: 20px;
 }
 
 .team_edit_modal p {
@@ -1878,6 +1893,9 @@ input#left_menu_extend:checked+label {
     display: flex;
     font-size: 16px;
     margin-top: 11px;
+    justify-content: center;
+    gap: 32px;
+    padding: 15px;
 }
 
 .team_edit_modal_btn button {
@@ -1888,21 +1906,27 @@ input#left_menu_extend:checked+label {
 }
 
 .team_edit_success_modal {
-
     display: block;
     position: absolute;
-    top: 29%;
-    transform: translate(16%, 0px);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #00000070;
+}
+
+.team_edit_success_modal_content {
     width: 326px;
     background: #555555;
     color: white;
-    height: 188px;
+    margin: auto;
+    margin-top: 14%;
 }
 
 .team_edit_success_modal h4 {
     font-size: 18px;
     text-align: center;
-    margin-top: 20px;
+    padding-top: 20px;
 }
 
 .team_edit_success_modal p {
@@ -1915,6 +1939,7 @@ input#left_menu_extend:checked+label {
     background: none;
     color: white;
     font-weight: 700;
+    padding: 15px;
 }
 
 .team_edit_success_modal_btn {
@@ -2573,13 +2598,22 @@ input#left_menu_extend:checked+label {
 }
 
 .owner_transfer_confirm {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+
+}
+
+.owner_transfer_confirm_content {
     background: #555555;
     color: white;
     text-align: center;
     max-width: 300px;
-    position: absolute;
-    left: 42px;
-    display: none;
+    z-index: 12;
+    position: relative;
 }
 
 .owner_transfer_confirm h6 {
@@ -2596,7 +2630,7 @@ input#left_menu_extend:checked+label {
     display: block;
 }
 
-.owner_transfer_confirm div {
+.owner_transfer_confirm .btn_group {
     display: flex;
     justify-content: center;
     gap: 45px;
