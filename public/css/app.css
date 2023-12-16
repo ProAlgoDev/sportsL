@@ -2816,7 +2816,7 @@ input#left_menu_extend:checked+label {
 
 .item_table_content .title {
     background: #cfe2f3;
-    /* min-width: 60px; */
+    min-width: 40px;
 }
 
 #yearpicker {
