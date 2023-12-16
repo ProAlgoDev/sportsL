@@ -760,6 +760,7 @@ class BackController extends Controller
         } elseif ($monthRequest) {
             $book = Book::where('teamId', $team_id)->whereMonth('changeDate', $monthRequest)->get();
         }
+
         return view('monthlyReport', ['teamId' => $teamId, 'book' => $book, 'year' => $yearRequest, 'month' => $monthRequest]);
     }
     public function accounting_edit(Request $request, $teamId)
