@@ -1052,7 +1052,7 @@ class BackController extends Controller
             $team = Team::where('id', $id)->first();
             $member = Member::where('team_id', $team->id)->where('user_id', $user_id->id)->first();
             if ($member) {
-                session()->flash('errors', '');
+                session()->flash('error', 's');
                 return view('searchTeam3', ['team' => $team]);
             } else {
                 Member::create([

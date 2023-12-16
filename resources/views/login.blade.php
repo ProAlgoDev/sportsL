@@ -14,9 +14,9 @@
         @if(session('showModal'))
         <div class='success_verify'>成功メールの確認</div>
         @endif
-        @if(session('error'))
+        {{-- @if(session('error'))
         <span class="text-danger">{{session('error')}}</span>
-        @endif
+        @endif --}}
         {{-- @if(session('resetPassword'))
         <div class='success_verify'>{{session('resetPassword')}}</div>
         @endif --}}
