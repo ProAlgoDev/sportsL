@@ -2812,11 +2812,12 @@ input#left_menu_extend:checked+label {
     border: 1px solid #b9b9b9;
     text-align: center;
     font-size: 13px;
+    min-width: 30px;
 }
 
 .item_table_content .title {
     background: #cfe2f3;
-    min-width: 40px;
+    min-width: 60px;
 }
 
 #yearpicker {
