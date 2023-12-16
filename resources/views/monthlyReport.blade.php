@@ -29,7 +29,12 @@
                     <div class="form-group mb-4 accounting_register_edit_input">
                         <div class="monthly_report_year">
                             <span class="">年度</span>
-                            <input  id="yearpicker"  name="year" class="form-control  date_icon date-own" value={{$year}}>
+                            <input  id="yearpicker"  name="year" class="form-control  date_icon date-own" 
+                              @if(isset($year))
+                                value={{$year}}
+                                @else
+                                value=''
+                            @endif>
                             @if($errors->has('year'))
                                 <span style="width:166px; display:block;" class="span text-danger">
                                     {{$errors->first('year')}}
@@ -38,7 +43,12 @@
                         </div>
                         <div class="monthly_report_year">
                             <span class="">月</span>
-                           <input  id="monthpicker"  name="month"  class="form-control  date_icon date-own" value={{$month}}>
+                           <input  id="monthpicker"  name="month"  class="form-control  date_icon date-own" 
+                           @if(isset($month))
+                            value={{$month}}
+                            @else
+                            value=''
+                           @endif>
                             @if($errors->has('month'))
                                 <span style="width:166px; display:block;" class="span text-danger">
                                     {{$errors->first('month')}}
