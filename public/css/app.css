@@ -1875,7 +1875,7 @@ input#left_menu_extend:checked+label {
     background: #555555;
     color: white;
     margin: auto;
-    margin-top: 20%;
+    margin-top: 176px;
 }
 
 .team_edit_modal h4 {
@@ -1920,7 +1920,7 @@ input#left_menu_extend:checked+label {
     background: #555555;
     color: white;
     margin: auto;
-    margin-top: 14%;
+    margin-top: 176px;
 }
 
 .team_edit_success_modal h4 {
@@ -1973,7 +1973,7 @@ input#left_menu_extend:checked+label {
     background: #555555;
     color: white;
     margin: auto;
-    margin-top: 13%;
+    margin-top: 200px;
     text-align: center;
 }
 
@@ -2098,7 +2098,6 @@ input#left_menu_extend:checked+label {
 
 .accounting_report_modal {
     position: absolute;
-
     left: 0;
     top: 0;
     z-index: 100;
@@ -2112,7 +2111,7 @@ input#left_menu_extend:checked+label {
     color: white;
     width: 280px;
     margin: auto;
-    margin-top: 12%;
+    margin-top: 176px;
 }
 
 .accounting_report_modal h6 {
