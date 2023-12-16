@@ -9,7 +9,23 @@
         会計登録
     </div>
 </div>
-
+<div id="team_edit_modal" style="display:none;" class="team_edit_modal">
+    <div class="team_edit_modal_content">
+            <h4>選手を削除します</h4>
+            <p>帳簿に登録されている選手を削除すると<br>
+月謝<br>
+保険<br>
+・・・・<br>
+で選手名が「その他」へ変更されます。</p>
+                <div class="team_edit_modal_btn">
+                    <button class="team_edit_cancel">キャンセル</button>
+                    <button class="team_edit_agree">削除する</button>
+                </div>
+                <div class="team_edit_modal_success_btn">
+                    <button class="team_edit_sucess">閉じる</button>
+                </div>
+        </div>
+</div>
 <div class="player_register_form">
 
 <form action="{{route('validate_player_register',[$teamId])}}" method="POST">
@@ -192,10 +208,19 @@
 
         }
         if(status == 'delete'){
-            deleteList.push(id);
-            row.remove();
+            $('#team_edit_modal').css('display', 'block');
+            $('.team_edit_agree').click(function(){
+                deleteList.push(id);
+                row.remove();
+            });
         }
     });
+    $('#team_edit_modal').click(function(){
+        $(this).css('display', 'none');
+    });
+    $('.team_edit_cancel').click(function(){
+        $('#team_edit_modal').css('display', 'none');
+    })
     $('#player_edit_save').click(function(){
         $.ajax({
             type: "POST",

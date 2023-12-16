@@ -1958,12 +1958,23 @@ input#left_menu_extend:checked+label {
 }
 
 .default_category_list {
-    background: #555555;
-    color: white;
+    background: #00000070;
     display: none;
     position: absolute;
-    width: 300px;
     z-index: 12;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.default_category_list_all {
+    width: 300px;
+    background: #555555;
+    color: white;
+    margin: auto;
+    margin-top: 13%;
+    text-align: center;
 }
 
 .default_category_list h4 {
@@ -1975,6 +1986,7 @@ input#left_menu_extend:checked+label {
     margin-bottom: 0;
     text-align: left;
     margin-left: 50px;
+    display: block;
 }
 
 #default_category_list_hidden {
@@ -1984,9 +1996,9 @@ input#left_menu_extend:checked+label {
     cursor: pointer;
 }
 
-#default_category_show:checked~.default_category_list {
+/* #default_category_show:checked~.default_category_list {
     display: block !important;
-}
+} */
 
 .default_category_list_content {
     max-height: 390px;
@@ -2086,28 +2098,36 @@ input#left_menu_extend:checked+label {
 
 .accounting_report_modal {
     position: absolute;
+
+    left: 0;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    background: #00000070;
+}
+
+.accounting_report_modal_content {
     background: #555555;
     color: white;
     width: 280px;
-    left: 50%;
-    top: 0;
-    transform: translate(-50%, 10px);
-    z-index: 100;
+    margin: auto;
+    margin-top: 12%;
 }
 
 .accounting_report_modal h6 {
     text-align: center;
-    margin-top: 18px;
+    padding-top: 18px;
 }
 
 .accounting_report_modal p {
-    margin: 2px 10px;
+    padding: 2px 10px;
     font-size: 14px;
     margin-bottom: 15px;
 }
 
 .report_modal_btn {
-    margin: 18px auto;
+    padding: 18px 4px;
     display: flex;
     justify-content: center;
     font-size: 15px;
@@ -2839,5 +2859,8 @@ input#left_menu_extend:checked+label {
     height: auto;
     object-fit: contain;
     opacity: .9;
+}
 
+.team_edit_modal_success_btn {
+    display: none;
 }

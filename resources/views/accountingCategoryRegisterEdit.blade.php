@@ -9,7 +9,17 @@
         会計項目登録・編集
     </div>
 </div>
-
+<div id="default_category_list" class="default_category_list">
+    <div class="default_category_list_all">
+        <h4>登録されている基本項目</h4>
+        <div class="default_category_list_content">
+            @foreach($defaultList as $defaultCategory)
+            <span>・{{$defaultCategory->defaultCategory}}</span>
+            @endforeach
+        </div>
+        <span onclick="defaultListHidden()" id="default_category_list_hidden">閉じる</span>
+    </div>
+</div>
 <div class="accounting_category_register_edit_form">
 <form action='{{route("validate_default_category_register",[$teamId])}}' method="POST">
                     @csrf
@@ -18,15 +28,7 @@
                         <input type="checkbox" id="default_category_show" style="display:none;">
                         <label for="default_category_show" class="default_category_show">>>登録されている基本項目</label>
                         
-                        <div id="default_category_list" class="default_category_list">
-                            <h4>登録されている基本項目</h4>
-                            <div class="default_category_list_content">
-                                @foreach($defaultList as $defaultCategory)
-                                <span>・{{$defaultCategory->defaultCategory}}</span>
-                                @endforeach
-                            </div>
-                            <span onclick="defaultListHidden()" id="default_category_list_hidden">閉じる</span>
-                        </div>
+                        
                         @if(session('existingName'))
                         <span class="span text-danger">
                                項目名はすでに存在します。
@@ -99,6 +101,18 @@ function defaultListHidden(){
     document.getElementById('default_category_show').checked = false;
 }
 $(document).ready(function() {
+    $('#default_category_show').on('click',function(){
+        if($(this).is(':checked')){
+            $('#default_category_list').css('display','block');
+        }else{
+            $('#default_category_list').css('display','none');
+            $('#default_category_show').prop('checked',false);
+        }
+    });
+    $('#default_category_list').on('click',function(){
+        $(this).css('display','none');
+        $('#default_category_show').prop('checked',false);
+    });
     $('.category_edit_button').on('click', function(){
         var row = $(this).closest('tr');
         var categoryData = row.find('.category_edit_button').data('category');
