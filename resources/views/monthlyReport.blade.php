@@ -9,18 +9,21 @@
         会計登録
     </div>
 </div>
-<div class="accounting_register_edit_form">
-    @if(session('accountingEdit'))
-    <form action="{{route('monthly_report',$teamId)}}" method="GET" class="accounting_report_modal">
+@if(session('accountingEdit'))
+<div class="accounting_report_modal">
+
+    <form action="{{route('monthly_report',$teamId)}}" method="GET" class="accounting_report_modal_content">
         <h6>会計が登録されました</h6>
         <p>登録した情報の編集を行う場合は、
-    月次レポートから編集をお願いします。</p>
-        <div class="report_modal_btn">
-            {{-- <button type="submit" id="month_report">月次レポートを見る</button> --}}
-            <span id="cancel_report_modal">閉じる</span>
-        </div>
-    </form>
-    @endif
+            月次レポートから編集をお願いします。</p>
+            <div class="report_modal_btn">
+                {{-- <button type="submit" id="month_report">月次レポートを見る</button> --}}
+                <span id="cancel_report_modal">閉じる</span>
+            </div>
+        </form>
+    </div>
+@endif
+<div class="accounting_register_edit_form">
 <form action="{{route('monthly_report_search',[$teamId])}}" method="POST">
                     @csrf
                     <div class="form-group mb-4 accounting_register_edit_input">
@@ -138,7 +141,9 @@
          minViewMode: "years",
          autoclose:true //to close picker once year is selected
      });
-     
+     $('.accounting_report_modal').click(function(){
+        $(this).css('display', 'none');
+     });
      $("#monthpicker").datepicker({
          format: "mm",
          viewMode: "months", 

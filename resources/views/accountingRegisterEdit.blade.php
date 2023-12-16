@@ -12,18 +12,20 @@
 <div class="accounting_category_edit_btn">
     <a href="{{route('monthly_report',$teamId)}}">編集</a>
 </div>
-<div class="accounting_register_edit_form">
 @if(session('accountingRegister'))
-<form action="{{route('monthly_report',$teamId)}}" method="GET" class="accounting_report_modal">
-    <h6>会計が登録されました</h6>
-    <p>登録した情報の編集を行う場合は、
-月次レポートから編集をお願いします。</p>
-    <div class="report_modal_btn">
-        <button type="submit" id="month_report">月次レポートを見る</button>
-        <span id="cancel_report_modal">閉じる</span>
-    </div>
-</form>
+<div class="accounting_report_modal">
+    <form action="{{route('monthly_report',$teamId)}}" method="GET" class="accounting_report_modal_content">
+        <h6>会計が登録されました</h6>
+        <p>登録した情報の編集を行う場合は、
+            月次レポートから編集をお願いします。</p>
+            <div class="report_modal_btn">
+                <button type="submit" id="month_report">月次レポートを見る</button>
+                <span id="cancel_report_modal">閉じる</span>
+            </div>
+        </form>
+</div>
 @endif
+<div class="accounting_register_edit_form">
 
 <form action="{{route('validate_accounting_register',[$teamId])}}" method="POST">
                     @csrf
@@ -172,7 +174,10 @@ console.log(currentTimestampInSeconds);
 
         $('#cancel_report_modal').on('click', function(){
             $('.accounting_report_modal').css('display','none');
-        })
+        });
+        $('.accounting_report_modal').click(function(){
+            $(this).css('display','none');
+        });
     });
 </script>
 
