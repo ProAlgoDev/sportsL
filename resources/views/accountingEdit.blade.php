@@ -37,6 +37,7 @@
                                 @endforeach
                                 @endif
                             </select>
+                            <input name="baseCategory" value={{$book->item}} hidden/>
                             @if($errors->has('categoryList'))
                                 <span style="width:166px; display:block;" class="span text-danger">
                                     {{$errors->first('categoryList')}}
@@ -91,8 +92,6 @@
                         <button class="btn btn-primary register_btn category_register_btn mt-3" type="submit">登録する</button>
                     </div>
                 </form>
-                
-                
 </div>
 <script>
     $(document).ready(function(){

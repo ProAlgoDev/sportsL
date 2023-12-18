@@ -801,12 +801,26 @@ class BackController extends Controller
 
         $inputDate = $request->inputDate;
         $category = $request->categoryList;
+        $baseCategory = $request->baseCategory;
         $io = $request->io_switch;
         $amount = $request->amount;
         $serial = $request->serial;
         $description = $request->description;
         $team_id = Team::where('teamId', $teamId)->first()->id;
         $book = Book::where('teamId', $team_id)->where('id', $request->itemId)->first();
+        $categoryList = Book::where('teamId', $team_id)->where("item", $baseCategory)->pluck('item')->toArray();
+        if (count($categoryList) == 1 && $baseCategory != $category) {
+            $categoryModel = Category::where('teamId', $team_id)->where('categoryList', $baseCategory)->first();
+            if ($categoryModel) {
+                $categoryModel->status = 0;
+                $categoryModel->save();
+            }
+        }
+        $newCategory = Category::where('teamId', $team_id)->where('categoryList', $category)->first();
+        if ($newCategory) {
+            $newCategory->status = 1;
+            $newCategory->save();
+        }
         $book->update([
             'teamId' => $team_id,
             'changeDate' => $inputDate,
