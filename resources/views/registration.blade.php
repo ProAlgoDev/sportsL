@@ -15,7 +15,7 @@
         <div class="register_form">
                 <form action="{{route('sample.validate_registration')}}" method="POST">
                     @csrf
-                    <div class="form-group mb-4">
+                    <div class="form-group mb-4 input_form">
                         <img src="{{asset('images/name.png')}}" />
                         <input type="text" name="name" placeholder="Name" class="form-control" />
                         @if($errors->has('name'))
@@ -24,14 +24,14 @@
                             </span>
                         @endif
                     </div>
-                    <div class="form-group mb-4">
+                    <div class="form-group mb-4 input_form">
                         <img src="{{asset('images/email.png')}}" />
                         <input type="text" name="email" placeholder="Email" class="form-control" />
                         @if($errors->has('email'))
                             <span class="text-danger">{{$errors->first('email')}}</span>
                         @endif
                     </div>
-                    <div class="form-group mb-4">
+                    <div class="form-group mb-4 input_form">
                         <img src="{{asset('images/password.png')}}" />
                         
                         <input type="password" name="password" class="form-control" placeholder="Password"/>
@@ -39,7 +39,7 @@
                             <span class="text-danger">{{$errors->first('password')}}</span>
                         @endif
                     </div>
-                    <div class="form-group mb-4">
+                    <div class="form-group mb-4 input_form">
                         <img src="{{asset('images/confirm.png')}}" />
                         <input type="password" name="password_confirmation" id='password_confirmation' class="form-control" placeholder="Confirm"/>
                         @if($errors->has('password'))

@@ -224,14 +224,15 @@
     padding-left: 13%;
 }
 
-.register_form div {
+.register_form .input_form {
     position: relative;
+    margin: auto;
 }
 
 .register_form img {
     position: absolute;
     width: 28px;
-    left: 66px;
+    left: 15px;
     top: 11px;
     opacity: .5;
 }
