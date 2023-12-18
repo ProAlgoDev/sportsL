@@ -224,7 +224,7 @@
     padding-left: 13%;
 }
 
-.register_form .input_form {
+.register_form .re_input_form {
     position: relative;
     margin: auto;
 }
@@ -859,7 +859,6 @@ input#home_menu:checked+img {
     font-weight: 500;
     padding: 8px 0 8px 25px;
     text-decoration: none;
-    /* border-top: 1px solid #d9d9d9; */
     border-bottom: 1px solid #d9d9d9;
     align-items: center;
 }
