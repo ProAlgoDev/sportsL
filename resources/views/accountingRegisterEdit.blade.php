@@ -137,8 +137,6 @@
 </div>
 <script>
     $(document).ready(function(){
-        const currentTimestampInSeconds = Math.floor(Date.now() / 1000);
-console.log(currentTimestampInSeconds);
         var serialId = $('input[name="serial"]').val();
         var serial = $('#previewSerial').text(serialId);
         $('input[name="inputDate"]').change(function()

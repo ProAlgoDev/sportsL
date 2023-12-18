@@ -705,6 +705,11 @@ class BackController extends Controller
         $serial = $request->serial;
         $description = $request->description;
         $team_id = Team::where('teamId', $teamId)->first()->id;
+        $categoryModel = Category::where('teamId', $team_id)->where('categoryList', $category)->first();
+        if ($categoryModel) {
+            $categoryModel->status = 1;
+            $categoryModel->save();
+        }
         if ($category == '月謝' || $category == '保険') {
             $player = Player::where('teamId', $team_id)->where('status', 0)->get();
 
