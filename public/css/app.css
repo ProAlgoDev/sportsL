@@ -1970,6 +1970,7 @@ input#left_menu_extend:checked+label {
     height: 100%;
     top: 0;
     left: 0;
+    transition: all 0.5s;
 }
 
 .default_category_list_all {
@@ -2393,10 +2394,10 @@ input#left_menu_extend:checked+label {
     position: absolute;
     background-image: url(../images/email1.png) !important;
     background-repeat: no-repeat;
-    background-size: 37px;
+    background-size: 32px;
     background-position: left 15px top 50%;
     padding-left: 50px;
-    top: 1px;
+    top: 2px;
     left: 0;
     width: 60px;
     height: 46px;

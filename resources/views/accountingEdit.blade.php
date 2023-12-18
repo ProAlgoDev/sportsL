@@ -97,7 +97,6 @@
 <script>
     $(document).ready(function(){
         
-
         $('#cancel_report_modal').on('click', function(){
             $('.accounting_report_modal').css('display','none');
         })

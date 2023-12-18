@@ -119,69 +119,42 @@
                 </form>
                 
                 
-                <script>
-                      $('#fileInput').imageUploadResizer({
-                            max_width: 150, 
-                            max_height: 150, 
-                            quality: 0.8, 
-                            do_not_resize: ['gif', 'svg'], 
-                        });
+<script>
+                    $('#fileInput').imageUploadResizer({
+                        max_width: 150, 
+                        max_height: 150, 
+                        quality: 0.8, 
+                        do_not_resize: ['gif', 'svg'], 
+                    });
                     function openModal(){
                         document.getElementById("team_edit_modal").style.display= 'block';
-                        document.getElementById("team_edit_modal").style.opacity= '0';
-                        setTimeout(() => {
-                        $('#team_edit_modal').css('opacity', '1');
-                        }, 0.5);
                     }
                     function cancelClick(){
                         var modal = document.getElementById("team_edit_modal");
-                        $("team_edit_modal").css('opacity', '0');
-                        setTimeout(() => {
-                            modal.style.display = 'none';
-                        }, 0.5);
+                        modal.style.display = 'none';
                         var modalSuccess = document.getElementById("team_edit_success_modal");
-                        $("team_edit_success_modal").css('opacity', '0');
-                        setTimeout(() => {
-                            modalSuccess.style.display = 'none';
-                        }, 0.5);
+                        modalSuccess.style.display = 'none';
                     }
                     $('#team_edit_modal').click(function(){
-                        $(this).css('opacity', '0');
-                        setTimeout(() => {
-                            $(this).css('display', 'none');
-                        }, 0.5);
+                        $(this).css('display', 'none');
                     } );
                     $('#team_edit_success_modal').click(function(){
-                        $(this).css('opacity', '0');
-                        setTimeout(() => {
-                            $(this).css('display', 'none');
-                        }, 0.5);
+                        $(this).css('display', 'none');
                     } );
                     function agreeClick(){
                         var post = document.getElementById('team_edit_info_post');
                         post.click();
                         var modal = document.getElementById("team_edit_modal");
-                        $("team_edit_modal").css('opacity', '0');
-                        setTimeout(() => {
-                            modal.style.display = 'none';
-                        }, 0.5);
+                        modal.style.display = 'none';
                     }
 
                     function openFileDialog() {
                         
                         var fileInput = document.getElementById('fileInput');
-                        // Trigger a click event on the hidden file input
                         fileInput.click();
-
-                        // Listen for the change event on the file input
                         fileInput.addEventListener('change', function() {
-                            // Check if a file was selected
-
-                            
-                            if (fileInput.files && fileInput.files[0]) {
+                        if (fileInput.files && fileInput.files[0]) {
                                 var img = new Image();
-
-                                // Set up a callback function to handle the file read
                                 img.onload = function() {
                                         var reader = new FileReader();
                                         reader.onload = function(e){
@@ -192,7 +165,6 @@
                                         reader.readAsArrayBuffer(fileInput.files[0]);
                                 };
                                 img.src = URL.createObjectURL(fileInput.files[0]);
-                                // Read the selected file
                             }
                         });
                     }

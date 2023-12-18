@@ -160,7 +160,7 @@ $(document).ready(function() {
        });
 
        $('#cancel_alert_delete').on('click',function(){
-         $('.alert_delete_category').css('display','none');
+            $('.alert_delete_category').css('display','none');
        });
        $('#sendCategoriesButton').on('click', function() {
             if(Object.keys(categoryList).length != 0 || Object.keys(dCategoryList).length != 0){
