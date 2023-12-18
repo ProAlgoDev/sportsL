@@ -1869,6 +1869,7 @@ input#left_menu_extend:checked+label {
     height: 100%;
     background: #00000070;
     z-index: 12;
+    transition: all .5s;
 
 }
 
@@ -1915,6 +1916,7 @@ input#left_menu_extend:checked+label {
     width: 100%;
     height: 100%;
     background: #00000070;
+    transition: all .5s;
 }
 
 .team_edit_success_modal_content {
