@@ -2349,7 +2349,6 @@ input#left_menu_extend:checked+label {
     margin: auto;
     padding: 10px;
     border-bottom: 1px dotted #2d2d2d;
-    align-items: "self-start";
 }
 
 .player_gender select {
@@ -2641,15 +2640,15 @@ input#left_menu_extend:checked+label {
 }
 
 .owner_edit_form .user_name {
-    width: 116px;
+    /* width: 116px; */
 }
 
 .owner_edit_form .user_id {
-    width: 80px;
+    /* width: 80px; */
 }
 
 .owner_edit_form .user_style {
-    width: 60px;
+    /* width: 60px; */
 }
 
 .ownerlist div {
