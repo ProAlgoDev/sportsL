@@ -190,6 +190,7 @@ class BackController extends Controller
             if (!$user->is_email_verified) {
                 $verifyUser->user->is_email_verified = 1;
                 $verifyUser->user->save();
+                $verifyUser->delete();
                 $message = "Your email is now verified";
                 return redirect('login')->with('showModal', true)->with('message', $message);
             } else {
