@@ -71,22 +71,45 @@
 <script>
                     function openModal(){
                         document.getElementById("team_edit_modal").style.display= 'block';
+                            $('#team_edit_modal').css('opacity','0');
+                        setTimeout(() => {
+                            $('#team_edit_modal').css('opacity','1');
+                        }, 0.5);
                     }
                     function cancelClick(){
                         var modal = document.getElementById("team_edit_modal");
-                        modal.style.display = 'none';
+                        modal.opacity=0;
+                        setTimeout(() => {
+                            modal.style.display = 'none';
+                        }, 0.5);
                         var modalSuccess = document.getElementById("team_edit_success_modal");
-                        modalSuccess.style.display = 'none';
+                        modalSuccess.style.opacity=0;
+                        setTimeout(() => {
+                            modalSuccess.style.display = 'none';
+                        }, 0.5);
                     }
                     function agreeClick(){
                         var post = document.getElementById('team_edit_info_post');
                         post.click();
                         var modal = document.getElementById("team_edit_modal");
-                        modal.style.display = 'none';
+                        modal.opacity=0;
+                        setTimeout(() => {
+                            modal.style.display = 'none';
+                        }, 0.5);
                     }
                     $('#team_edit_modal').click(function(){
-                        $(this).css('display','none');
+                        $(this).css('opacity','0');
+                        setTimeout(() => {
+                            $(this).css('display','none');
+                        }, 0.5);
                     });
+                    $('#team_edit_success_modal').click(function(){
+                        $(this).css('opacity','0');
+                        setTimeout(() => {
+                            $(this).css('display','none');
+                        }, 0.5);
+                    });
+
     // // Enable the year and month picker
     // jSuites.calendar(document.getElementById('calendar'), {
     //     type: 'year-month-picker',
