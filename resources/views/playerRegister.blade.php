@@ -73,38 +73,37 @@
                         <input type="radio" id="archive" name="playerStyle"/>
                         <label for="archive">アーカイブされた選手</label>
                     </div>
-                    <table class="player_edit register_table">
-                        <tr>
-                            <th class="name">氏名</th>
+                    @if($register)
+                        <table class="player_edit register_table">
+                            <tr class="player_edit_title">
+                                <th class="name">氏名</th>
                             <th class="gender">性別</th>
                             <th class="date">参加日</th>
                             <th class="status"></th>
                         </tr>
-                        @if($register)
-                            @foreach($register as $item)
-                            <tr data-id={{$item->id}}>
-                                <td class="player_name">{{$item->name}}</td>
-                                <td class="player_gender">{{$item->gender}}</td>
-                                <td class="player_date">{{$item->createdDate}}</td>
-                                <td>
-                                    <a data-type="edit" class="player_edit_btn">
-                                        <img src="{{asset('images/edit-3.svg')}}" alt="">
-                                    </a>
-                                    <a data-type="invisible" class="player_edit_btn">
-                                        <img src="{{asset('images/eye-off.svg')}}" alt="">
-                                    </a>
-                                    <a data-type="delete" class="player_edit_btn">
-                                        <img src="{{asset('images/trash-2.svg')}}" alt="">
-                                    </a>
-                                </td>
-                            </tr>
-                            @endforeach
+                        @foreach($register as $item)
+                        <tr data-id={{$item->id}}>
+                            <td class="player_name">{{$item->name}}</td>
+                            <td class="player_gender">{{$item->gender}}</td>
+                            <td class="player_date">{{$item->createdDate}}</td>
+                            <td>
+                                <a data-type="edit" class="player_edit_btn">
+                                    <img src="{{asset('images/edit-3.svg')}}" alt="">
+                                </a>
+                                <a data-type="invisible" class="player_edit_btn">
+                                    <img src="{{asset('images/eye-off.svg')}}" alt="">
+                                </a>
+                                <a data-type="delete" class="player_edit_btn">
+                                    <img src="{{asset('images/trash-2.svg')}}" alt="">
+                                </a>
+                            </td>
+                        </tr>
+                        @endforeach
                         @endif
-                        
                     </table>
 
                     <table class="player_edit archive_table">
-                        <tr>
+                        <tr class="player_edit_title">
                             <th class="name">氏名</th>
                             <th class="gender">性別</th>
                             <th class="date">参加日</th>
@@ -147,12 +146,12 @@
         $('input[name="playerStyle"]').change(function() {
       var value = $(this).attr('id');
       if(value == 'register'){
-        $('.register_table').css('display','block');
+        $('.register_table').css('display','inline-block');
         $('.archive_table').css('display','none');
       }
       if(value == 'archive'){
         $('.register_table').css('display','none');
-        $('.archive_table').css('display','block');
+        $('.archive_table').css('display','inline-block');
       }
     });
 

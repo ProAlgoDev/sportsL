@@ -3,6 +3,28 @@
     position: relative;
 }
 
+@media screen and (max-width:320px) {
+    .book_header {
+        padding-left: 7px !important;
+    }
+
+    .book_date_switch {
+        padding-left: 7px !important;
+    }
+
+    .book_date_switch .notification {
+        right: 3px !important;
+    }
+
+    .monthpicker {
+        right: 3px !important;
+    }
+
+    .yearpicker {
+        right: 3px !important;
+    }
+}
+
 .initial {
     /* max-width: 430px; */
     border: none;
@@ -29,7 +51,7 @@
 .login_content {
     margin: auto;
     max-width: 430px;
-    padding: 38px;
+    padding: 10px;
 }
 
 .login_email span {
@@ -99,7 +121,7 @@
 .login_btn button {
     background-color: #3FBAEE;
     border: none;
-    width: 300px;
+    width: 90%;
     height: 55px;
     font-size: 20px;
     font-weight: 900;
@@ -121,7 +143,7 @@
     font-weight: 700;
     display: block;
     padding-bottom: 16px;
-    padding-left: 20px;
+    text-align: center;
 }
 
 .login_forgot a:hover {
@@ -204,8 +226,9 @@
 }
 
 .register_progress {
-    width: 350px;
+    max-width: 350px;
     margin: auto;
+    padding: 10px;
 }
 
 .register_form {
@@ -215,7 +238,6 @@
 .register_form input {
     height: 50px;
     border-radius: 10px;
-    width: 320px;
     margin: auto;
     padding-left: 53px;
 }
@@ -239,7 +261,6 @@
 }
 
 .register_btn {
-    width: 280px !important;
     height: 55px !important;
     margin: auto !important;
     margin-top: 15px !important;
@@ -249,6 +270,10 @@
     font-weight: 900 !important;
     letter-spacing: 2px !important;
     border-radius: 10px !important;
+}
+
+.btn_280px {
+    width: 280px;
 }
 
 .register_btn:hover {
@@ -293,9 +318,10 @@
 }
 
 .register2_form {
-    width: 370px;
+    max-width: 320px;
     margin: auto;
     margin-top: 40px;
+    padding: 0 10px;
 }
 
 .register2_field {
@@ -432,9 +458,12 @@
 
 .new_team_create1_description {
     text-align: center;
-    padding-top: 20px;
     font-size: 18px;
-    padding-bottom: 15px;
+    padding: 20px 10px 15px;
+}
+
+.team_avatar_edit {
+    padding: 10px;
 }
 
 .new_team_create1_form input {
@@ -481,6 +510,7 @@
 
 .new_team_create3_form {
     margin-top: 36px;
+    padding: 0 20px;
 }
 
 .new_team_create3_description {
@@ -492,13 +522,13 @@
 }
 
 .new_team_create3_description img {
-    width: 60px;
+    width: 55px;
     object-fit: contain;
 }
 
 .new_team_create3_w h2 {
     text-align: center;
-    font-size: 27px;
+    font-size: 24px;
     color: #383838;
 }
 
@@ -722,7 +752,7 @@
 
 .book_dashboard_menu_container {
     position: absolute;
-    width: 353px;
+    width: 320px;
     height: 844px;
     transition: all .6s;
     transform: translate(-353px, 0px);
@@ -915,8 +945,12 @@ input#home_menu:checked+img {
     padding: 10px;
     font-size: 22px;
     font-weight: 500;
-    letter-spacing: 2px;
+    /* letter-spacing: 2px; */
     color: #383838;
+}
+
+.login_logo img {
+    width: 100%;
 }
 
 .team_info_edit h2 {
@@ -933,7 +967,6 @@ input#home_menu:checked+img {
 }
 
 .team_info_edit table {
-    margin-left: 10%;
     width: 100%;
 }
 
@@ -951,16 +984,16 @@ input#home_menu:checked+img {
     position: relative;
     padding: 4px 0;
     display: block;
+    margin: 0 10%;
 }
 
 .team_info_edit tr::after {
     content: "";
-    width: 88%;
+    width: 100%;
     height: 1px;
     display: block;
     position: absolute;
     left: 0;
-    transform: translate(-5%, 0px);
     bottom: 0;
     border-bottom: 1px dotted #8a8a8a;
 }
@@ -995,7 +1028,6 @@ input#home_menu:checked+img {
 
 
 .initial_amount_set table {
-    margin-left: 10%;
     width: 100%;
 }
 
@@ -1013,22 +1045,23 @@ input#home_menu:checked+img {
     margin-top: 10px;
     text-align: center;
     font-size: 14px;
+    padding: 0 10%;
 }
 
 .initial_amount_set tr {
     position: relative;
     padding: 4px 0;
     display: block;
+    margin: 0 10%;
 }
 
 .initial_amount_set tr::after {
     content: "";
-    width: 88%;
+    width: 100%;
     height: 1px;
     display: block;
     position: absolute;
     left: 0;
-    transform: translate(-5%, 0px);
     bottom: 0;
     border-bottom: 1px dotted #8a8a8a;
 }
@@ -1067,7 +1100,7 @@ input#home_menu:checked+img {
     justify-content: space-between;
     align-items: center;
     max-width: 352px;
-    flex-wrap: wrap;
+    padding: 0 10px;
 }
 
 .team_edit_info_detail .span {
@@ -1080,6 +1113,8 @@ input#home_menu:checked+img {
     float: left;
     width: 90px;
     line-height: 2.4;
+    min-width: 84px;
+    text-align: left;
 }
 
 .team_edit_info_detail input {
@@ -1237,6 +1272,8 @@ input#home_menu:checked+img {
 }
 
 .accounting_register_edit_form {
+    margin: auto;
+    max-width: 375px;
     margin-top: 36px;
     color: #333333;
     position: relative;
@@ -1244,8 +1281,9 @@ input#home_menu:checked+img {
 
 .accounting_register_edit_input {
     display: flex;
-    gap: 28px;
+    gap: 24px;
     justify-content: center;
+    margin: 0 10px;
 }
 
 
@@ -1280,9 +1318,9 @@ input#home_menu:checked+img {
 
 .accounting_register_edit_io {
     display: flex;
-    width: 360px;
-    margin: auto;
-    gap: 40px;
+    width: 300px;
+    margin: 0 10px;
+    gap: 30px;
 }
 
 .accounting_register_edit_io_switch input {
@@ -1292,19 +1330,17 @@ input#home_menu:checked+img {
 .accounting_register_edit_amount_serial {
     display: flex;
     justify-content: center;
-    margin-top: 24px;
-    gap: 30px;
+    margin: 24px 10px 0;
+    gap: 24px;
 }
 
 .accounting_register_edit_amount input {
-    width: 166px;
     border-radius: 10px;
     background: #f0f0f0;
     margin-top: 10px;
 }
 
 .accounting_register_edit_serial input {
-    width: 166px;
     border-radius: 10px;
     background: #f0f0f0;
     margin-top: 10px;
@@ -1347,7 +1383,7 @@ input#home_menu:checked+img {
     position: relative;
     display: block;
     margin: auto;
-    min-width: 362px;
+    min-width: 300px;
     min-height: 100px;
     border: 1px solid #878787;
     padding: 10px;
@@ -1385,7 +1421,7 @@ input#home_menu:checked+img {
 }
 
 .accounting_register_edit_preview th {
-    min-width: 50px;
+    /* min-width: 50px; */
     font-size: 15px;
 }
 
@@ -1394,11 +1430,11 @@ input#home_menu:checked+img {
 }
 
 .accounting_register_edit_preview .date {
-    min-width: 60px;
+    /* min-width: 60px; */
 }
 
 .accounting_register_edit_preview .amount {
-    min-width: 83px;
+    /* min-width: 83px; */
 }
 
 .accounting_register_edit_preview_description {
@@ -1468,22 +1504,29 @@ input#home_menu:checked+img {
     margin-top: 40px;
     color: #333333;
     padding: 0 8px;
+    text-align: center;
 }
 
 .player_edit {
     margin-top: 20px;
+    display: inline-block;
+    /* width: 100%; */
 }
 
 .player_edit .name {
-    width: 106px;
+    /* width: 106px; */
 }
 
 .player_edit .gender {
-    width: 40px;
+    /* width: 40px; */
 }
 
 .player_edit .date {
-    width: 74px;
+    /* width: 74px; */
+}
+
+.player_edit .status {
+    width: 144px;
 }
 
 .player_edit td {
@@ -1874,7 +1917,7 @@ input#left_menu_extend:checked+label {
 }
 
 .team_edit_modal_content {
-    width: 326px;
+    width: 300px;
     background: #555555;
     color: white;
     margin: auto;
@@ -1920,7 +1963,7 @@ input#left_menu_extend:checked+label {
 }
 
 .team_edit_success_modal_content {
-    width: 326px;
+    width: 300px;
     background: #555555;
     color: white;
     margin: auto;
@@ -1953,6 +1996,10 @@ input#left_menu_extend:checked+label {
 
 .initial_amount_form .team_edit_info_detail .text-danger {
     margin-left: 88px;
+}
+
+.initial_amount_form {
+    text-align: center;
 }
 
 .default_category_show {
@@ -2149,7 +2196,6 @@ input#left_menu_extend:checked+label {
 }
 
 .monthly_report_year input {
-    width: 166px;
     background: #eeeeee;
     border-radius: 10px;
 }

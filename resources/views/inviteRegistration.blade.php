@@ -12,7 +12,7 @@
         <div class="register_form">
                 <form action="{{route('validate_invite_register')}}" method="POST">
                     @csrf
-                    <div class="form-group mb-4">
+                    <div class="form-group mb-4 re_input_form">
                         <img src="{{asset('images/name.png')}}" />
                         <input type="text" name="name" placeholder="Name" class="form-control" />
                         @if($errors->has('name'))
@@ -30,14 +30,14 @@
                         <input type="text" name="email" placeholder="Email" value="{{$user->email}}" class="form-control" />
                         <input type="text" name="teamId" value="{{$user->teamId}}">
                     </div>
-                    <div class="form-group mb-4">
+                    <div class="form-group mb-4  re_input_form">
                         <img src="{{asset('images/password.png')}}" />
                         <input type="password" name="password" class="form-control" placeholder="Password"/>
                         @if($errors->has('password'))
                             <span class="text-danger">{{$errors->first('password')}}</span>
                         @endif
                     </div>
-                    <div class="form-group mb-4">
+                    <div class="form-group mb-4  re_input_form">
                         <img src="{{asset('images/confirm.png')}}" />
                         <input type="password" name="password_confirmation" id='password_confirmation' class="form-control" placeholder="Confirm"/>
                         @if($errors->has('password'))
@@ -45,7 +45,7 @@
                         @endif
                     </div>
                     <div class="d-grid mx-auto">
-                        <button class="btn btn-primary register_btn" type="submit">登録する</button>
+                        <button class="btn btn-primary register_btn btn_280px" type="submit">登録する</button>
                     </div>
                 </form>
         </div>

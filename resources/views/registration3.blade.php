@@ -21,7 +21,7 @@
                     <p>メールを送信しました。<br>メール本文に<br>記載されているリンクにアクセスして<br>登録を完了してください</p>
                 </div>
                 <div class="d-grid mx-auto">
-                    <a class="btn btn-primary register_btn" href="{{route('login')}}">トップへ戻る</a>
+                    <a class="btn btn-primary register_btn btn_280px" href="{{route('login')}}">トップへ戻る</a>
                 </div>
         </div>
     </div>
