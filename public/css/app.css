@@ -2439,7 +2439,7 @@ input#left_menu_extend:checked+label {
     position: absolute;
     background-image: url(../images/email1.png) !important;
     background-repeat: no-repeat;
-    background-size: 32px;
+    background-size: 28px;
     background-position: left 15px top 50%;
     padding-left: 50px;
     top: 2px;

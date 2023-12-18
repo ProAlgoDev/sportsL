@@ -23,10 +23,10 @@
                     </div>
                     <div class="team_list">
                         @if(session('teamError'))
-                <span class="span text-danger">
-                        あなたはすでにチーム参加申請を送信しています。
-                </span>
-            @endif
+                            <span class="span text-danger">
+                                    あなたはすでにチーム参加申請を送信しています。
+                            </span>
+                        @endif
                         @if(count($teamList) > 0)
                         @foreach($teamList as $team)
                             <form action="{{route('search_team2')}}" method="POST" class="team">
