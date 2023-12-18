@@ -1027,7 +1027,7 @@ class BackController extends Controller
         if (!$member) {
             $teamList = Team::where('owner', '!=', $user)->get();
         } else {
-            $teamList = Team::where('id', '!=', $member)->where('owner', '!=', $user)->get();
+            $teamList = Team::whereNotIn('id', $member)->where('owner', '!=', $user)->get();
         }
         if (!$teamList) {
             return redirect('dashboard');
@@ -1043,13 +1043,13 @@ class BackController extends Controller
             if (!$member) {
                 $teamList = Team::where('teamId', 'LIKE', "%$id%")->where('owner', '!=', $user)->get();
             } else {
-                $teamList = Team::where('teamId', 'LIKE', "%$id%")->where('id', '!=', $member)->where('owner', '!=', $user)->get();
+                $teamList = Team::whereNotIn('id', $member)->where('teamId', 'LIKE', "%$id%")->where('id', '!=', $member)->where('owner', '!=', $user)->get();
             }
         } else {
             if (!$member) {
                 $teamList = Team::where('owner', '!=', $user)->get();
             } else {
-                $teamList = Team::where('id', '!=', $member)->where('owner', '!=', $user)->get();
+                $teamList = Team::whereNotIn('id', $member)->where('owner', '!=', $user)->get();
             }
         }
         return view('searchTeam', ['teamList' => $teamList]);
