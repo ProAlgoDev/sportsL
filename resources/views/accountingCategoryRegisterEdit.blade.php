@@ -9,6 +9,16 @@
         会計項目登録・編集
     </div>
 </div>
+<div id="team_edit_modal" class="team_edit_modal">
+    <div class="team_edit_modal_content">
+        <h4>項目を削除できません</h4>
+        <p>この項目は帳簿で利用されているため
+    削除することができません。<br>
+
+    新しい項目名へ変更するか、帳簿で利用されている項目を全て削除してください。</p>
+        <span id="cancel_alert_delete" class="text-center p-3 d-block">閉じる</span>
+    </div>
+</div>
 <div id="default_category_list" class="default_category_list">
     <div class="default_category_list_all">
         <h4>登録されている基本項目</h4>
@@ -75,14 +85,7 @@
                             </tr>
                         @endif
                     </table>
-                    <div class="alert_delete_category">
-                        <h6>項目を削除できません</h6>
-                        <p>この項目は帳簿で利用されているため
-削除することができません。<br>
-
-新しい項目名へ変更するか、帳簿で利用されている項目を全て削除してください。</p>
-<span id="cancel_alert_delete">閉じる</span>
-                    </div>
+                    
                     <div class="category_edit_btn">
                         <button id="sendCategoriesButton" class="btn btn-primary register_btn category_register_btn">保存する</button>
                     </div>
@@ -101,6 +104,9 @@ function defaultListHidden(){
     document.getElementById('default_category_show').checked = false;
 }
 $(document).ready(function() {
+    $("#team_edit_modal").click(function(){
+        $(this).css('display','none');
+    });
     $('#default_category_show').on('click',function(){
         if($(this).is(':checked')){
             $('#default_category_list').css('display','block');
@@ -155,12 +161,12 @@ $(document).ready(function() {
             dCategoryList[categoryData] = categoryData;
             row.remove();
         }else if(categoryStatus == 1){
-            $('.alert_delete_category').css('display','block');
+            $('#team_edit_modal').css('display','block');
         }
        });
 
        $('#cancel_alert_delete').on('click',function(){
-            $('.alert_delete_category').css('display','none');
+            $('#team_edit_modal').css('display','none');
        });
        $('#sendCategoriesButton').on('click', function() {
             if(Object.keys(categoryList).length != 0 || Object.keys(dCategoryList).length != 0){
