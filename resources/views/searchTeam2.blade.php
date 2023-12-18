@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="d-grid mx-auto">
-                    <button type="submit" class="btn btn-primary register_btn team_enter">参加申請をする</button>
+                    <button type="submit" class="btn btn-primary register_btn btn_280px team_enter">参加申請をする</button>
                 </div>
             </form>
             @endif

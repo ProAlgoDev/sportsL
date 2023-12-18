@@ -41,26 +41,26 @@
                     <div class="new_team_create1_description">
                         <h3>会計初期設定</h3>
                         </div>
-                    <div class="form-group mb-4 team_edit_info_detail">
-                        <span>初期金額</span>
+                    <div class="form-group team_edit_info_detail">
+                        <span class="team_edit_info_detail_title">初期金額</span>
                         <input type="text" name="initialAmount" placeholder="" class="form-control" />
-                        @if($errors->has('initialAmount'))
-                            <span class="span text-danger">
-                                {{$errors->first('initialAmount')}}
-                            </span>
-                        @endif
                     </div>
-                    <div class="form-group mb-4 team_edit_info_detail">
-                        <span>年  月</span>
+                    @if($errors->has('initialAmount'))
+                        <span class="span text-danger">
+                            {{$errors->first('initialAmount')}}
+                        </span>
+                    @endif
+                    <div class="form-group mt-4 team_edit_info_detail">
+                        <span class="team_edit_info_detail_title">年  月</span>
                         <input  name="createDate" type='date' placeholder="" class="form-control date_icon" />
-                        @if($errors->has('createDate'))
-                            <span class="span text-danger">
-                                {{$errors->first('createDate')}}
-                            </span>
-                        @endif
                     </div>
+                    @if($errors->has('createDate'))
+                        <span class="span text-danger">
+                            {{$errors->first('createDate')}}
+                        </span>
+                    @endif
                               
-                    <div class="d-grid mx-auto">
+                    <div class="d-grid mx-auto mt-4">
                         <button style="display:none;" onclick="postTeamInfo()" id="team_edit_info_post" class="btn btn-primary register_btn" type="submit"></button>
                         <div id="team_edit_btn" onclick="openModal()" class="team_edit_btn">変更する</div>
                     </div>

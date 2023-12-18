@@ -16,7 +16,7 @@
                 
                <form action="{{route('verify.validate_resend_email')}}" method="POST">
                     @csrf
-                    <div class="form-group mb-4">
+                    <div class="form-group mb-4 re_input_form">
                         <img src="{{asset('images/email.png')}}" />
                         <input type="text" name="email" placeholder="Email" class="form-control" />
                         @if(session('error'))

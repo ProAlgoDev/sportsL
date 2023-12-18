@@ -21,7 +21,7 @@
                     </span>
                 </div>
                 <div class="d-grid mx-auto">
-                    <a href="{{route('sample.dashboard')}}" class="btn btn-primary register_btn team_enter">チームトップへ</a>
+                    <a href="{{route('sample.dashboard')}}" class="btn btn-primary btn_280px register_btn team_enter">チームトップへ</a>
                 </div>
             @endif
         </div>

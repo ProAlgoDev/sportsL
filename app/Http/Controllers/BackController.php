@@ -964,11 +964,10 @@ class BackController extends Controller
         $request->validate([
             'name' => 'required',
             'password' => 'required|min:6|confirmed',
-            'email' => 'unique:users'
         ], [
             'password.confirmed' => 'パスワードの確認が一致しません。',
             'name.required' => '名前フィールドは必須です。',
-            'email.unique' => 'あなたはすでに登録しています',
+            'password.required' => 'パスワードフィールドは必須です',
         ]);
         $name = $request->name;
         $email = $request->email;
@@ -981,13 +980,16 @@ class BackController extends Controller
             $id_m = $id->id + 1;
         }
         $user_id = strtoupper($email[0]) . now()->format('d') . now()->format('m') . now()->format('y') . $id_m;
-        User::create([
-            'u_id' => $user_id,
-            'email' => $email,
-            'name' => $name,
-            'password' => Hash::make($password),
-            'is_email_verified' => 1
-        ]);
+        $user = User::where('email', $email)->first();
+        if (!$user) {
+            User::create([
+                'u_id' => $user_id,
+                'email' => $email,
+                'name' => $name,
+                'password' => Hash::make($password),
+                'is_email_verified' => 1
+            ]);
+        }
         $team = Team::where('teamId', $teamId)->first();
         $userId = User::where('email', $email)->first()->id;
         $mteamId = $team->id;
@@ -1169,7 +1171,6 @@ class BackController extends Controller
         $request->validate([
             'ownerSelect' => 'required'
         ]);
-        dump($request->ownerSelect);
         $team = Team::where('teamId', $teamId)->first();
         $oldOwner = $team->owner;
         $token = Str::random(64);
@@ -1185,7 +1186,7 @@ class BackController extends Controller
             $message->to($email);
             $message->subject('Owner Transfer Mail');
         });
-        return view('ownerShipTransferReport', ['title' => 'オーナー権限引き継ぎ', 'user' => $user]);
+        return view('ownerShipTransferReport', ['title' => 'オーナー権限引き継ぎ', 'user' => $user, 'teamId' => $teamId]);
     }
     public function verify_owner_transfer($token)
     {

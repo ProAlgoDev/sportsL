@@ -23,6 +23,7 @@
         @endforeach
         @if($memberIdList)
         @foreach($memberIdList as $memberList)
+            @if($memberList->approved == 1)
             <a href="{{route('book_dashboard',[$memberList->team->teamId,'all'])}}" class="team_category">
                 <div class="">
                     <img src="{{asset('images/avatar/' . $memberList->team->teamAvatar)}}" alt="">
@@ -30,6 +31,7 @@
                 </div>
                 <div class="">メンバー</div>
             </a>
+            @endif
         @endforeach
         @endif
     </div>
