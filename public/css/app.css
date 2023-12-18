@@ -227,6 +227,7 @@
 .register_form .re_input_form {
     position: relative;
     margin: auto;
+    width: 300px;
 }
 
 .register_form img {
