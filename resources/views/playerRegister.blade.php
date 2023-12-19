@@ -154,7 +154,7 @@
         $('.archive_table').css('display','inline-block');
       }
     });
-
+     
     $('.player_edit_btn').click(function(){
         var row = $(this).closest('tr');
         var id = row.data('id');
@@ -165,22 +165,32 @@
         let edit = {}
         
         if (status == 'edit'){
-            var divElement = $('<div class="player_edit_modal"></div>');
-            var btnElement = $('<button class="player_edit_modal_btn">保存</button>');
-            var nameElement = $('<input class="player_edit_modal_name" value="'+oldName.text().trim()+'"/>');
-            var genderElement = $('<select class="player_edit_modal_gender"><option>男</option><option>女</option><option>混合</option></select>');
-            var dateElement = $('<input class="player_edit_modal_date date-icon" value="'+oldDate.text().trim()+'" type="date" />');
+            var divElement = $('<div data-id="root" class="player_edit_modal"></div>');
+            var contentElement = $('<div class="player_edit_modal_content"></div>');
+            var btnElement = $('<div class="d-grid mx-auto mt-4">                        <button class="btn btn-primary register_btn category_register_btn" type="submit">保存</button>  </div>');
+            var nameElement = $('<div class="player_name input_form">                            <span class="">氏名</span><input type="text" name="playerName" placeholder="" class="form-control" value="'+oldName.text().trim()+'"/> </div>');
+            var genderElement = $('<div class="player_gender input_form">                            <span class="">性別</span>                            <select name="gender" id="gender" class="form-control triangle_icon">                            <option value="1">男</option>                            <option value="2">女</option>                            <option value="3">混合</option>                        </select></div>');
+            var dateElement = $('<div class="player_enter_date input_form">                            <span class="">参加日</span>                            <input type="date" name="createdDate"  placeholder="01-01-2023" value="'+oldDate.text().trim()+'" class="form-control date_icon" />                        </div> ');
             var spanElement = $('<span class="player_edit_modal_danger text-danger" >すべてのフィールドは必須です</span>');
-            divElement.append(nameElement);
-            divElement.append(genderElement);
-            divElement.append(dateElement);
-            divElement.append(btnElement);
-            divElement.append(spanElement);
-            row.append(divElement);
+            contentElement.append(nameElement);
+            contentElement.append(genderElement);
+            contentElement.append(dateElement);
+            contentElement.append(spanElement);
+            contentElement.append(btnElement);
+
+            divElement.append(contentElement);
+            divElement.click(function(e){
+                console.log(e.target.dataset.id)
+                if(e.target.dataset.id == 'root'){
+                    divElement.remove();
+                }
+            });
+            $('.header_menu_title').after(divElement);
             btnElement.click(function(){
-                name = nameElement.val();
-                gender = genderElement.val();
-                date = dateElement.val();
+                name = nameElement.find('input').val();
+                gender = genderElement.find('input').val();
+                date = dateElement.find('input').val();
+                console.log(name,gender,date)
                 if(name!='' && gender!='' && date!=''){
                     edit['id'] = id;
                     edit['name'] = name;
@@ -193,7 +203,7 @@
                     divElement.remove();
                 }else{
                     spanElement.css('display', 'block');
-                    btnElement.css('background','red');
+                    // btnElement.css('background','red');
                 }
             });
         }
@@ -242,6 +252,7 @@
 
         });
     });
+  
     });
     </script>
 @endsection('content')
