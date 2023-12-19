@@ -2093,6 +2093,8 @@ input#left_menu_extend:checked+label {
     left: 0;
     width: 100%;
     background: #eeeeee;
+    display:flex;
+    justify-content: space-around;
 }
 
 .category_edit_div input {
@@ -2107,7 +2109,6 @@ input#left_menu_extend:checked+label {
 .category_edit_div button {
     background: #009fff;
     color: white;
-    margin-left: 23px;
     padding: 5px;
     width: 80px;
     border-radius: 10px;
