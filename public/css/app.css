@@ -2164,6 +2164,7 @@ input#left_menu_extend:checked+label {
 .select_template {
     background-color: #eeeeee !important;
     border-radius: 10px !important;
+    position: relative;
 }
 
 .accounting_report_modal {
