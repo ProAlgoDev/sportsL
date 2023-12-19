@@ -657,15 +657,19 @@ class BackController extends Controller
             foreach ($categoryList as $key => $value) {
                 $category = Category::where('teamId', $team_id)->where('categoryList', $key)->first();
                 $category->categoryList = $value;
+                $category->status = 0;
                 $category->save();
             }
         }
         if ($dcategoryList) {
             foreach ($dcategoryList as $item) {
                 $dcategory = Category::where('teamId', $team_id)->where('categoryList', $item)->first();
-                $dcategory->delete();
+                if ($dcategory) {
+                    $dcategory->delete();
+                }
             }
         }
+
     }
     public function accounting_register($teamId)
     {

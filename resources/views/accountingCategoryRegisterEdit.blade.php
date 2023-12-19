@@ -104,8 +104,10 @@ function defaultListHidden(){
     document.getElementById('default_category_show').checked = false;
 }
 $(document).ready(function() {
-    $("#team_edit_modal").click(function(){
-        $(this).css('display','none');
+    $("#team_edit_modal").click(function(e){
+        if(e.target.id == 'team_edit_modal'){
+            $(this).css('display','none');
+        }
     });
     $('#default_category_show').on('click',function(){
         if($(this).is(':checked')){
@@ -115,9 +117,11 @@ $(document).ready(function() {
             $('#default_category_show').prop('checked',false);
         }
     });
-    $('#default_category_list').on('click',function(){
-        $(this).css('display','none');
-        $('#default_category_show').prop('checked',false);
+    $('#default_category_list').on('click',function(e){
+        if(e.target.id == 'default_category_list'){
+            $(this).css('display','none');
+            $('#default_category_show').prop('checked',false);
+        }
     });
     $('.category_edit_button').on('click', function(){
         var row = $(this).closest('tr');

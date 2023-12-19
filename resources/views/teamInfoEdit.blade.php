@@ -135,11 +135,15 @@
                         var modalSuccess = document.getElementById("team_edit_success_modal");
                         modalSuccess.style.display = 'none';
                     }
-                    $('#team_edit_modal').click(function(){
-                        $(this).css('display', 'none');
+                    $('#team_edit_modal').click(function(e){
+                        if(e.target.id == 'team_edit_modal'){
+                            $(this).css('display', 'none');
+                        }
                     } );
-                    $('#team_edit_success_modal').click(function(){
-                        $(this).css('display', 'none');
+                    $('#team_edit_success_modal').click(function(e){
+                        if(e.target.id =='team_edit_success_modal'){
+                            $(this).css('display', 'none');
+                        }
                     } );
                     function agreeClick(){
                         var post = document.getElementById('team_edit_info_post');

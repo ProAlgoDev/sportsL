@@ -1978,6 +1978,8 @@ input#left_menu_extend:checked+label {
     color: white;
     margin: auto;
     margin-top: 176px;
+    position: relative;
+    z-index: 20;
 }
 
 .team_edit_success_modal h4 {
@@ -2099,6 +2101,7 @@ input#left_menu_extend:checked+label {
     box-shadow: none;
     border: 1px solid gray;
     background-image: none !important;
+    outline: none;
 }
 
 .category_edit_div button {

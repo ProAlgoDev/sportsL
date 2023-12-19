@@ -10,7 +10,7 @@
     </div>
 </div>
 @if(session('accountingEdit'))
-<div class="accounting_report_modal">
+<div class="accounting_report_modal" id='accounting_report_modal'>
 
     <form action="{{route('monthly_report',$teamId)}}" method="GET" class="accounting_report_modal_content">
         <h6>会計が登録されました</h6>
@@ -151,8 +151,10 @@
          minViewMode: "years",
          autoclose:true //to close picker once year is selected
      });
-     $('.accounting_report_modal').click(function(){
-        $(this).css('display', 'none');
+     $('.accounting_report_modal').click(function(e){
+        if(e.target.id == 'accounting_report_modal'){
+            $(this).css('display', 'none');
+        }
      });
      $("#monthpicker").datepicker({
          format: "mm",
