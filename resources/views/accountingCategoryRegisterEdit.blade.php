@@ -129,12 +129,15 @@ $(document).ready(function() {
         var categoryName = row.find('.category_edit_name').text().trim();
 
         var inputElement = $('<input type = "text", class="category_input" value="' + categoryName + '">');
+        
+        var rootElement = $('<div class="category_edit_root">');
         var divElement = $('<div class="category_edit_div">');
         var buttonElement = $('<button class="save_button">編集</button>');
         var spanElement = $('<span class="text-danger alert_existing_name"></span>');
         divElement.append(inputElement);
         divElement.append(buttonElement);
-        divElement.append(spanElement);
+        rootElement.append(divElement);
+        rootElement.append(spanElement);
         row.append(divElement);
         $('.save_button').on('click', function() {
             var newValue = $(this).siblings('.category_input').val();
