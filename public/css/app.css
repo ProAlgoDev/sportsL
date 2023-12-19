@@ -1110,6 +1110,7 @@ input#home_menu:checked+img {
     align-items: center;
     max-width: 352px;
     padding: 0 10px;
+    position: relative;
 }
 
 .team_edit_info_detail .span {
