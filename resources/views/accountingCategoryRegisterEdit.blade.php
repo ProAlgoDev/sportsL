@@ -138,7 +138,7 @@ $(document).ready(function() {
         divElement.append(buttonElement);
         rootElement.append(divElement);
         rootElement.append(spanElement);
-        row.append(divElement);
+        row.append(rootElement);
         $('.save_button').on('click', function() {
             var newValue = $(this).siblings('.category_input').val();
             let existingName = false;
