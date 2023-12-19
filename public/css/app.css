@@ -2088,12 +2088,15 @@ input#left_menu_extend:checked+label {
     outline: none !important;
 }
 
-.category_edit_div {
+.category_edit_root {
     position: absolute;
     left: 0;
     width: 100%;
+}
+
+.category_edit_div {
     background: #eeeeee;
-    display:flex;
+    display: flex;
     justify-content: space-around;
 }
 
