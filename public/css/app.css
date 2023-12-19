@@ -1970,7 +1970,7 @@ input#left_menu_extend:checked+label {
     height: 100%;
     background: #00000070;
     transition: all .5s;
-    z-index:20;
+    z-index: 20;
 }
 
 .team_edit_success_modal_content {
@@ -2504,6 +2504,7 @@ input#left_menu_extend:checked+label {
     font-size: 20px;
     font-weight: 700;
     margin-bottom: 25px;
+    color: #333333;
 }
 
 .member_approve_list {
