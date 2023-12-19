@@ -13,7 +13,7 @@
     <a href="{{route('monthly_report',$teamId)}}">編集</a>
 </div>
 @if(session('accountingRegister'))
-<div class="accounting_report_modal">
+<div class="accounting_report_modal" id='accounting_report_modal'>
     <form action="{{route('monthly_report',$teamId)}}" method="GET" class="accounting_report_modal_content">
         <h6>会計が登録されました</h6>
         <p>登録した情報の編集を行う場合は、
@@ -173,8 +173,10 @@
         $('#cancel_report_modal').on('click', function(){
             $('.accounting_report_modal').css('display','none');
         });
-        $('.accounting_report_modal').click(function(){
-            $(this).css('display','none');
+        $('.accounting_report_modal').click(function(e){
+            if(e.target.id == 'accounting_report_modal'){
+                $(this).css('display','none');
+            }
         });
     });
 </script>

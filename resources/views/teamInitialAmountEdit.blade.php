@@ -12,8 +12,8 @@
 <div id="team_edit_modal" style="display:none;" class="team_edit_modal">
     <div class="team_edit_modal_content">
         <h4>変更しますか？</h4>
-        <p>チーム情報を変更した場合、チームに参加されているメンバーの画面も変更されます。<br/>
-            ご注意ください。</p>
+        <p>会計関連の情報を変更すると、レポートへ影響がでます。<br>
+ご注意ください。</p>
         <div class="team_edit_modal_btn">
             <button onclick="cancelClick()">キャンセル</button>
             <button onclick="agreeClick()">変更する</button>
@@ -25,9 +25,9 @@
     <div id="team_edit_success_modal" class="team_edit_success_modal">
         <div class="team_edit_success_modal_content">
             <h4>変更しました</h4>
-            <p>チーム情報が変更されました。<br />
-        チームに参加されている画面も変更されています。<br />
-        必要に応じてアナウンスをお願いします。</p>
+            <p>会見関連の情報が変更されました。<br>
+チームに参加されている画面も変更されています。<br>
+必要に応じてアナウンスをお願いします。</p>
             <div class="team_edit_success_modal_btn">
                 <button onclick="cancelClick()">閉じる</button>
             </div>
@@ -84,11 +84,15 @@
                         var modal = document.getElementById("team_edit_modal");
                         modal.style.display = 'none';
                     }
-                    $('#team_edit_modal').click(function(){
-                        $(this).css('display','none');
+                    $('#team_edit_modal').click(function(e){
+                        if(e.target.id=='team_edit_modal'){
+                            $(this).css('display','none');
+                        }
                     });
                     $('#team_edit_success_modal').click(function(){
-                        $(this).css('display','none');
+                        if(e.target.value=='team_edit_success_modal'){
+                            $(this).css('display','none');
+                        }
                     });
 
     // // Enable the year and month picker
