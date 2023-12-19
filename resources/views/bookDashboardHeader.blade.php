@@ -103,13 +103,13 @@
     var menu_back = document.getElementById('menu_background');
     document.getElementById('book_dashboard_menu_container').addEventListener('drag', function (event) {
     const deltaX = event.clientX - startX;
-    if((Math.abs(deltaX)) >270){
+    if((Math.abs(deltaX)) >180){
+        document.getElementById('book_dashboard_menu_container').style.transform = 'translate(-353px,0)';
+    }
         menu_back.style.opacity = '0';
     setTimeout(() => {
         menu_back.style.display = 'none';
     }, .3);
-                document.getElementById('book_dashboard_menu_container').style.transform = 'translate(-353px,0)';
-            }
     });
     function showMenu(){
         var menu = document.getElementById('book_dashboard_menu_container');
