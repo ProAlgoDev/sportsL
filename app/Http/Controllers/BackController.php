@@ -652,20 +652,22 @@ class BackController extends Controller
         $categoryList = $request->input('categoryList');
         $dcategoryList = $request->input('deleteCategory');
         $team_id = Team::where('teamId', $teamId)->first()->id;
-
-        if ($categoryList) {
-            foreach ($categoryList as $key => $value) {
-                $category = Category::where('teamId', $team_id)->where('categoryList', $key)->first();
-                $category->categoryList = $value;
-                $category->status = 0;
-                $category->save();
-            }
-        }
         if ($dcategoryList) {
             foreach ($dcategoryList as $item) {
                 $dcategory = Category::where('teamId', $team_id)->where('categoryList', $item)->first();
                 if ($dcategory) {
                     $dcategory->delete();
+                }
+            }
+        }
+
+        if ($categoryList) {
+            foreach ($categoryList as $key => $value) {
+                $category = Category::where('teamId', $team_id)->where('categoryList', $key)->first();
+                if($category){
+                    $category->categoryList = $value;
+                    $category->status = 0;
+                    $category->save();
                 }
             }
         }

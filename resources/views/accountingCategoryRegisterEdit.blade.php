@@ -142,7 +142,9 @@ $(document).ready(function() {
         $('.save_button').on('click', function() {
             var newValue = $(this).siblings('.category_input').val();
             let existingName = false;
-            
+            if(!newValue){
+                return
+            }
             $('.category_edit_name').each(function() {
                 if(newValue == $(this).text().trim() && newValue != categoryName)  {
                     spanElement.text('すでに存在する名前です。');
@@ -155,7 +157,7 @@ $(document).ready(function() {
                     categoryList[categoryData] = newValue;
                 }
                 $(this).closest('tr').find('.category_edit_name').text(newValue);
-                $(this).closest('div').remove();
+                rootElement.remove();
             }
         });
        });
