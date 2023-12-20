@@ -41,7 +41,8 @@
                         </div>
                         <div class="accounting_register_edit_category">
                             <span class="">会計項目</span>
-                            <select name="categoryList" placeholder="" class="form-control select_template triangle_icon" >
+                            <select name="categoryList"  class="form-control select_template triangle_icon" >
+                                <option class="disabled_option" value="-" disabled selected>-</option>
                                 @if($categoryList)
                                 @foreach($categoryList as $category)
                                 <option>{{$category}}</option>
@@ -81,7 +82,7 @@
                         </div>
                         <div class="accounting_register_edit_serial">
                             <span >レシートNo</span>
-                            <input type="text" value="{{$teamId}}_{{$serial}}" name="serial" placeholder="" class="form-control" readonly/>
+                            <input type="text" value="" name="serial" placeholder="" class="form-control"/>
                             @if($errors->has('serial'))
                                 <span style="width:166px; display:block;" class="span text-danger">
                                     {{$errors->first('serial')}}
@@ -119,7 +120,7 @@
                         </tr>
                         <tr>
                             <td id="previewDate"></td>
-                            <td id="previewCategory"></td>
+                            <td id="previewCategory">-</td>
                             <td id="previewIo"></td>
                             <td id="previewAmount"></td>
                             <td id="previewSerial"></td>
@@ -137,6 +138,16 @@
 </div>
 <script>
     $(document).ready(function(){
+        $('input[name="io_switch"]').each(function(){
+            if($(this).is(':checked')){
+                if($(this).val() == 0){
+                    $('#previewIo').text('収入');
+                }else if($(this).val() == 1){
+                    $('#previewIo').text('支出');
+                }
+            }
+        });
+       
         var serialId = $('input[name="serial"]').val();
         var serial = $('#previewSerial').text(serialId);
         $('input[name="inputDate"]').change(function()
