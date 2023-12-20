@@ -135,7 +135,7 @@ class BackController extends Controller
         if (Auth::attempt($credentials)) {
             return redirect('dashboard');
         }
-        session()->flash('error', 'ログインの詳細が検証されていません');
+        session()->flash('error', 'ログインまたはパスワードが間違っています。');
         return redirect("login");
     }
 
