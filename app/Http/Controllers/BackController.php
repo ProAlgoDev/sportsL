@@ -68,6 +68,7 @@ class BackController extends Controller
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6|confirmed'
         ], [
+            'password.min' => 'パスワードは6文字以上で設定してください。',
             'password.confirmed' => 'パスワードの確認が一致しません。',
             'name.required' => '名前フィールドは必須です。',
             'email.required' => 'メールフィールドは必須です。',
@@ -247,7 +248,7 @@ class BackController extends Controller
         // $htmlContent = View::make('email.emailVerificationEmail', ['token' => $verifyToken])->render();
         Mail::send('email.emailVerificationEmail', ['token' => $verifyToken], function ($message) use ($email) {
             $message->to($email);
-            $message->subject('Email Verification');
+            $message->subject('チームのお財布へご登録ありがとうございます！');
         });
         // $message = new Google_Service_Gmail_Message();
         // $mimeMessage = 'MIME-Version: 1.0' . "\r\n";
@@ -664,7 +665,7 @@ class BackController extends Controller
         if ($categoryList) {
             foreach ($categoryList as $key => $value) {
                 $category = Category::where('teamId', $team_id)->where('categoryList', $key)->first();
-                if($category){
+                if ($category) {
                     $category->categoryList = $value;
                     $category->status = 0;
                     $category->save();

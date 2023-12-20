@@ -83,7 +83,7 @@
                     </div>
                     
                     <div class="d-grid mx-auto">
-                        <button class="btn btn-primary register_btn" type="submit">確認する</button>
+                        <button class="btn btn-primary register_btn btn_280px" type="submit">確認する</button>
                     </div>
                 </form>
                 

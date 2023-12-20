@@ -47,7 +47,7 @@
                         @endif
                     </div>
                     <div class="d-grid mx-auto">
-                        <button class="btn btn-primary register_btn btn_280px" type="submit">確認画面へ</button>
+                        <button class="btn btn-primary register_btn btn_280px" type="submit">登録する</button>
                     </div>
                 </form>
                 <div class="register_back">

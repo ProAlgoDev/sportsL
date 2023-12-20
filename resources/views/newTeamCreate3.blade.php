@@ -18,7 +18,7 @@
                     <div class="new_team_create3_description">
                         <img src="{{asset('images/recommend.png')}}" alt="" />
                         <div class="new_team_create3_w">
-                            <h2>おめでとうございます。<br>{{$name}}</h2>
+                            <h2>おめでとうございます。<br><p>{{$name}}</p></h2>
                         </div>
                     </div>
                     <div class="form-group mb-4  new_team_create3_content">
