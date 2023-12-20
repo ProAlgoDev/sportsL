@@ -243,7 +243,7 @@
 }
 
 .register_form span {
-    padding-left: 13%;
+    padding-left: 3%;
 }
 
 .register_form .re_input_form {
@@ -532,6 +532,11 @@
     color: #383838;
 }
 
+.new_team_create3_w p {
+    text-align: center;
+    margin-left: -10px;
+}
+
 .new_team_create3_content {
     text-align: center;
     margin-top: 30px;
@@ -753,7 +758,7 @@
 .book_dashboard_menu_container {
     position: absolute;
     width: 320px;
-    height: 844px;
+    /* height: 844px; */
     transition: all .6s;
     transform: translate(-353px, 0px);
     z-index: 8;
@@ -882,6 +887,76 @@ input#home_menu:checked+img {
     text-decoration: none;
 }
 
+
+
+
+.menu_content_other_title {
+    display: flex;
+    gap: 16px;
+    color: #333333;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 8px 0 8px 25px;
+    text-decoration: none;
+    border-top: 1px solid #d9d9d9;
+    border-bottom: 1px solid #d9d9d9;
+    cursor: pointer;
+    transition: all 0.6s;
+}
+
+.menu_content_other_title:hover {
+    color: #0d6efd;
+}
+
+.menu_content_other_list {
+    height: 0;
+    overflow: hidden;
+    transition: all 0.6s;
+}
+
+input#other_menu:checked~.menu_content_other_list {
+    height: 200px;
+}
+
+input#other_menu:checked+label {
+    color: white;
+    background: #555555;
+    border-bottom: 1px solid #ffffff00 !important;
+}
+
+#other_menu:checked+.menu_content_other_title #other_image {
+    filter: invert(1);
+}
+
+input#other_menu:checked+img {
+    display: none;
+}
+
+.menu_content_other_title img {
+    opacity: .8;
+    width: 26px;
+    object-fit: contain;
+}
+
+.menu_content_other_item {
+    margin-left: 59px;
+    display: flex;
+    padding: 13px 0;
+    gap: 15px;
+    color: #333333;
+    text-decoration: none;
+}
+
+.menu_content_other_list img {
+    width: 25px;
+    object-fit: contain;
+    opacity: .8;
+}
+
+
+
+
+
 .menu_account_setting {
     display: flex;
     gap: 16px;
@@ -906,16 +981,22 @@ input#home_menu:checked+img {
 }
 
 .menu_content_version {
-    position: absolute;
-    bottom: 0;
+    /* position: absolute; */
+    /* bottom: 0; */
     color: #676767;
     z-index: 999;
     text-align: center;
     font-size: 12px;
     border-top: 1px solid #d9d9d9;
-    left: 50%;
-    transform: translate(-50%, 0);
+    /* left: 50%; */
+    /* transform: translate(-50%, 0); */
     width: 100%;
+    /* margin-top: 21px; */
+    /* padding: 25px; */
+    position: relative;
+    margin-top: 60px;
+    height: 28px;
+    line-height: 2;
 }
 
 .header_menu_title {

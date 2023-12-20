@@ -33,7 +33,6 @@
                     </div>
                     <div class="form-group mb-4 re_input_form">
                         <img src="{{asset('images/password.png')}}" />
-                        
                         <input type="password" name="password" class="form-control" placeholder="Password"/>
                         @if($errors->has('password'))
                             <span class="text-danger">{{$errors->first('password')}}</span>

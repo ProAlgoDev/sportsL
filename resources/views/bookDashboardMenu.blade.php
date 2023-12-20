@@ -40,7 +40,7 @@
             <div class="menu_search">
             </div>
             <div class="menu_content_home book_menu">
-                <input id="home_menu" type="checkbox" class="left_home_menu" style="display:none;">
+                <input id="home_menu" type="checkbox" class="left_home_menu" style="display:none;" checked>
                 <label for='home_menu'  class="menu_content_home_title">
                     <img id="home_image" src="{{asset('images/home.svg')}}" alt="">
                     <div class="">ホーム</div>
@@ -77,28 +77,39 @@
                     </a>
                 </div>
                 @endif
-                
             </div>
-            <a href="https://team-wallet.com/static/corp" class="menu_account_setting book_menu" target="_blank">
-                <img class="menu_icon" src="{{asset('images/company.png')}}" alt="">
-                <div class="">会社概要</div>
-            </a>
-            <a href="https://team-wallet.com/static/privacy" class="menu_account_setting book_menu" target="_blank">
-                <img class="menu_icon" src="{{asset('images/policy.png')}}" alt="">
-                <div class="">プライバシーポリシー</div>
-            </a>
-            <a href="https://team-wallet.com/static/inquiry" class="menu_account_setting book_menu" target="_blank">
-                <img class="menu_icon" src="{{asset('images/inquiry.png')}}" alt="">
-                <div class="">お問い合わせ</div>
-            </a>
-            <a href="https://team-wallet.com/static/help" class="menu_account_setting book_menu" target="_blank">
-                <img class="menu_icon" src="{{asset('images/help.png')}}" alt="">
-                <div class="">ヘルプ</div>
-            </a>
             <a href="{{route('account_setting')}}" class="menu_account_setting book_menu">
                 <img src="{{asset('images/setting.svg')}}" alt="">
                 <div class="">アカウント設定</div>
             </a>
+            
+             
+            <div class="menu_content_other book_menu">
+                <input id="other_menu" type="checkbox" class="left_other_menu" style="display:none;">
+                <label for='other_menu'  class="menu_content_other_title">
+                    <img id="other_image" src="{{asset('images/other.png')}}" alt="">
+                    <div class="">その他</div>
+                </label>
+                <div class="menu_content_other_list">
+                     <a href="https://team-wallet.com/static/help" class="menu_content_home_item" target="_blank">
+                        <img class="" src="{{asset('images/help.png')}}" alt="">
+                        <div class="">ヘルプ</div>
+                    </a>
+                     <a href="https://team-wallet.com/static/privacy" class="menu_content_home_item" target="_blank">
+                        <img class="" src="{{asset('images/policy.png')}}" alt="">
+                        <div class="">プライバシーポリシー</div>
+                    </a>
+                    <a href="https://team-wallet.com/static/corp" class="menu_content_home_item" target="_blank">
+                        <img src="{{asset('images/company.png')}}" alt="">
+                        <div class="">会社概要</div>
+                    </a>
+                    <a href="https://team-wallet.com/static/inquiry" class="menu_content_home_item" target="_blank">
+                        <img class="" src="{{asset('images/inquiry.png')}}" alt="">
+                        <div class="">お問い合わせ</div>
+                    </a>
+                </div>
+            </div>
+
             <a href="{{route('logout')}}" class="menu_account_logout book_menu">
                 <img src="{{asset('images/log-out.svg')}}" alt="">
                 <div class="">ログアウト</div>
@@ -116,6 +127,18 @@
         checkbox.addEventListener('click', function(){
             memberList.style.display = checkbox.checked ? "block" : "none";
             leftMenu.style.display = checkbox.checked ? "none" : "block";
-        })
+        });
+        $(document).ready(function(){
+            $('#home_menu').on('change',function(){
+                if($(this).is(':checked')){
+                    $('#other_menu').prop('checked',false);
+                }
+            });
+            $('#other_menu').on('change',function(){
+                if($(this).is(':checked')){
+                    $('#home_menu').prop('checked',false);
+                }
+            });
+        });
     </script>
 </div>
