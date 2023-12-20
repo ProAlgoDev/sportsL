@@ -459,7 +459,7 @@
 .new_team_create1_description {
     text-align: center;
     font-size: 18px;
-    padding: 20px 10px 15px;
+    padding: 20px 10px 1px;
 }
 
 .team_avatar_edit {
@@ -1108,11 +1108,17 @@ input#other_menu:checked+img {
 
 }
 
+.initial_amount_set {
+    max-width: 350px;
+    margin: auto;
+    margin-top: 30px;
+}
 
-.initial_amount_set h2 {
+.initial_amount_set h3 {
     text-align: center;
-    font-size: 24px;
-    margin-top: 15px;
+    /* font-size: 24px; */
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 
@@ -1135,14 +1141,12 @@ input#other_menu:checked+img {
     margin-top: 10px;
     text-align: center;
     font-size: 14px;
-    padding: 0 10%;
 }
 
 .initial_amount_set tr {
     position: relative;
     padding: 4px 0;
     display: block;
-    margin: 0 10%;
 }
 
 .initial_amount_set tr::after {
@@ -1180,8 +1184,8 @@ input#other_menu:checked+img {
 }
 
 .team_info_edit_form h3 {
-    border-bottom: 2px dotted #8a8a8a;
-    padding-bottom: 7px;
+    /* border-bottom: 2px dotted #8a8a8a;
+    padding-bottom: 7px; */
 }
 
 .team_edit_info_detail {
@@ -1991,6 +1995,21 @@ input#left_menu_extend:checked+label {
     font-weight: 700;
     line-height: 2.4;
     margin: auto;
+}
+
+.team_info_edit .team_edit_btn {
+    width: 120px;
+    height: 40px;
+    background-color: #3FBAEE;
+    color: white;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    display: block;
+    margin: auto;
+    text-decoration: none;
+    line-height: 2.4;
+    text-align: center;
 }
 
 .team_edit_modal {
@@ -3037,4 +3056,9 @@ input#left_menu_extend:checked+label {
     margin-top: -30px;
     margin-bottom: 20px;
     letter-spacing: -2px;
+}
+
+
+.accounting_register_edit_form .select_template option[value="-"] {
+    display: none;
 }

@@ -553,18 +553,22 @@ class BackController extends Controller
         $team->age = $age;
         $team->sex = $sex;
         $team->save();
-        return redirect("team_edit_detail/$teamId")->with('teamEditSuccess', 'Image uploaded successfully');
+
+        return redirect("team_edit/$teamId")->with('teamEditSuccess', 'Image uploaded successfully');
     }
     public function team_edit($teamId)
     {
+        $sportsList = TeamSportsList::all();
+        $areaList = TeamAreaList::all();
         $teamInfo = Team::where('teamId', $teamId)->first();
         $teamInitialAmount = InitialAmount::where('teamId', $teamInfo->id)->first();
         if ($teamInitialAmount) {
-            $createDate = Carbon::parse($teamInitialAmount->createDate)->format('Y-m');
+            // $createDate = Carbon::parse($teamInitialAmount->createDate)->format('Y-m');
+            $createDate = $teamInitialAmount->createDate;
         } else {
             $createDate = '';
         }
-        return view('teamEdit', ['title' => 'チーム情報編集', 'teamInfo' => $teamInfo, 'initialAmount' => $teamInitialAmount, 'amount' => $createDate]);
+        return view('teamEdit', ['title' => 'チーム情報編集', 'teamInfo' => $teamInfo, 'initialAmount' => $teamInitialAmount, 'amount' => $createDate, 'sportsList' => $sportsList, 'areaList' => $areaList]);
     }
     public function team_edit_detail($teamId)
     {
