@@ -42,7 +42,7 @@
                         <div class="accounting_register_edit_category">
                             <span class="">会計項目</span>
                             <select name="categoryList"  class="form-control select_template triangle_icon" >
-                                <option class="disabled_option" value="-" disabled selected>-</option>
+                                <option class="disabled_option" value="-" disabled selected>ー</option>
                                 @if($categoryList)
                                 @foreach($categoryList as $category)
                                 <option>{{$category}}</option>
@@ -120,7 +120,7 @@
                         </tr>
                         <tr>
                             <td id="previewDate"></td>
-                            <td id="previewCategory">-</td>
+                            <td id="previewCategory">ー</td>
                             <td id="previewIo"></td>
                             <td id="previewAmount"></td>
                             <td id="previewSerial"></td>
