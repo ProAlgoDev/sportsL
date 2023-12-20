@@ -6,7 +6,7 @@
         <a href="{{route('book_dashboard',[$teamId,'all'])}}"><img src="{{asset('images/back.png')}}" alt=""></a>
     </div>
     <div class="left_menu_logo">
-        会計登録
+        選手登録・編集
     </div>
 </div>
 <div id="team_edit_modal" style="display:none;" class="team_edit_modal">
