@@ -287,7 +287,7 @@ class BackController extends Controller
                 $userVerify->save();
                 Mail::send('email.emailVerificationEmail', ['token' => $token], function ($message) use ($email) {
                     $message->to($email);
-                    $message->subject('Email Verification');
+                    $message->subject('チームのお財布へご登録ありがとうございます！');
                 });
                 return redirect('login');
             }
@@ -953,7 +953,7 @@ class BackController extends Controller
         } else {
             Mail::send('email.emailInviteMember', ['token' => $verifyToken, 'teamName' => $teamName], function ($message) use ($email) {
                 $message->to($email);
-                $message->subject('Invite Mail');
+                $message->subject('招待メール');
             });
             InviteMail::create([
                 'email' => $email,
@@ -1196,7 +1196,7 @@ class BackController extends Controller
         $email = $user->user->email;
         Mail::send('email.emailOwnerTransfer', ['token' => $token, 'teamName' => $team->teamName], function ($message) use ($email) {
             $message->to($email);
-            $message->subject('Owner Transfer Mail');
+            $message->subject('オーナー移転メール');
         });
         return view('ownerShipTransferReport', ['title' => 'オーナー権限引き継ぎ', 'user' => $user, 'teamId' => $teamId]);
     }
@@ -1250,7 +1250,7 @@ class BackController extends Controller
         ]);
         Mail::send('email.emailPasswordReset', ['token' => $token], function ($message) use ($email) {
             $message->to($email);
-            $message->subject('Password Reset');
+            $message->subject('パスワードのリセット');
         });
         return view('passwordReset2');
     }
