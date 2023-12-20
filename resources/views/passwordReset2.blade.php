@@ -1,14 +1,17 @@
 @extends('main')
 @section('content')
+@include('bookDashboardLogo')
+
+<div class="header_menu_title">
+    <div class="left_menu_back">
+    </div>
+    <div class="left_menu_logo">
+        ID・PASSWORDを忘れた方
+    </div>
+</div>
 <div class="register_container">
     <div class="register_content">
-        <div class="register_logo">
-            <img src="{{ asset('images/next_logo.png') }}" />
-        </div>
-        <div class="register_title">
-            <h1>ID・PASSWORDを忘れた方</h1>
-        </div>
-        
+              
         <div class="team_enter_form">
                 <div class="team_enter_sent">
                     <img src="{{asset("images/sent.png")}}" alt="">
@@ -19,7 +22,7 @@
                     </span>
                 </div>
                 <div class="d-grid mx-auto">
-                    <a href="{{route('login')}}" class="btn btn-primary register_btn team_enter">チームトップへ</a>
+                    <a href="{{route('login')}}" class="btn btn-primary register_btn team_enter btn_190px">トップへ</a>
                 </div>
         </div>
     </div>

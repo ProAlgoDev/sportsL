@@ -2944,3 +2944,16 @@ input#left_menu_extend:checked+label {
 .team_edit_modal_success_btn {
     display: none;
 }
+
+.btn_190px {
+    width: 190px;
+}
+
+.cus-danger {
+    text-align: center;
+    font-weight: 600;
+    display: block;
+    margin-top: -30px;
+    margin-bottom: 20px;
+    letter-spacing: -2px;
+}

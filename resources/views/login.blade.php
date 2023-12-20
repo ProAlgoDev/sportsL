@@ -12,7 +12,11 @@
             <img src="{{ asset('images/next_logo.png') }}" />
         </div>
         @if(session('showModal'))
+        
         <div class='success_verify'>成功メールの確認</div>
+        @endif
+        @if(session('error'))
+            <span class="text-danger cus-danger">{{session('error')}}</span>
         @endif
         {{-- @if(session('error'))
         <span class="text-danger">{{session('error')}}</span>
@@ -31,9 +35,7 @@
                             {{ $errors->first('email') }}
                         </span>
                     @endif
-                     @if(session('error'))
-                            <span class="text-danger">{{session('error')}}</span>
-                        @endif
+                    
                 </div>
                 <div class="login_password">
                     <span>パスワード</span>
