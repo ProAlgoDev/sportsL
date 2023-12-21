@@ -6,7 +6,7 @@
         <a href="{{route('book_dashboard',[$teamId,'all'])}}"><img src="{{asset('images/back.png')}}" alt=""></a>
     </div>
     <div class="left_menu_logo">
-        会計登録
+        チームへ招待
     </div>
 </div>
 
