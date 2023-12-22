@@ -459,7 +459,7 @@
 .new_team_create1_description {
     text-align: center;
     font-size: 18px;
-    padding: 20px 10px 1px;
+    padding: 20px 10px 16px;
 }
 
 .team_avatar_edit {
@@ -1051,7 +1051,6 @@ input#other_menu:checked+img {
 
 .team_info_edit img {
     width: 78px;
-    margin-top: 12px;
     margin-left: 10%;
     margin-bottom: 15px;
 }
@@ -1179,9 +1178,7 @@ input#other_menu:checked+img {
     line-height: 2.4;
 }
 
-.team_info_edit_form {
-    margin: 0 6%;
-}
+
 
 .team_info_edit_form h3 {
     /* border-bottom: 2px dotted #8a8a8a;
@@ -1233,6 +1230,7 @@ input#other_menu:checked+img {
 .team_info_edit_form {
     max-width: 350px;
     margin: auto;
+    margin-bottom: 20px;
 }
 
 .team_info_edit_form select {
@@ -1995,6 +1993,7 @@ input#left_menu_extend:checked+label {
     font-weight: 700;
     line-height: 2.4;
     margin: auto;
+    cursor: pointer;
 }
 
 .team_info_edit .team_edit_btn {
@@ -2010,6 +2009,7 @@ input#left_menu_extend:checked+label {
     text-decoration: none;
     line-height: 2.4;
     text-align: center;
+    cursor: pointer;
 }
 
 .team_edit_modal {

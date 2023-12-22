@@ -33,6 +33,31 @@
         </div>
     </div>
 @endif
+<div id="team_edit_modal_initial" style="display:none;" class="team_edit_modal">
+    <div class="team_edit_modal_content">
+        <h4>変更しますか？</h4>
+        <p>会計関連の情報を変更すると、レポートへ影響がでます。<br>
+ご注意ください。</p>
+        <div class="team_edit_modal_btn">
+            <button onclick="cancelClickInitial()">キャンセル</button>
+            <button onclick="agreeClickInitial()">変更する</button>
+        </div>
+    </div>
+</div>
+
+@if(session('initalEditSuccess'))
+    <div id="team_edit_success_modal_initial" class="team_edit_success_modal">
+        <div class="team_edit_success_modal_content">
+            <h4>変更しました</h4>
+            <p>会見関連の情報が変更されました。<br>
+チームに参加されている画面も変更されています。<br>
+必要に応じてアナウンスをお願いします。</p>
+            <div class="team_edit_success_modal_btn">
+                <button onclick="cancelClickInitial()">閉じる</button>
+            </div>
+        </div>
+    </div>
+@endif
 
 <div class="team_info_edit">
     <div class="team_info_edit_form">
@@ -106,7 +131,7 @@
                                 <option value="2" {{ $teamInfo->sex == "女" ? 'selected' : '' }}>女</option>
                                 <option value="3" {{ $teamInfo->sex == "混合" ? 'selected' : '' }}>混合</option>
                             </select>
-                             @if($errors->has('sex'))
+                            @if($errors->has('sex'))
                                 <span class="span text-danger">
                                     {{$errors->first('sex')}}
                                 </span>
@@ -122,34 +147,71 @@
 
 
 </div>
-<div class="initial_amount_set">
-    <h3>会計初期設定</h3>
-    <table>
-        <tr>
-            <td>初期金額</td>
-            <td>
-                @if($initialAmount)
-                    {{$initialAmount->amount}}
-                @else
-                -
-                @endif
-            </td>
-        </tr>
-        <tr>
-            <td>年度開始月</td>
-            <td>@if($amount)
-                    {{$amount}}
-                @else
-                -
-                @endif</td>
-        </tr>
-    </table>
-    <p>※会計を締めるのは年度開始月の前月になります。</p>
-    <div class="initial_amount_btn">
-        <a href="{{route('team_edit_amount',[$teamInfo->teamId])}}" class="">編集する</a>
-    </div>
+<div class="team_info_edit_form initial_amount_form">
+
+<form action="{{route('validate_initial_amount',[$teamInfo->teamId])}}" method="POST">
+                    @csrf
+                    <div class="new_team_create1_description">
+                        <h3>会計初期設定</h3>
+                        </div>
+                    <div class="form-group team_edit_info_detail">
+                        <span class="team_edit_info_detail_title">初期金額</span>
+                        <input type="text" name="initialAmount" placeholder="" class="form-control" value={{($initialAmount)?$initialAmount->amount:"-"
+                        }}>
+                    </div>
+                    @if($errors->has('initialAmount'))
+                        <span class="span text-danger">
+                            {{$errors->first('initialAmount')}}
+                        </span>
+                    @endif
+                    <div class="form-group mt-4 team_edit_info_detail">
+                        <span class="team_edit_info_detail_title">年  月</span>
+                        <input  name="createDate" type='date' placeholder="" class="form-control date_icon" value={{$amount?$amount:"-"}}>
+                    </div>
+                    @if($errors->has('createDate'))
+                        <span class="span text-danger">
+                            {{$errors->first('createDate')}}
+                        </span>
+                    @endif
+                              
+                    <div class="d-grid mx-auto mt-4">
+                        <button style="display:none;" id="team_edit_info_post_initial" class="btn btn-primary register_btn" type="submit"></button>
+                        <div id="team_edit_btn" onclick="openModalInitial()" class="team_edit_btn">変更する</div>
+                    </div>
+                </form>
+                
+                
 </div>
 <script>
+function openModalInitial(){
+                        document.getElementById("team_edit_modal_initial").style.display= 'block';
+                    }
+                    function cancelClickInitial(){
+                        var modal = document.getElementById("team_edit_modal_initial");
+                        modal.style.display = 'none';
+                        var modalSuccess = document.getElementById("team_edit_success_modal_initial");
+                        modalSuccess.style.display = 'none';
+                    }
+                    function agreeClickInitial(){
+                        var post = document.getElementById('team_edit_info_post_initial');
+                        post.click();
+                        var modal = document.getElementById("team_edit_modal_initial");
+                        modal.style.display = 'none';
+                    }
+                    $('#team_edit_modal_initial').click(function(e){
+                        if(e.target.id=='team_edit_modal_initial'){
+                            $(this).css('display','none');
+                        }
+                    });
+                    $('#team_edit_success_modal_initial').click(function(e){
+                        if(e.target.id=='team_edit_success_modal_initial'){
+                            $(this).css('display','none');
+                        }
+                    });
+
+
+
+
     $('#fileInput').imageUploadResizer({
                         max_width: 150, 
                         max_height: 150, 
