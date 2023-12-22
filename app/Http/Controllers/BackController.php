@@ -609,7 +609,7 @@ class BackController extends Controller
 
             ]);
         }
-        return redirect("team_edit_amount/$teamId")->with('initalEditSuccess', 'successfully');
+        return redirect("team_edit/$teamId")->with('initalEditSuccess', 'successfully');
     }
     public function accounting_category_register($teamId)
     {
