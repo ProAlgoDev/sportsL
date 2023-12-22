@@ -450,7 +450,7 @@ for (let item of categoryList){
     td +=`<td>${rowTotal}</td>`;
     contentTr += `
     <tr>
-        <td class="title">${item}</td>
+        <td class="title item">${item}</td>
         ${td}
     </tr>`;
 }

@@ -1184,6 +1184,7 @@ input#other_menu:checked+img {
 .team_info_edit_form h3 {
     /* border-bottom: 2px dotted #8a8a8a;
     padding-bottom: 7px; */
+    font-size: 22px;
 }
 
 .team_edit_info_detail {
@@ -2986,6 +2987,10 @@ input#left_menu_extend:checked+label {
 .item_table_content .title {
     background: #cfe2f3;
     min-width: 60px;
+}
+
+.item_table_content .item {
+    min-width: 80px;
 }
 
 #yearpicker {
