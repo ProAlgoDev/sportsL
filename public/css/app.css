@@ -2989,9 +2989,7 @@ input#left_menu_extend:checked+label {
     min-width: 60px;
 }
 
-.item_table_content .item {
-    min-width: 80px;
-}
+.item_table_content .item {}
 
 #yearpicker {
     display: block;
