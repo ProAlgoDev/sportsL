@@ -1364,6 +1364,7 @@ input#other_menu:checked+img {
 .accounting_category_edit_btn button {
     border: none;
     background: none;
+    color: #333333;
 }
 
 .accounting_register_edit_form {
