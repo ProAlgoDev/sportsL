@@ -137,14 +137,12 @@
                                 </span>
                             @endif
                         </div>
-                        
                         <div class="d-grid mx-auto">
-                            <button style="display:none;" onclick="postTeamInfo()" id="team_edit_info_post" class="btn btn-primary register_btn" type="submit"></button>
+                            <button style="display:none;" id="team_edit_info_post" class="btn btn-primary register_btn" type="submit"></button>
                             <div id="team_edit_btn" onclick="openModal()" class="team_edit_btn">編集する</div>
                         </div>
                     </form>
     </div>
-
 
 </div>
 <div class="team_info_edit_form initial_amount_form">
@@ -190,13 +188,18 @@ function openModalInitial(){
                         var modal = document.getElementById("team_edit_modal_initial");
                         modal.style.display = 'none';
                         var modalSuccess = document.getElementById("team_edit_success_modal_initial");
-                        modalSuccess.style.display = 'none';
+                        if(modalSuccess){
+                            modalSuccess.style.display = 'none';
+                        }
                     }
                     function agreeClickInitial(){
+                        var modal = document.getElementById("team_edit_modal_initial");
+                        if(modal){
+                            modal.style.display = 'none';
+                        }
                         var post = document.getElementById('team_edit_info_post_initial');
                         post.click();
-                        var modal = document.getElementById("team_edit_modal_initial");
-                        modal.style.display = 'none';
+                        
                     }
                     $('#team_edit_modal_initial').click(function(e){
                         if(e.target.id=='team_edit_modal_initial'){
@@ -225,7 +228,9 @@ function openModalInitial(){
                         var modal = document.getElementById("team_edit_modal");
                         modal.style.display = 'none';
                         var modalSuccess = document.getElementById("team_edit_success_modal");
-                        modalSuccess.style.display = 'none';
+                        if(modalSuccess){
+                            modalSuccess.style.display = 'none';
+                        }
                     }
                     $('#team_edit_modal').click(function(e){
                         if(e.target.id == 'team_edit_modal'){
@@ -238,10 +243,10 @@ function openModalInitial(){
                         }
                     } );
                     function agreeClick(){
-                        var post = document.getElementById('team_edit_info_post');
-                        post.click();
                         var modal = document.getElementById("team_edit_modal");
                         modal.style.display = 'none';
+                        var post = document.getElementById('team_edit_info_post');
+                        post.click();
                     }
 
                     function openFileDialog() {
