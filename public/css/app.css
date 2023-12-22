@@ -1983,7 +1983,7 @@ input#left_menu_extend:checked+label {
     margin-bottom: 14px;
 }
 
-.team_info_edit_form .team_edit_btn {
+.team_edit_btn {
     width: 175px;
     height: 45px;
     color: white;
@@ -1997,20 +1997,8 @@ input#left_menu_extend:checked+label {
     cursor: pointer;
 }
 
-.team_info_edit .team_edit_btn {
-    width: 120px;
-    height: 40px;
-    background-color: #3FBAEE;
-    color: white;
-    font-weight: 700;
-    border: none;
-    border-radius: 10px;
-    display: block;
-    margin: auto;
-    text-decoration: none;
-    line-height: 2.4;
-    text-align: center;
-    cursor: pointer;
+.team_edit_btn:hover {
+    background: #009BF2;
 }
 
 .team_edit_modal {
