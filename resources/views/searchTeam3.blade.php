@@ -6,7 +6,7 @@
             <img src="{{ asset('images/next_logo.png') }}" />
         </div>
         <div class="register_title">
-            <h1>チームへの参加（3/3）</h1>
+            <h1>チームへの参加(3/3)</h1>
         </div>
         
         <div class="team_enter_form">
