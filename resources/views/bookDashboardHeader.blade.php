@@ -73,7 +73,7 @@
         <div class="item_chart_title">
                 <span>項目別支出割合</span>
                 <div class="content">
-                        <input type="radio" id="item_input" name="item_io" checked>収入<label for="item_input"></label>  <strong>/</strong>  <input type="radio" id="item_out"  name="item_io"><label for="item_out">支出</label>  <p>の切り替え</p>
+                        <input type="radio" id="item_input" name="item_io" checked><label for="item_input">収入</label><input type="radio" id="item_out"  name="item_io"><label for="item_out">支出</label>
                 </div>
         </div>
         <div id="item_chart_in"></div>

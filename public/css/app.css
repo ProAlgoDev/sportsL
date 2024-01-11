@@ -2940,6 +2940,8 @@ input#left_menu_extend:checked+label {
 .item_chart_title .content {
     display: inline-block;
     margin-left: 10px;
+    margin-bottom: 4px;
+    margin-top: 4px;
 }
 
 .item_chart_title .content p {
@@ -3054,4 +3056,47 @@ input#left_menu_extend:checked+label {
 
 .accounting_register_edit_form .select_template option[value="-"] {
     display: none;
+}
+
+#item_input {
+    display: none;
+}
+
+#item_input:checked+label {
+    background-color: #008DB9;
+    border-radius: 30px;
+    width: 76px;
+    padding-top: 3px;
+    height: 26px;
+    z-index: 2;
+    position: relative;
+}
+
+#item_out {
+    display: none;
+}
+
+.item_chart_title label {
+    color: white;
+    text-align: center;
+    line-height: 1.4;
+    font-size: 15px;
+    width: 76px;
+    background-color: #aaaaaa;
+    text-align: center;
+    border-radius: 20px;
+}
+
+.item_chart_title label:last-child {
+    transform: translate(-15px, 0px);
+}
+
+#item_out:checked+label {
+    background-color: #008DB9;
+    border-radius: 30px;
+    width: 76px;
+    padding-top: 3px;
+    height: 26px;
+    z-index: 2;
+    position: relative;
 }

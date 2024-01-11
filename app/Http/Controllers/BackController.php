@@ -1097,7 +1097,6 @@ class BackController extends Controller
             }
         }
         return back();
-
     }
     public function validate_account_edit(Request $request)
     {
@@ -1227,7 +1226,6 @@ class BackController extends Controller
     {
         return view('passwordReset');
     }
-
     public function validate_password_reset(Request $request)
     {
         $request->validate([
@@ -1287,5 +1285,4 @@ class BackController extends Controller
         return redirect('login');
     }
 }
-
 ?>
