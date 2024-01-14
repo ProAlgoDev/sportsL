@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->decimal('amount', 40, 2);
             $table->string('teamId');
             $table->string('description');
-            $table->string('serialNumber');
+            $table->string('serialNumber')->nullable();
             $table->timestamps();
         });
     }

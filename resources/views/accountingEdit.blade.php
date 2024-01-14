@@ -71,7 +71,7 @@
                         </div>
                         <div class="accounting_edit_serial">
                             <span >レシートNo</span>
-                            <input type="text" value="{{$book->serialNumber}}" name="serial" placeholder="" class="form-control" readonly/>
+                            <input type="text" value="{{$book->serialNumber}}" name="serial" placeholder="" class="form-control"/>
                             @if($errors->has('serial'))
                                 <span style="width:166px; display:block;" class="span text-danger">
                                     {{$errors->first('serial')}}

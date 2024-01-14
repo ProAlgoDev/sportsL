@@ -400,7 +400,7 @@ class BackController extends Controller
         if ($owner) {
             $ownerCheck = '管理者';
         } else {
-            $ownerCheck = "会員";
+            $ownerCheck = "メンバー";
         }
         $currentDate = Carbon::now();
         if ($book) {
@@ -700,14 +700,14 @@ class BackController extends Controller
             'categoryList' => 'required',
             'io_switch' => 'required',
             'amount' => 'required | numeric',
-            'serial' => 'required',
+            // 'serial' => 'required',
             'description' => 'required'
         ], [
             'inputDate.required' => '日付フィールドの入力は必須です。',
             'categoryList.required' => 'カテゴリ名の入力フィールドは必須です。',
             'io_switch.required' => '入力タイプフィールドは必須です。',
             'amount.required' => '金額の入力欄は必須です。',
-            'serial.required' => 'シリアル番号の入力フィールドは必須です。',
+            // 'serial.required' => 'シリアル番号の入力フィールドは必須です。',
             'description.required' => '説明フィールドの入力は必須です。',
         ]);
         $inputDate = $request->inputDate;
@@ -800,14 +800,14 @@ class BackController extends Controller
             'categoryList' => 'required',
             'io_switch' => 'required',
             'amount' => 'required | numeric',
-            'serial' => 'required',
+            // 'serial' => 'required',
             'description' => 'required'
         ], [
             'inputDate.required' => '日付フィールドの入力は必須です。',
             'categoryList.required' => 'カテゴリ名の入力フィールドは必須です。',
             'io_switch.required' => '入力タイプフィールドは必須です。',
             'amount.required' => '金額の入力欄は必須です。',
-            'serial.required' => 'シリアル番号の入力フィールドは必須です。',
+            // 'serial.required' => 'シリアル番号の入力フィールドは必須です。',
             'description.required' => '説明フィールドの入力は必須です。',
         ]);
 
