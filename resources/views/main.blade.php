@@ -27,7 +27,11 @@
     </head>
     <body>       
     <div class="root">
-        @yield('content')        
+        @yield('content')
+        <div class="footer">
+        <h6>© team-wallet</h6>
+    </div>        
     </div>
+    
     </body>
 </html>
