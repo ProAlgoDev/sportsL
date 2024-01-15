@@ -410,11 +410,11 @@ class BackController extends Controller
             $totalInputAmount = 0;
             $totalOutputAmount = 0;
         }
-        $fiveYearsAgo = $currentDate->subYears(5);
+        $fiveYearsAgo = $currentDate->subYears(4);
 
         $firstDate = Book::where('teamId', $team_id)->orderBy('changeDate', 'asc')->first();
         if ($firstDate) {
-            $fiveYears = Carbon::now()->subYears(5);
+            $fiveYears = Carbon::now()->subYears(4);
             $firstDateCarbon = Carbon::parse($firstDate->changeDate);
             $fiveYearsAgo = $fiveYears->max($firstDateCarbon);
         }
@@ -425,8 +425,8 @@ class BackController extends Controller
             $books = Book::where('teamId', $team_id)->where("changeDate", ">=", $fiveYearsAgo)->get();
             if ($books) {
                 $initialAmount = InitialAmount::where('teamId', $team_id)->value('amount');
-                for ($i = $fiveYearsAgo->year; $i < Carbon::now()->year; $i++) {
-                    $date = Carbon::now()->subYears($i);
+                for ($i = $fiveYearsAgo->year; $i <= Carbon::now()->year; $i++) {
+                    // $date = Carbon::now()->subYears($i);
                     $inputData[$i] = Book::where('teamId', $team_id)->whereYear('changeDate', $i)->get();
                     $iBooksGrouped = Book::where('teamId', $team_id)->whereYear('changeDate', $i)->where('ioType', 0)->get()->groupBy('item');
                     $oBooksGrouped = Book::where('teamId', $team_id)->whereYear('changeDate', $i)->where('ioType', 1)->get()->groupBy('item');
