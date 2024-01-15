@@ -3112,3 +3112,21 @@ input#left_menu_extend:checked+label {
     z-index: 2;
     position: relative;
 }
+
+.footer {
+    background: #e3e3e3;
+    padding: 3px;
+    margin-top: 50px;
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+}
+
+.footer h6 {
+    color: #333333;
+    text-align: center;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding: 4px;
+    padding-bottom: 7px;
+    font-weight: 400;
+}

@@ -411,6 +411,13 @@ class BackController extends Controller
             $totalOutputAmount = 0;
         }
         $fiveYearsAgo = $currentDate->subYears(5);
+
+        $firstDate = Book::where('teamId', $team_id)->orderBy('changeDate', 'asc')->first();
+        if ($firstDate) {
+            $fiveYears = Carbon::now()->subYears(5);
+            $firstDateCarbon = Carbon::parse($firstDate->changeDate);
+            $fiveYearsAgo = $fiveYears->max($firstDateCarbon);
+        }
         if ($type == 'all') {
             $inputData = [];
             $iTableData = [];
@@ -418,11 +425,11 @@ class BackController extends Controller
             $books = Book::where('teamId', $team_id)->where("changeDate", ">=", $fiveYearsAgo)->get();
             if ($books) {
                 $initialAmount = InitialAmount::where('teamId', $team_id)->value('amount');
-                for ($i = 0; $i < 6; $i++) {
+                for ($i = $fiveYearsAgo->year; $i < Carbon::now()->year; $i++) {
                     $date = Carbon::now()->subYears($i);
-                    $inputData[$date->year] = Book::where('teamId', $team_id)->whereYear('changeDate', $date->year)->get();
-                    $iBooksGrouped = Book::where('teamId', $team_id)->whereYear('changeDate', $date->year)->where('ioType', 0)->get()->groupBy('item');
-                    $oBooksGrouped = Book::where('teamId', $team_id)->whereYear('changeDate', $date->year)->where('ioType', 1)->get()->groupBy('item');
+                    $inputData[$i] = Book::where('teamId', $team_id)->whereYear('changeDate', $i)->get();
+                    $iBooksGrouped = Book::where('teamId', $team_id)->whereYear('changeDate', $i)->where('ioType', 0)->get()->groupBy('item');
+                    $oBooksGrouped = Book::where('teamId', $team_id)->whereYear('changeDate', $i)->where('ioType', 1)->get()->groupBy('item');
                     $iItemSums = [];
                     $oItemSums = [];
                     foreach ($iBooksGrouped as $itemName => $books) {
@@ -431,13 +438,12 @@ class BackController extends Controller
                     foreach ($oBooksGrouped as $itemName => $books) {
                         $oItemSums[$itemName] = $books->sum('amount');
                     }
-                    $iTableData[$date->year] = $iItemSums;
-                    $oTableData[$date->year] = $oItemSums;
+                    $iTableData[$i] = $iItemSums;
+                    $oTableData[$i] = $oItemSums;
                 }
             }
         }
         if ($type == 'year') {
-
             $selectDate = $selectDate == null ? now()->format('Y') : $selectDate;
             $inputData = [];
             $iTableData = [];
