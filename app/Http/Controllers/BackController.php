@@ -943,8 +943,9 @@ class BackController extends Controller
         $user = User::where('email', $email)->first();
         if ($user) {
             $id = $user->id;
+            $team = Team::where('teamId', $teamId)->first();
             $owner = Team::where('teamId', $teamId)->where('owner', $id)->first();
-            $member = Member::where('user_id', $id)->first();
+            $member = Member::where('user_id', $id)->where("team_id", $team->id)->first();
         } else {
             $owner = '';
             $member = '';

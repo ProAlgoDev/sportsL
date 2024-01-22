@@ -24,14 +24,15 @@
     <link rel="stylesheet" type="text/css"
         href="https://cdn3.devexpress.com/jslib/23.1.6/css/dx.material.blue.light.css" />
     <script src="https://cdn3.devexpress.com/jslib/23.1.6/js/dx.all.js"></script>
+  
     </head>
     <body>       
     <div class="root">
         @yield('content')
         <div class="footer">
-        <h6>© team-wallet</h6>
-    </div>        
+            <h6>© team-wallet</h6>
+        </div>        
     </div>
-    
+   
     </body>
 </html>
