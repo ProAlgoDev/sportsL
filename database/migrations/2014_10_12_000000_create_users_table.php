@@ -10,7 +10,8 @@ return new class extends Migration {
      *
      * @return void
      */
-    public function up() {
+    public function up()
+    {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('u_id');
@@ -26,9 +27,6 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        // Schema::table('users_verify', function (Blueprint $table) {
-        //     $table->boolean('is_email_verified')->default(0);
-        // });
     }
 
     /**
@@ -36,7 +34,8 @@ return new class extends Migration {
      *
      * @return void
      */
-    public function down() {
+    public function down()
+    {
         Schema::dropIfExists('users');
     }
 };

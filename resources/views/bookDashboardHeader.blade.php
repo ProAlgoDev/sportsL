@@ -98,7 +98,6 @@
     function handleDrag(event){
         startX = event.clientX;
         event.dataTransfer.setData("text/plain", startX);
-        console.log(startX);
     }
     var menu_back = document.getElementById('menu_background');
     document.getElementById('book_dashboard_menu_container').addEventListener('drag', function (event) {
