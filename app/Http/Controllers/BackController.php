@@ -468,8 +468,9 @@ class BackController extends Controller
             }
         }
         if ($type == 'month') {
-
-            $selectDate = $selectDate == null ? now()->format('Y-m') : $selectDate;
+            if ($selectDate == null || $selectDate == '') {
+                $selectDate = now()->format('Y-m');
+            }
             list($year, $month) = explode('-', $selectDate);
             $inputData = [];
             $iTableData = [];
