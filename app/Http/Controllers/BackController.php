@@ -231,7 +231,6 @@ class BackController extends Controller
     {
         // $token = Session::get('gmail_token');
         // $client = new Google_Client();
-
         // $client->setAuthConfig(storage_path('app\public\data\credentials.json'));
         // $client->addScope(Google_Service_Gmail::GMAIL_SEND);
         // $client->setAccessToken($token);

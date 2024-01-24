@@ -55,7 +55,7 @@
                         @endif
                     </div>
                     <div class="d-grid mx-auto">
-                        <button class="btn btn-primary register_btn category_register_btn" type="submit">変更する</button>
+                        <button class="btn btn-primary register_btn category_register_btn" type="submit">登録する</button>
                     </div>
                 </form>
                 <div class="category_edit">

@@ -10,7 +10,8 @@
         <link rel="stylesheet" href="https://jsuites.net/v4/jsuites.css" type="text/css" />
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
+        {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script> --}}
+        <script src="{{URL::asset('js/datepicker.js')}}"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css" rel="stylesheet">
         <script src="{{URL::asset('js/jquery-image-upload-resizer.js')}}"></script>
         <link rel="icon" href="{{URL::asset('images/icon.png')}}" sizes="32x32" type="image/png">
