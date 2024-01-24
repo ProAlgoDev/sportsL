@@ -50,7 +50,7 @@
                             <div class="sum"><span>年度総計</span><span class="total_sum"></span></div>
                     </div> 
                     <div class="sum_item">
-                            <div class="input"><span>総収入</span><span >{{$totalInput+$initialAmount = $initialAmount !=null ? $initialAmount:0}}円</span></div>
+                            <div class="input"><span>総収入</span><span >{{$totalInput }}円</span></div>
                             <div class="out"><span>総支出</span><span >{{$totalOutput}}円</span></div>
                             <div class="sum"><span>総合計</span><span >{{$totalInput+$totalOutput+$initialAmount}}円</span></div>
                     </div> 
