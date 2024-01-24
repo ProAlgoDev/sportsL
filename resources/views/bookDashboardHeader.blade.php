@@ -71,7 +71,7 @@
         <div id="chart"></div>
         @endif
         <div class="item_chart_title">
-                <span>項目別支出割合</span>
+                <span  class="io_title_name">項目別収入割合</span>
                 <div class="content">
                         <input type="radio" id="item_input" name="item_io" checked><label for="item_input">収入</label><input type="radio" id="item_out"  name="item_io"><label for="item_out">支出</label>
                 </div>
@@ -79,7 +79,7 @@
         <div id="item_chart_in"></div>
         <div id="item_chart_out"></div>
         <div class="item_table_title">
-                <span>項目別支出割合</span>
+                <span class="io_title_name">項目別収入割合</span>
         </div>
         <div class="item_table_content">
             <table>
@@ -384,6 +384,7 @@ var initialIo = $('[name = "item_io"]').attr('id');
     }
     $('[name = "item_io"]').on('change',function(){
         if($(this).attr("id") == 'item_input'){
+        $('.io_title_name').text("項目別収入割合");
         $('#item_chart_in').css('display', 'block');
         $('#item_chart_out').css('display', 'none');
         createTable(iTableData);
@@ -395,6 +396,8 @@ var initialIo = $('[name = "item_io"]').attr('id');
         
     }
     if($(this).attr("id") == 'item_out'){
+        $('.io_title_name').text("項目別支出割合");
+
         $('#item_chart_out').css('display', 'block');
         $('#item_chart_in').css('display', 'none');
         createTable(oTableData);
@@ -517,13 +520,15 @@ function getTableCategory(data){
          viewMode: "years", 
          minViewMode: "years",
          autoclose:true,
+         locale: 'ja'
      });
      
      $("#monthpicker").datepicker({
          format: "yyyy-mm",
          viewMode: "months", 
          minViewMode: "months",
-         autoclose:true 
+         autoclose:true ,
+         locale: 'ja'
          
      });
      $('#yearpicker').on('change',function(){
