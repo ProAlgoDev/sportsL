@@ -363,7 +363,7 @@ var initialIo = $('[name = "item_io"]').attr('id');
     if(initialIo == 'item_input'){
         $('#item_chart_in').css('display', 'block');
         $('#item_chart_out').css('display', 'none');
-        createTable(iTableData);
+        createTable(iTableData,"input");
 
         setTimeout(() => {
         $('#item_chart_in').css('opacity', '1');
@@ -374,7 +374,7 @@ var initialIo = $('[name = "item_io"]').attr('id');
     if(initialIo == 'item_out'){
         $('#item_chart_out').css('display', 'block');
         $('#item_chart_in').css('display', 'none');
-        createTable(oTableData);
+        createTable(oTableData,"output");
 
         setTimeout(() => {
         $('#item_chart_out').css('opacity', '1');
@@ -387,7 +387,7 @@ var initialIo = $('[name = "item_io"]').attr('id');
         $('.io_title_name').text("項目別収入割合");
         $('#item_chart_in').css('display', 'block');
         $('#item_chart_out').css('display', 'none');
-        createTable(iTableData);
+        createTable(iTableData,"input");
 
         setTimeout(() => {
         $('#item_chart_in').css('opacity', '1');
@@ -400,7 +400,7 @@ var initialIo = $('[name = "item_io"]').attr('id');
 
         $('#item_chart_out').css('display', 'block');
         $('#item_chart_in').css('display', 'none');
-        createTable(oTableData);
+        createTable(oTableData,"output");
 
         setTimeout(() => {
         $('#item_chart_out').css('opacity', '1');
@@ -409,18 +409,25 @@ var initialIo = $('[name = "item_io"]').attr('id');
 
     }
     });
-function createTable(data){
+function createTable(data,ioType){
     
 var currentURL = window.location.href;
 var type = currentURL.substring(currentURL.lastIndexOf('/') + 1);
 var colspan = Object.keys(data).length;
 var dataType ='';
+var mIoType = '';
 if(type == 'all'){
     dataType = '年';
 }else if(type == 'year'){
     dataType = '月';
 }else if(type=='month'){
     dataType = '日';
+}
+if (ioType == 'input'){
+    mIoType = '収入';
+}
+if (ioType == 'output'){
+    mIoType = '支出';
 }
 var table = $('.item_table_content table');
 let categoryList = getTableCategory(data);
@@ -468,7 +475,7 @@ titleTr +="<td class='row_sum'></td>";
 var newTable = `
         <tr class="year_title">
             <td class="title" rowspan="2">
-                支出項目
+                ${mIoType}項目
             </td>
             <td class="title title_coll" colspan=${colspan}>
                 ${dataType}
