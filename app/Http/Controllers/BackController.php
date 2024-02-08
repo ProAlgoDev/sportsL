@@ -23,9 +23,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\UserVerify;
 use Illuminate\Support\Str;
 use Mail;
-// use Google_Client;
-// use Google_Service_Gmail;
-// use Google_Service_Gmail_Message;
+
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\View;
 use Image;
@@ -42,12 +40,7 @@ class BackController extends Controller
     }
     function registration1()
     {
-        // session()->flush();
-        // $client = new Google_Client();
-        // $client->setAuthConfig(storage_path('app\public\data\credentials.json'));
-        // $client->addScope(Google_Service_Gmail::GMAIL_SEND);
-        // $authUrl = $client->createAuthUrl();
-        // return Redirect::to($authUrl);
+
         return view("registration");
     }
     function registration2()
@@ -210,15 +203,7 @@ class BackController extends Controller
 
     public function callback(Request $request)
     {
-        // $client = new Google_Client();
-        // $client->setAuthConfig(storage_path('app\public\data\credentials.json'));
-        // $client->addScope(Google_Service_Gmail::GMAIL_SEND);
 
-        // $code = $request->input('code');
-        // $client->authenticate($code);
-        // $token = $client->getAccessToken();
-
-        // Session::put('gmail_token', $token);
         $email = Session::get('email');
         $user = User::where('email', $email)->first();
         if ($user && $email) {
@@ -229,36 +214,18 @@ class BackController extends Controller
 
     public function sendEmail()
     {
-        // $token = Session::get('gmail_token');
-        // $client = new Google_Client();
-        // $client->setAuthConfig(storage_path('app\public\data\credentials.json'));
-        // $client->addScope(Google_Service_Gmail::GMAIL_SEND);
-        // $client->setAccessToken($token);
-        // $service = new Google_Service_Gmail($client);
+
         $email = Session::get('email');
         $verifyEmail = User::where('email', $email)->first();
         if ($verifyEmail && $verifyEmail->is_email_verified) {
             return redirect('login');
         }
-        // $imagePath = public_path('images\next_logo.png');
-        // $imageData = file_get_contents($imagePath);
-        // $encodedImage = base64_encode($imageData);
+
         $verifyToken = Session::get('verifyToken');
-        // $htmlContent = View::make('email.emailVerificationEmail', ['token' => $verifyToken])->render();
         Mail::send('email.emailVerificationEmail', ['token' => $verifyToken], function ($message) use ($email) {
             $message->to($email);
             $message->subject('チームのお財布へご登録ありがとうございます！');
         });
-        // $message = new Google_Service_Gmail_Message();
-        // $mimeMessage = 'MIME-Version: 1.0' . "\r\n";
-        // $mimeMessage .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
-        // $mimeMessage .= 'To: ' . $email . "\r\n";
-        // $mimeMessage .= 'Subject: VerificationEmail' . "\r\n\r\n";
-        // $mimeMessage .= $htmlContent;
-        // $rawMessage = base64_encode($mimeMessage);
-
-        // $message->setRaw($rawMessage);
-        // $service->users_messages->send("me", $message);
 
         return Redirect::to('registration3');
     }
@@ -425,7 +392,6 @@ class BackController extends Controller
             if ($books) {
                 $initialAmount = InitialAmount::where('teamId', $team_id)->value('amount');
                 for ($i = $fiveYearsAgo->year; $i <= Carbon::now()->year; $i++) {
-                    // $date = Carbon::now()->subYears($i);
                     $inputData[$i] = Book::where('teamId', $team_id)->whereYear('changeDate', $i)->get();
                     $iBooksGrouped = Book::where('teamId', $team_id)->whereYear('changeDate', $i)->where('ioType', 0)->get()->groupBy('item');
                     $oBooksGrouped = Book::where('teamId', $team_id)->whereYear('changeDate', $i)->where('ioType', 1)->get()->groupBy('item');
